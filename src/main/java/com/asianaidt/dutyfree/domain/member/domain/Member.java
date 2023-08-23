@@ -16,13 +16,12 @@ import java.util.List;
 @Entity
 public class Member {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "memberId")
-    private Long id;
+    private String id;
     private String name;
     private String password;
     private String phoneNumber;
-    private String address;
+    private String birth;
     @OneToMany(mappedBy = "member")
     private List<Purchase> purchases;
 
