@@ -4,9 +4,8 @@ import com.asianaidt.dutyfree.domain.member.dto.MemberRequestDto;
 import com.asianaidt.dutyfree.domain.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RequestMapping("/member")
@@ -14,17 +13,36 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MemberController {
     private final MemberService memberService;
 
-    @PostMapping()
+    //    로그인 페이지 이동
+    @GetMapping("/login")
     public String login(){
-        memberService.login();
+        return "login";
+    }
+
+    //    로그인 로직
+    @PostMapping("/login")
+    public String login(@RequestParam String id, @RequestParam String password, Model model){
+        boolean success = memberService.login(id, password);
+        System.out.println(success);
+        model.addAttribute("userId", id);
         return "test";
     }
 
+    // 회원가입 페이지 이동
     @GetMapping("/signup")
     public String signUp(){
         return "signup";
     }
 
+    @GetMapping("/check/id/{id}")
+    public String checkId(@PathVariable String id, Model model){
+        boolean success = memberService.checkId(id);
+        model.addAttribute("checkId", success);
+        System.out.println(success);
+        return "test";
+    }
+
+    //회원가입 로직
     @PostMapping("/signup")
     public String signUp(MemberRequestDto memberRequestDto){
         System.out.println(memberRequestDto);
