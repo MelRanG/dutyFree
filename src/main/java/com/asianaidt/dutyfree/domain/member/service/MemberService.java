@@ -3,6 +3,7 @@ package com.asianaidt.dutyfree.domain.member.service;
 import com.asianaidt.dutyfree.domain.member.domain.Member;
 import com.asianaidt.dutyfree.domain.member.dto.MemberRequestDto;
 import com.asianaidt.dutyfree.domain.member.rerpository.MemberRepository;
+import com.asianaidt.dutyfree.global.error.StandardException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +27,7 @@ public class MemberService {
 
 
         boolean a = false;
-        Member member = memberRepository.findById(id).orElse(null);
+        Member member = memberRepository.findById(id).orElseThrow(() -> new StandardException("message"));
         System.out.println(member);
         //사용자 자체가 없을 때 || 비밀번호가 다를 때
         if(member==null || !member.getPassword().equals(password)){
