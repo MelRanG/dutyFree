@@ -8,6 +8,7 @@ import com.asianaidt.dutyfree.domain.purchase.domain.Purchase;
 import com.asianaidt.dutyfree.domain.purchase.domain.PurchaseDetail;
 import com.asianaidt.dutyfree.domain.purchase.domain.PurchaseLog;
 import com.asianaidt.dutyfree.domain.purchase.repository.PurchaseDetailRepository;
+import com.asianaidt.dutyfree.domain.purchase.repository.PurchaseLogRepository;
 import com.asianaidt.dutyfree.domain.purchase.repository.PurchaseRepository;
 import com.asianaidt.dutyfree.domain.stock.domain.Stock;
 import com.asianaidt.dutyfree.domain.stock.repository.StockRepository;
@@ -24,7 +25,9 @@ public class PurchaseService {
     private final PurchaseRepository purchaseRepository;
     private final PurchaseDetailRepository purchaseDetailRepository;
     private final StockRepository stockRepository;
-    public void purchase(Member member, Long productId, int quantity) {
+    private final PurchaseLogRepository purchaseLogRepository;
+
+    public void purchaseOne(Member member, Long productId, int quantity) {
         Optional<Product> product = productRepository.findById(productId);
         Optional<Stock> stock = stockRepository.findByProductId(productId);
 
@@ -53,9 +56,19 @@ public class PurchaseService {
 
             PurchaseLog purchaseLog = PurchaseLog.builder()
                     .regDate(LocalDateTime.now())
-
+                    .price(product.get().getPrice() * quantity)
+                    .brand(product.get().getBrand())
+                    .productName(product.get().getName())
+                    .productId(productId)
+                    .quantity(quantity)
+                    .category(product.get().getCategory())
                     .build();
 
+            purchaseLogRepository.save(purchaseLog);
         }
+    }
+
+    public void purchase() {
+
     }
 }

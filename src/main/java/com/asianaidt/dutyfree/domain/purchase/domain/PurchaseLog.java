@@ -23,6 +23,7 @@ public class PurchaseLog {
     private int price;
     private int quantity;
     private String brand;
+    private Long productId;
     private String productName;
     @Column(nullable = false)
     @ManyToOne
