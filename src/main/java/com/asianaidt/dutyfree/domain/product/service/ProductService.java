@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 public class ProductService {
     private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;
+
     public Category addCategory(){
         Category category = Category.builder()
                 .name("category1")
