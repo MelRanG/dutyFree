@@ -2,6 +2,7 @@ package com.asianaidt.dutyfree.domain.member.controller;
 
 import com.asianaidt.dutyfree.domain.member.dto.MemberRequestDto;
 import com.asianaidt.dutyfree.domain.member.service.MemberService;
+import com.asianaidt.dutyfree.global.error.StandardException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,9 +37,13 @@ public class MemberController {
 
     @GetMapping("/check/id/{id}")
     public String checkId(@PathVariable String id, Model model){
-        boolean success = memberService.checkId(id);
-        model.addAttribute("checkId", success);
-        System.out.println(success);
+        try{
+            boolean success = memberService.checkId(id);
+            model.addAttribute("checkId", success);
+            System.out.println(success);
+        }catch (StandardException e){
+            model.addAttribute("error", e.getMessage());
+        }
         return "test";
     }
 

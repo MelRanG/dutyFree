@@ -24,4 +24,13 @@ public class Stock {
     private Product product;
     @OneToMany(mappedBy = "stock")
     private List<StockManager> stockManagers;
+    @Version
+    private Long version;
+
+    public void decrease(Long quantity) {
+        if (this.quantity - quantity < 0) {
+            throw new RuntimeException("수량은 0이하가 될 수 없습니다.");
+        }
+        this.quantity -= quantity;
+    }
 }
