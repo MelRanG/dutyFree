@@ -16,7 +16,7 @@ spring:
         rewriteBatchedStatements: true
   sql:
     init:
-      mode: always
+      mode: never
   jpa:
     hibernate:
       ddl-auto: update
