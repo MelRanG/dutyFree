@@ -1,7 +1,7 @@
 # ??? ????
 spring:
   datasource:
-    url: jdbc:mariadb://localhost:3306/asianadb
+    url: jdbc:mariadb://localhost:3307/asianadb
     driver-class-name: org.mariadb.jdbc.Driver
     username: root
     password: root
@@ -16,7 +16,7 @@ spring:
         rewriteBatchedStatements: true
   sql:
     init:
-      mode: always
+      mode: never
   jpa:
     hibernate:
       ddl-auto: update
