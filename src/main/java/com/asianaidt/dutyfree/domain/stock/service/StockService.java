@@ -1,6 +1,7 @@
 package com.asianaidt.dutyfree.domain.stock.service;
 
 import com.asianaidt.dutyfree.domain.stock.domain.Stock;
+import com.asianaidt.dutyfree.domain.stock.domain.StockStatus;
 import com.asianaidt.dutyfree.domain.stock.repository.StockRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ public class StockService {
         Stock stock = stockRepository.findById(id).orElseThrow();
 
         stock.decrease(quantity);
+        String progress = StockStatus.PROGRESS.getDescription();
 
         stockRepository.save(stock);
     }
