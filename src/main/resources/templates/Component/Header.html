@@ -14,7 +14,18 @@
     <div id="HeaderDiv" th:fragment="header" class="header">
         <div class="header_top">
             <div class="exchangeRate">$1 = 1346.5원</div>
-            <div class="nav_bar">
+
+            <!-- 로그인 되어있을 때 내브바 -->
+            <div class="nav_bar" th:if="${session.user}!=null">
+                <div class="nav_bar_element">
+                    <div th:text="${session.user.name}님 안녕하세요"></div>
+                </div>
+                <div class="nav_bar_element"><a th:href="@{/member/logout}">로그아웃</a></div>
+                <div class="nav_bar_element">고객센터</div>
+            </div>
+
+            <!-- 로그인 안되어있을 때 내브바 -->
+            <div class="nav_bar" th:if="${session.user}==null">
                 <div class="nav_bar_element"><a th:href="@{/member/login}">로그인</a></div>
                 <div class="nav_bar_element"><a th:href="@{/member/signup}">회원가입</a></div>
                 <div class="nav_bar_element">고객센터</div>
@@ -22,13 +33,31 @@
         </div>
 
         <div class="header_bottom">
+            <!-- 간격을 위해 숨겨놓은 element -->
             <div class="hidden">aa</div>
+
+            <!-- 검색창 -->
             <div class="search_bar">
                 <img class="searchIcon_img" th:src="@{/img/icon/searchIcon.png}" alt="searchIcon">
                 <input class="search_input" type="text" placeholder="검색어를 입력해주세요">
             </div>
+
+            <!-- 로고 -->
             <div class="logo"><img class="logo_img" th:src="@{/img/main/Logo.png}" alt="logo"></div>
-            <!-- <div class="logo">test</div> -->
+
+        </div>
+
+        <div class="header_category">
+            <div class="header_category_flex">
+                <div class="header_category_item">스킨케어 / 메이크업</div>
+                <div class="header_category_item">향수 / 헤어 / 바디</div>
+                <div class="header_category_item">가방 / 지갑</div>
+                <div class="header_category_item">시계 / 주얼리</div>
+                <div class="header_category_item">패션 / 잡화</div>
+                <div class="header_category_item">스포츠 / 레저</div>
+                <div class="header_category_item">전자 / 리빙</div>
+                <div class="header_category_item">주류</div>
+            </div>
 
         </div>
     </div>
