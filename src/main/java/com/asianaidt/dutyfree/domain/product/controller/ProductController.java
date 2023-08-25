@@ -5,7 +5,6 @@ import com.asianaidt.dutyfree.domain.product.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Controller;
-
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -16,6 +15,10 @@ public class ProductController {
     private final ProductImgService productImgService;
     private final ResourceLoader resourceLoader;
 
+    @GetMapping("/")
+    public String main(){
+        return "Main";
+    }
     @GetMapping("/img")
     public String imgTest(Model model){
         String imgUrl = productImgService.getImage(10L);

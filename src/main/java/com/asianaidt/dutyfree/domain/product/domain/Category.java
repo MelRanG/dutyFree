@@ -21,8 +21,8 @@ public class Category {
     @Column(name = "categoryId")
     private Long id;
     private String name;
-    @OneToOne(mappedBy = "category")
-    private Product product;
     @OneToMany(mappedBy = "category")
     List<PurchaseLog> purchaseLogs = new ArrayList<>();
+    @OneToMany(mappedBy = "category")
+    private List<Product> products;
 }

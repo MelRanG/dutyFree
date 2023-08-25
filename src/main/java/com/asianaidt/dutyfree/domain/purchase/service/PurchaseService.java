@@ -53,7 +53,7 @@ public class PurchaseService {
 
             if(product.isPresent() && stock.isPresent()) {
                 // 재고 확인
-                stockService.decrease(stock.get().getId(), (long) detailDto.getQuantity());
+                stockService.decrease(stock.get().getId(), detailDto.getQuantity());
 
                 PurchaseDetail purchaseDetail = PurchaseDetail.builder()
                         .purchase(purchase)
