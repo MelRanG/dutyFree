@@ -4,14 +4,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>아시아나IDT- DUTYFREE</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/productFiveCard.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/exhibition.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/header.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/carousel.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/product_card.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/benefits.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/footer.css}">
+
+
+    <!-- 부트스트랩 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
 </head>
 
-<body>
+<body class="main_body_style">
+
     <div th:replace="~{Component/Header :: header}"></div>
-    a
+
+    <!-- 배너 -->
+    <div th:replace="~{Component/Carousel :: carousel}"></div>
+
+    <!-- Product For You -->
+    <div th:replace="~{Component/ProductFiveCard :: ProductFiveCard}"></div>
+
+    <!-- 기획전 -->
+    <div th:replace="~{Component/Exhibition :: exhibition}"></div>
+
+    <!-- 광고 -->
+    <img id="advertisement_image" th:src="@{/img/main/advertisement_image.png}" alt="product_image">
+
+    <!-- SALE -->
+    <div class="sale_bg">
+        <div th:replace="~{Component/ProductFourCard :: ProductFourCard}"></div>
+    </div>
+
+    <!-- 쇼핑혜택 -->
+    <div th:replace="~{Component/Benefits :: benefits}"></div>
+
+    <!-- footer -->
+    <div th:replace="~{Component/Footer :: footer}"></div>
+
 </body>
 
 </html>

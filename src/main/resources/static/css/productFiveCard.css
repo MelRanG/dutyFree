@@ -1,0 +1,35 @@
+.product_five_card {
+    width: 80vw;
+    margin-bottom: 50px;
+}
+
+.product_four_card {
+    width: 80vw;
+    margin-bottom: 50px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+.title_flex {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    margin-top: 50px;
+}
+
+.title {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.more {
+    font-size: 14px;
+    color: #474747;
+    font-weight: 600;
+}
+
+.card_flex {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
