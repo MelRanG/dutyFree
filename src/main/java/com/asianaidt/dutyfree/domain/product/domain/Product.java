@@ -27,13 +27,16 @@ public class Product {
     private String description;
     @Column(nullable = false)
     private String brand;
-    @OneToMany(mappedBy = "product")
-    private List<PurchaseDetail> purchaseDetail;
+    @Column(nullable = true)
+    private String path;
+//    @OneToMany(mappedBy = "product")
+//    private List<PurchaseDetail> purchaseDetail;
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="category_id")
     private Category category;
-    @OneToOne(mappedBy = "product")
+    @OneToOne(mappedBy = "product", fetch = FetchType.LAZY)
     private Stock stock;
-    @OneToMany(mappedBy = "product")
-    private List<ProductImg> productImgs;
+//    @OneToMany(mappedBy = "product")
+//    private List<ProductImg> productImgs;
 
 }
