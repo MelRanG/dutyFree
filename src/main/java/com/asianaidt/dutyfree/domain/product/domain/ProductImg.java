@@ -18,7 +18,7 @@ public class ProductImg {
     @Column(name = "productImgId")
     private Long id;
     private String path;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "productId")
     private Product product;
 }

@@ -7,26 +7,18 @@ import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 @RequiredArgsConstructor
 public class ProductController {
     private final ProductService productService;
     private final ProductImgService productImgService;
-
     private final ResourceLoader resourceLoader;
 
     @GetMapping("/")
     public String main(){
         return "Main";
     }
-    @PostMapping("/add")
-    public String addProduct() {
-        productService.addProduct();
-        return "test";
-    }
-
     @GetMapping("/img")
     public String imgTest(Model model){
         String imgUrl = productImgService.getImage(10L);

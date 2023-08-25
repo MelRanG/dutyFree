@@ -19,10 +19,10 @@ public class PurchaseDetail {
     @Column(name = "purchaseDetailId")
     private Long id;
     private int quantity;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "purchaseId")
     private Purchase purchase;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "productId")
     private Product product;
 }

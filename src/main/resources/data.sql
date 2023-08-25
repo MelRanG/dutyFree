@@ -1926,3 +1926,7 @@ INSERT INTO stock(quantity, product_product_id) VALUES (50, 633);
 INSERT INTO stock(quantity, product_product_id) VALUES (50, 634);
 INSERT INTO stock(quantity, product_product_id) VALUES (50, 635);
 INSERT INTO stock(quantity, product_product_id) VALUES (50, 636);
+
+INSERT INTO MEMBER(member_id, name, password) VALUES('member1', 'user1','1234');
+INSERT INTO MEMBER(member_id, name, password) VALUES('member2', 'user2','1234');
+INSERT INTO MEMBER(member_id, name, password) VALUES('member3', 'user3','1234');
