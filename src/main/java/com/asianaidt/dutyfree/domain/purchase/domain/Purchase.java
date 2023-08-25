@@ -31,4 +31,8 @@ public class Purchase {
     private Member member;
     @OneToMany(mappedBy = "purchase", cascade = CascadeType.ALL)
     private List<PurchaseDetail> purchaseDetails;
+
+    public void setTotalAmount(int totalAmount) {
+        this.totalAmount = totalAmount;
+    }
 }

@@ -25,7 +25,7 @@ public class PurchaseLog {
     private String brand;
     private Long productId;
     private String productName;
-    @Column(nullable = false)
+
     @ManyToOne
     @JoinColumn(name = "categoryId")
     private Category category;
