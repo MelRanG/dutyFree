@@ -24,7 +24,7 @@ public class PurchaseController {
 
     @PostMapping("/{categoryId}/product/{productId}")
     public String purchaseOne(HttpSession session, @PathVariable Long categoryId, @PathVariable Long productId,
-                           @RequestBody PurchaseDto purchaseDto) {
+                           @RequestBody PurchaseDto purchaseDto) throws InterruptedException {
 
         Member member = (Member) session.getAttribute("user");
         purchaseService.purchase(member, productId, purchaseDto);

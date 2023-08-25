@@ -1,19 +1,27 @@
 package com.asianaidt.dutyfree.domain.stock.controller;
 
+import com.asianaidt.dutyfree.domain.purchase.service.PurchaseService;
+import com.asianaidt.dutyfree.domain.stock.dto.BrandSalesDto;
+import com.asianaidt.dutyfree.domain.stock.dto.MonthlySalesDto;
 import com.asianaidt.dutyfree.domain.stock.dto.StockManagerRequestDto;
 import com.asianaidt.dutyfree.domain.stock.service.StockManagerService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 
 @RequiredArgsConstructor
 @RequestMapping("/admin")
 @Controller
 public class StockManagerController {
     private final StockManagerService stockManagerService;
+    private final PurchaseService purchaseService;
 
     /*
     INPUT
@@ -31,5 +39,58 @@ public class StockManagerController {
             model.addAttribute("message", e.getMessage());
             return "error";
         }
+    }
+
+    @PatchMapping("/stock/status/{id}")
+    public String updateStockStatus(@PathVariable Long id, Model model){
+        try{
+            stockManagerService.updateStockStatus(id);
+            model.addAttribute("message", "발주가 정상적으로 완료됐습니다.");
+            return "redirect:/Admin";
+        }catch (Exception e){
+            model.addAttribute("message", e.getMessage());
+            return "error";
+        }
+    }
+
+
+    /*
+    OUTPUT
+    List로 리턴 이름 : stockManagerList
+    id : Long
+    regDate : String
+    quantity: int
+    memberId : int
+    status : String
+    Stock : 객체
+     */
+    @GetMapping("/stock")
+    public String getStockManagerList(Pageable pageable, Model model){
+        model.addAttribute("stockManagerList",stockManagerService.getStockManagerList(pageable));
+        return "Admin";
+    }
+
+    @GetMapping("/sales/total")
+    @ResponseBody
+    public Map<String, Integer> calculateTotalAmount() {
+        Map<String, Integer> response = new HashMap<>();
+        response.put("totalAmount", purchaseService.calculateTotalAmount());
+        return response;
+    }
+
+    @GetMapping("/sales/month")
+    @ResponseBody
+    public Map<String, List<MonthlySalesDto>> calculateMonthlySales(){
+        Map<String, List<MonthlySalesDto>> response = new HashMap<>();
+        response.put("monthlySales", purchaseService.calculateMonthlySales());
+        return response;
+    }
+
+    @GetMapping("/sales/brand")
+    @ResponseBody
+    public Map<String, List<BrandSalesDto>> calculateBrandSales(){
+        Map<String, List<BrandSalesDto>> response = new HashMap<>();
+        response.put("brandSales", purchaseService.calculateBrandSales());
+        return response;
     }
 }

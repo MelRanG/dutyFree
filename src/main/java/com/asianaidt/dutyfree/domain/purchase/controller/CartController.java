@@ -21,7 +21,7 @@ public class CartController {
     }
 
     @PostMapping("/purchase")
-    public String purchase(HttpSession session, @RequestBody PurchaseDto purchaseDto) {
+    public String purchase(HttpSession session, @RequestBody PurchaseDto purchaseDto) throws InterruptedException {
         Member member = (Member) session.getAttribute("member");
         purchaseService.purchaseMany(member, purchaseDto);
         return "purchase";

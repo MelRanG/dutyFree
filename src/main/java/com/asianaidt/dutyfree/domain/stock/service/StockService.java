@@ -15,7 +15,7 @@ public class StockService {
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void decrease(Long id, int quantity) {
 
-        Stock stock = stockRepository.findById(id).orElseThrow();
+        Stock stock = stockRepository.findByIdWithOptimisticLock(id);
         stock.decrease(quantity);
 
         stockRepository.save(stock);
