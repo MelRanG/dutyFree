@@ -23,10 +23,14 @@ public class StockManager {
     @Column(name = "regDate", nullable = false)
     private LocalDateTime regDate;
     private int quantity;
-    private String userId;
+    private String memberId;
     @Enumerated(EnumType.STRING)
     private StockStatus status;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "stockId")
     private Stock stock;
+
+    public void updateStatus(){
+        this.status = StockStatus.COMPLETED;
+    }
 }
