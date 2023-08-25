@@ -24,7 +24,8 @@ public class StockManager {
     private LocalDateTime regDate;
     private int quantity;
     private String userId;
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private StockStatus status;
     @ManyToOne
     @JoinColumn(name = "stockId")
     private Stock stock;

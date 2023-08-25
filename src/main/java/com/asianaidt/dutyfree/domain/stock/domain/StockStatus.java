@@ -7,14 +7,13 @@ public enum StockStatus {
     PROGRESS("PROGRESS"),
     COMPLETED("SUCCESS");
 
-    private final String description;
-    StockStatus(String description){
-        this.description = description;
+    private String value;
+
+    StockStatus(String value) {
+        this.value = value;
     }
 
-    @Override
-    public String toString() {
-        return description;
+    public String getValue() {
+        return value;
     }
-
 }

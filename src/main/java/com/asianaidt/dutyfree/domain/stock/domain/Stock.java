@@ -27,7 +27,7 @@ public class Stock {
     @Version
     private Long version;
 
-    public void decrease(Long quantity) {
+    public void decrease(int quantity) {
         if (this.quantity - quantity < 0) {
             throw new RuntimeException("수량은 0이하가 될 수 없습니다.");
         }
