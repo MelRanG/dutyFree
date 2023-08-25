@@ -17,7 +17,7 @@ public class MemberController {
     //    로그인 페이지 이동
     @GetMapping("/login")
     public String login(){
-        return "Main";
+        return "ProductDetail";
     }
 
     //    로그인 로직
