@@ -25,4 +25,8 @@ public class Member {
     @OneToMany(mappedBy = "member")
     private List<Purchase> purchases;
 
+    public Member(String id, String password) {
+        this.id = id;
+        this.password = password;
+    }
 }

@@ -3,15 +3,15 @@ package com.asianaidt.dutyfree.domain.stock.service;
 import com.asianaidt.dutyfree.domain.product.domain.Product;
 import com.asianaidt.dutyfree.domain.product.repository.ProductRepository;
 import com.asianaidt.dutyfree.domain.stock.domain.Stock;
-import com.asianaidt.dutyfree.domain.stock.domain.StockManager;
-import com.asianaidt.dutyfree.domain.stock.domain.StockStatus;
+import com.asianaidt.dutyfree.domain.stock.dto.StockManagerRequestDto;
 import com.asianaidt.dutyfree.domain.stock.repository.StockManagerRepository;
 import com.asianaidt.dutyfree.domain.stock.repository.StockRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import static org.junit.jupiter.api.Assertions.*;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 public class StockManagerServiceTest {
@@ -21,12 +21,14 @@ public class StockManagerServiceTest {
     ProductRepository productRepository;
     @Autowired
     StockManagerRepository stockManagerRepository;
+    @Autowired
+    StockManagerService stockManagerService;
 
     Product product;
     Stock stock;
 
     @BeforeEach
-    public void befre(){
+    public void before(){
         product = Product.builder()
                 .name("123")
                 .brand("구찌")
@@ -44,14 +46,12 @@ public class StockManagerServiceTest {
 
     @Test
     public void stockManagerInsert(){
-        StockManager stockManager = StockManager.builder()
-                .stock(stock)
-                .status(StockStatus.PROGRESS)
-                .quantity(5)
+        StockManagerRequestDto dto = StockManagerRequestDto.builder()
+                .memberId("t")
+                .quantity(2)
+                .stockId(1L)
                 .build();
-        stockManagerRepository.save(stockManager);
-
-        StockStatus s = stockManagerRepository.findById(stockManager.getId()).orElseThrow().getStatus();
-        assertEquals(s,StockStatus.PROGRESS);
+        Stock stock = stockManagerService.insertStock(dto);
+        assertEquals(stock.getQuantity(),52);
     }
 }
