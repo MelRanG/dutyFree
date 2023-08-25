@@ -1,9 +1,13 @@
 package com.asianaidt.dutyfree.domain.product.controller;
 
+import com.asianaidt.dutyfree.domain.product.dto.ProductDto;
+import com.asianaidt.dutyfree.domain.product.dto.ProductListDto;
 import com.asianaidt.dutyfree.domain.product.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -47,39 +51,69 @@ public class ProductController {
     // @RequestParam(value = "no", required = false) int no
     // 삼품 가격 별 정렬 => 낮은 가격, 높은 가격 정렬
     // /list/{categoryId}/price?sort={sort}
+
+    /*
+        카테고리별 상품의 전체 리스트를 리턴하는 API
+        sort = 오름차, 내림차
+        categoryId = 1,2,3,4 => 각각 bag, beauty, electronic, perfume 을 의미함
+     */
     @GetMapping("/list/{categoryId}")
     public String sortByPrice(
+//    public ResponseEntity<?> sortByPrice(
             Model model, @PathVariable Long categoryId,
             @RequestParam(defaultValue = "Asc") String sort,
             Pageable pageable
     ) {
-        productService.getProductByCategoryId(categoryId, sort, pageable);
-//        productImgService.getProductImgByCategoryId();
+        Page<ProductListDto> sorting = productService.getProductByCategoryId(categoryId, sort, pageable);
+        model.addAttribute("sorting", sorting);
         return null;
+//        return ResponseEntity.ok(page);
     }
 
     // ? = 리퀘스트 파람
 
+    /*
+        가격대별 상품 정보를 리턴하는 API
+        categoryId = 1,2,3,4 => 각각 bag, beauty, electronic, perfume 을 의미함
+        min = 최저값
+        max = 최대값
+
+     */
     @GetMapping("/list/{categoryId}/price")
     public String productListByCategoryIdAndPrice(
+//    public ResponseEntity<?> productListByCategoryIdAndPrice(
             Model model, @PathVariable Long categoryId,
-            @RequestParam Integer min, @RequestParam Integer max, Pageable Pageable
+            @RequestParam Integer min, @RequestParam Integer max, Pageable pageable
     ) {
+        Page<ProductListDto> price = productService.getProductByPrice(categoryId, min, max, pageable);
+        model.addAttribute("price", price);
+//        return ResponseEntity.ok(productByPrice);
         return null;
     }
+
     // 상품 페이지 상세 => 상품 정보(디스크립션) 반환
     // /list/{categoryId}/product/{productId}
     @GetMapping("/product/{productId}")
     public String productDetail(
+//    public ResponseEntity<?> productDetail(
             Model model, @PathVariable Long productId
     ) {
+        ProductDto detail = productService.getProductDetail(productId);
+        model.addAttribute("detail", detail);
+//        return ResponseEntity.ok(productDetail);
         return null;
     }
     // 상품 검색 => 검색한 내용이 포함된 모든 상품 리스트
     @GetMapping("/search/{productName}")
     public String searchProduct(
-            Model model, @PathVariable String productName
+//    public ResponseEntity<?> searchProduct(
+            Model model, @PathVariable String productName,
+            Pageable pageable
+
     ) {
+        Page<ProductListDto> search = productService.searchProduct(productName, pageable);
+        model.addAttribute("search", search);
         return null;
+//        return ResponseEntity.ok(productList);
     }
 }

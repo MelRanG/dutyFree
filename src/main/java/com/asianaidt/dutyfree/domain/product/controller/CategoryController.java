@@ -33,7 +33,6 @@ public class CategoryController {
         System.out.println("model = " + model);
         // html 변경가능
         return null;
-//        return new ResponseEntity<>(categoryList);
 //        return ResponseEntity.ok(categoryList);
     }
 }
