@@ -13,9 +13,8 @@ public class StockService {
     private final StockRepository stockRepository;
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public void decrease(Long id, Long quantity) {
+    public void decrease(Long id, int quantity) {
         Stock stock = stockRepository.findById(id).orElseThrow();
-
         stock.decrease(quantity);
 
         stockRepository.save(stock);
