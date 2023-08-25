@@ -29,7 +29,7 @@ public class Product {
     private String brand;
     @OneToMany(mappedBy = "product")
     private List<PurchaseDetail> purchaseDetail;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Category category;
     @OneToOne(mappedBy = "product")
     private Stock stock;

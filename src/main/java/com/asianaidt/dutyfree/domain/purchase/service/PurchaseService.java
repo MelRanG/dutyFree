@@ -15,12 +15,14 @@ import com.asianaidt.dutyfree.domain.purchase.repository.PurchaseRepository;
 import com.asianaidt.dutyfree.domain.stock.domain.Stock;
 import com.asianaidt.dutyfree.domain.stock.repository.StockRepository;
 import com.asianaidt.dutyfree.domain.stock.service.StockService;
+import com.asianaidt.dutyfree.global.error.StandardException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,12 +37,17 @@ public class PurchaseService {
     private final PurchaseLogRepository purchaseLogRepository;
     private final StockService stockService;
 
-    public List<Purchase> getPurchaseList(Member member) {
-        return purchaseRepository.findAllByMemberId(member.getId());
+    public List<Purchase> getPurchaseList(String memberId) {
+        return purchaseRepository.findByMemberId(memberId).orElse(new ArrayList<>());
     }
 
-    public Optional<Purchase> getPurchase(Long purchaseId, Member member) {
-        return purchaseRepository.findByMemberAndId(member, purchaseId);
+    public List<PurchaseDetail> getPurchase(Long purchaseId) {
+        Optional<List<PurchaseDetail>> details = purchaseDetailRepository.findAllByPurchaseId(purchaseId);
+        if(details.isEmpty()) {
+            throw new StandardException("구매 정보를 찾을 수 없습니다.");
+        }
+
+        return details.get();
     }
 
     public void addPurchaseDetails(Purchase purchase, List<PurchaseDetailDto> detailDtoList) {
@@ -53,7 +60,7 @@ public class PurchaseService {
 
             if(product.isPresent() && stock.isPresent()) {
                 // 재고 확인
-                stockService.decrease(stock.get().getId(), detailDto.getQuantity());
+//                stockService.decrease(stock.get().getId(), detailDto.getQuantity());
 
                 PurchaseDetail purchaseDetail = PurchaseDetail.builder()
                         .purchase(purchase)
@@ -97,7 +104,7 @@ public class PurchaseService {
         addPurchaseDetails(purchase, purchaseDto.getDetailList());
     }
 
-    @Transactional()
+    @Transactional
     public void purchase(Member member, Long productId, PurchaseDto purchaseDto) {
         Optional<Product> product = productRepository.findById(productId);
         Optional<Stock> stock = stockRepository.findByProductId(productId);

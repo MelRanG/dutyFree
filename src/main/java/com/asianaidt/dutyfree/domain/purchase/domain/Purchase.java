@@ -26,7 +26,7 @@ public class Purchase {
     @CreationTimestamp
     @Column(name = "regDate", nullable = false)
     private LocalDateTime regDate;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "memberId")
     private Member member;
     @OneToMany(mappedBy = "purchase", cascade = CascadeType.ALL)

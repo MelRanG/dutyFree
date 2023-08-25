@@ -26,7 +26,7 @@ public class PurchaseLog {
     private Long productId;
     private String productName;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "categoryId")
     private Category category;
 }
