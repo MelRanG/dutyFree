@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>아시아나IDT- DUTYFREE</title>
+    <link rel="stylesheet" type="text/css" href="../../static/css/exhibition.css">
+    <link rel="stylesheet" type="text/css" href="../../static/css/reset.css">
+
+</head>
+
+<body style="display: flex; flex-direction: column; align-items: center;">
+    <div class="exhibition" th:fragment="exhibition">
+        <div class="title_flex">
+            <div class="title">고객님을 위한 특별한 기획전</div>
+            <div class="more">더보기</div>
+        </div>
+        <div class="card_flex">
+            <div class="exhibition_card">
+                <img id="exhibition_image" th:src="@{/img/main/exhibition_image1.png}" alt="exhibition_image">
+                <div class="exhibition_title">향으로 기억하는 우리, Perfume 기획전</div>
+            </div>
+            <div class="exhibition_card">
+                <img id="exhibition_image" th:src="@{/img/main/exhibition_image2.png}" alt="exhibition_image">
+                <div class="exhibition_title">CHANNEL X 아시아나IDT 면세점</div>
+            </div>
+            <div class="exhibition_card">
+                <img id="exhibition_image" th:src="@{/img/main/exhibition_image3.png}" alt="exhibition_image">
+                <div class="exhibition_title">여행 필수품, 카메라 기획전</div>
+            </div>
+        </div>
+    </div>
+</body>

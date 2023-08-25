@@ -1,0 +1,6 @@
+.product_card_small {
+    display: flex;
+    flex-direction: column;
+    width: 24%;
+    margin-top: 10px;
+}
