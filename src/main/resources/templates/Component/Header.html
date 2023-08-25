@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>아시아나IDT- DUTYFREE</title>
+    <link rel="stylesheet" type="text/css" href="../../static/css/header.css">
+    <link rel="stylesheet" type="text/css" href="../../static/css/reset.css">
+
+</head>
+
+<body>
+    <div id="HeaderDiv" th:fragment="header" class="header">
+        <div class="header_top">
+            <div class="exchangeRate">$1 = 1346.5원</div>
+            <div class="nav_bar">
+                <div class="nav_bar_element"><a th:href="@{/member/login}">로그인</a></div>
+                <div class="nav_bar_element"><a th:href="@{/member/signup}">회원가입</a></div>
+                <div class="nav_bar_element">고객센터</div>
+            </div>
+        </div>
+
+        <div class="header_bottom">
+            <div class="hidden">aa</div>
+            <div class="search_bar">
+                <img class="searchIcon_img" th:src="@{/img/icon/searchIcon.png}" alt="searchIcon">
+                <input class="search_input" type="text" placeholder="검색어를 입력해주세요">
+            </div>
+            <div class="logo"><img class="logo_img" th:src="@{/img/main/Logo.png}" alt="logo"></div>
+            <!-- <div class="logo">test</div> -->
+
+        </div>
+    </div>
+</body>
+
+</html>
