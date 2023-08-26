@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>아시아나IDT- DUTYFREE</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/reset.css}">
-
+    <link rel="stylesheet" type="text/css" href="../static/css/cart.css">
 
     <!-- 부트스트랩 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -19,8 +19,43 @@
 <body class="main_body_style">
 
     <div th:replace="~{Component/Header :: header}"></div>
+    <div class="cart_body">
+        <div class="cart_box">
+            <div class="title_div">
+                <ul class="title_tab">
+                    <li><a href="">장바구니</a></li>
+                    <li><a href="">여권정보</a></li>
+                    <li><a href="">출국정보</a></li>
+                    <li><a href="">주문결재</a></li>
+                </ul>
+            </div>
+            <div class="cart_content">
+                <div class="cart_list">
+                    <div class="item_area">
+                        <div class="item_content">
+                            <div class="item_info">
+                                <div class="item_img">
+                                    <img th:src="@{/img/beauty/겔랑_아베이 로얄 더블 R 리뉴 리페어 어드밴스드 세럼 50mL.jpg}"
+                                    alt="product_image" />
+                                </div>
+                                <div class="item_title">
+                                    <span th:text="">크리니크</span>
+                                    <p></p>
+                                    <span th:text="">(24년 7월) 퀵라이너 포 아이즈- Intense Black</span>
+                                </div>
+                                <div class="item_price"></div>
+                            </div>
+                             
+                            <div class="item_buy">
+                                <button>바로 구매</button>   
+                            </div>
 
-
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
