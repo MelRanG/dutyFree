@@ -7,11 +7,12 @@
     <title>아시아나IDT- DUTYFREE</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/reset.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/product_detail.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/cart.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/header.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/footer.css}">
 
-    <link rel="stylesheet" type="text/css" href="../static/css/cart.css">
     <link rel="stylesheet" type="text/css" href="../static/css/product_detail.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/cart.css">
     <link rel="stylesheet" type="text/css" href="../static/css/reset.css">
 
     <!-- 부트스트랩 -->
@@ -39,38 +40,35 @@
 
             <div class="page_content">
                 <div class="cart_content">
-                    <div class="cart_list">
-                        <div class="item_area">
-                            <div class="item_content" th:each="product : ${products}">
-                                <div class="item_info">
-                                    <div class="item_img">
-                                        <img th:src="@{/img/beauty/겔랑_아베이 로얄 더블 R 리뉴 리페어 어드밴스드 세럼 50mL.jpg}"
-                                        alt="product_image" />
-                                    </div>
-                                    <div class="item_title">
-                                        <div th:text="${product.title}">겔랑_아베이 로얄 더블 R 리뉴 리페어 어드밴스드 세럼 50mL</div>
-                                        <div class="item_price">
-                                            <div th:text="${product.price}">$22.4</div>
-                                            <div th:text="${product.price}">30,051</div>
-                                        </div>
-                                    </div>
-                                    
+                    <div class="item_area">
+                        <div class="item_content" th:each="product : ${products}">
+                            <div class="item_info">
+                                <div class="item_img">
+                                    <img th:src="@{${product.path}}" src="/src/main/resources/static/img/bag/닥스_블랙 로고패턴 가죽 클러치백.jpg"
+                                    alt="product_image" />
                                 </div>
-                                 
-                                <div class="item_buy">
-                                    <div class="price_detail_flex">
-                                        <div class="product_datail_quantity_button">
-                                            <button class="quantity_button" onclick="count('minus');">–</button>
-                                            <div id="quantity">2</div>
-                                            <button class="quantity_button" onclick="count('plus');">+</button>
-                                        </div>
-                                    </div>
-                                    <div class="detail_button_box">
-                                        <button class="detail_buy_btn" onclick="addCart()">바로 구매</button>
+                                <div class="item_title">
+                                    <div th:text="${product.name}">겔랑_아베이 로얄 더블 R 리뉴 리페어 어드밴스드 세럼 50mL</div>
+                                    <div class="item_price">
+                                        <div th:text="${product.price}">$22.4</div>
                                     </div>
                                 </div>
-    
+                                
                             </div>
+                             
+                            <div class="item_buy">
+                                <div class="quantity_box">
+                                    <div class="product_datail_quantity_button">
+                                        <button class="quantity_button" onclick="count('minus');">–</button>
+                                        <div th:text="${product.quantity}" id="quantity">2</div>
+                                        <button class="quantity_button" onclick="count('plus');">+</button>
+                                    </div>
+                                </div>
+                                <div>
+                                    <button class="detail_buy_btn" onclick="addCart()">바로 구매</button>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -94,8 +92,8 @@
                             </dl>
                         </div>                        
                     </div>
-                    <div class="pay_btn detail_button_box">
-                        <button class="detail_buy_btn">구매하기</button>
+                    <div class="cart_btn_box">
+                        <button class="cart_buy_button">구매하기</button>
                     </div>
                 </div>
             </div>
