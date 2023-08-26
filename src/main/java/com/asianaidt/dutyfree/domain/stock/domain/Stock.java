@@ -33,4 +33,8 @@ public class Stock {
         }
         this.quantity -= quantity;
     }
+
+    public void updateQuantity(int quantity){
+        this.quantity += quantity;
+    }
 }
