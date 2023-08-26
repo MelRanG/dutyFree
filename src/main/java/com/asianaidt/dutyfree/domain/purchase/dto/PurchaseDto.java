@@ -12,10 +12,6 @@ import java.util.List;
 public class PurchaseDto {
     @JsonProperty("date")
     private LocalDateTime date;
-    @JsonProperty("price")
-    private int price;
-    @JsonProperty("quantity")
-    private int quantity;
     @JsonProperty("brand")
     private String brand;
     @JsonProperty("details")
