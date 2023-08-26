@@ -1,8 +1,9 @@
 package com.asianaidt.dutyfree.domain.stock.controller;
 
+import com.asianaidt.dutyfree.domain.purchase.dto.DailySalesDto;
 import com.asianaidt.dutyfree.domain.purchase.service.PurchaseService;
-import com.asianaidt.dutyfree.domain.stock.dto.BrandSalesDto;
-import com.asianaidt.dutyfree.domain.stock.dto.MonthlySalesDto;
+import com.asianaidt.dutyfree.domain.purchase.dto.BrandSalesDto;
+import com.asianaidt.dutyfree.domain.purchase.dto.MonthlySalesDto;
 import com.asianaidt.dutyfree.domain.stock.dto.StockManagerRequestDto;
 import com.asianaidt.dutyfree.domain.stock.service.StockManagerService;
 import lombok.RequiredArgsConstructor;
@@ -77,7 +78,13 @@ public class StockManagerController {
         response.put("totalAmount", purchaseService.calculateTotalAmount());
         return response;
     }
-
+/*
+    OUTPUT
+    int year;
+    int month;
+    long price;
+    long totalSales;
+ */
     @GetMapping("/sales/month")
     @ResponseBody
     public Map<String, List<MonthlySalesDto>> calculateMonthlySales(){
@@ -86,11 +93,29 @@ public class StockManagerController {
         return response;
     }
 
+    /*
+    OUTPUT
+    int brand
+    int totalSales
+     */
     @GetMapping("/sales/brand")
     @ResponseBody
     public Map<String, List<BrandSalesDto>> calculateBrandSales(){
         Map<String, List<BrandSalesDto>> response = new HashMap<>();
         response.put("brandSales", purchaseService.calculateBrandSales());
+        return response;
+    }
+    /*
+    --year, month input 필요
+    OUTPUT
+    int day
+    int totalSales
+     */
+    @GetMapping("/sales/day")
+    @ResponseBody
+    public Map<String, List<DailySalesDto>> calculateDaySales(@RequestParam int year, @RequestParam int month){
+        Map<String, List<DailySalesDto>> response = new HashMap<>();
+        response.put("dailySales", purchaseService.calculateDailySalesForMonth(year, month));
         return response;
     }
 }

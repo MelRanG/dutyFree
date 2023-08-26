@@ -25,7 +25,7 @@ public class Stock {
     @OneToMany(mappedBy = "stock")
     private List<StockManager> stockManagers;
     @Version
-    private Long version;
+    private Long version = 0L;
 
     public void decrease(int quantity) {
         if (this.quantity - quantity < 0) {

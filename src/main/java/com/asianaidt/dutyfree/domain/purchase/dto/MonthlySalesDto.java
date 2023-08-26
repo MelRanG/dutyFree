@@ -1,4 +1,4 @@
-package com.asianaidt.dutyfree.domain.stock.dto;
+package com.asianaidt.dutyfree.domain.purchase.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

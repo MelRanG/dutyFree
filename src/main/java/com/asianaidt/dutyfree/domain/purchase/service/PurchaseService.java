@@ -13,8 +13,9 @@ import com.asianaidt.dutyfree.domain.purchase.repository.PurchaseDetailRepositor
 import com.asianaidt.dutyfree.domain.purchase.repository.PurchaseLogRepository;
 import com.asianaidt.dutyfree.domain.purchase.repository.PurchaseRepository;
 import com.asianaidt.dutyfree.domain.stock.domain.Stock;
-import com.asianaidt.dutyfree.domain.stock.dto.BrandSalesDto;
-import com.asianaidt.dutyfree.domain.stock.dto.MonthlySalesDto;
+import com.asianaidt.dutyfree.domain.purchase.dto.BrandSalesDto;
+import com.asianaidt.dutyfree.domain.purchase.dto.DailySalesDto;
+import com.asianaidt.dutyfree.domain.purchase.dto.MonthlySalesDto;
 import com.asianaidt.dutyfree.domain.stock.facade.OptimisticLockStockFacade;
 import com.asianaidt.dutyfree.domain.stock.repository.StockRepository;
 import com.asianaidt.dutyfree.global.error.StandardException;
@@ -60,7 +61,6 @@ public class PurchaseService {
             long productId = detailDto.getProductId();
             Optional<Product> product = productRepository.findById(productId);
             Optional<Stock> stock = stockRepository.findByProductId(productId);
-
             if(product.isPresent() && stock.isPresent()) {
                 // 재고 확인
                 stockService.decrease(stock.get().getId(), detailDto.getQuantity());
@@ -166,6 +166,9 @@ public class PurchaseService {
     }
     public List<BrandSalesDto> calculateBrandSales(){
         return purchaseLogRepository.findBrandSales();
+    }
+    public List<DailySalesDto> calculateDailySalesForMonth(int year, int month){
+        return purchaseLogRepository.findDailySalesForMonth(year, month);
     }
 
 }
