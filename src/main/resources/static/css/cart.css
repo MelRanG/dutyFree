@@ -1,0 +1,88 @@
+ul {
+    list-style:none;
+}
+a {
+    text-decoration: none;
+}
+.cart_body {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.cart_box {
+    width: 80vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.page_content {
+    display: flex;
+    flex-direction: row;
+}
+.pay_table {
+    display: flex;
+    height: 470px;
+    width: 25vw;
+}
+.cart_content {
+    width: 55vw;
+    height: 470px;
+    display: flex;
+    border: 1px solid black;
+}
+
+.title_div {
+    width: 80vw;
+    height: 50px;
+    display: flex;
+    margin-bottom: 3%;
+}
+
+.title_tab li {
+    display: flex;
+    float: left;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.title_tab a {
+    text-decoration: none;
+    font-size: 28px;
+    font-weight: 600;
+    color: black;
+}
+.item_content {
+    display: flex;
+    font-weight: 500;
+    flex-direction: row;
+}
+
+.item_info {
+    display: flex;
+}
+
+.item_img {
+    display: flex;
+}
+
+.item_price {
+    width: 20vw;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+.pay_table {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.pay_title{
+    font-size: 20px;
+    font-weight: 600;
+}
+
