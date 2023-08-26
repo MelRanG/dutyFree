@@ -1,0 +1,130 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap");
+
+.signup_body {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Noto Sans KR", sans-serif;
+}
+
+.signup_box {
+  width: 45vw;
+  height: 900px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo_small {
+  width: 130px;
+  margin-left: 12px;
+}
+
+#signup_form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.signup_title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #474747;
+}
+
+.input_title {
+  font-size: 20px;
+  font-weight: 500;
+  color: #474747;
+}
+.flex_row_w300 {
+  display: flex;
+  width: 300px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 0px;
+}
+#selectIcon {
+  width: 20px;
+}
+.agree_title {
+  font-size: 14x;
+  font-weight: 500;
+  color: #474747;
+}
+.agree_red {
+  font-size: 14px;
+  font-weight: 500;
+  color: red;
+}
+.agree_info {
+  border: 2px solid #b8b8b8;
+  padding: 20px;
+  width: 100%;
+  height: 100px;
+  overflow: scroll;
+  text-overflow: clip;
+  overflow-x: hidden;
+  line-height: 140%;
+  margin-bottom: 50px;
+}
+
+.signup_input {
+  width: 90%;
+  height: 45px;
+  font-size: 15px;
+  font-weight: 500;
+  border: 0;
+  border-bottom: 2px solid #b8b8b8;
+  outline: none;
+  background-color: white;
+  font-family: "Noto Sans KR", sans-serif;
+  margin: 10px 0px;
+}
+
+.signup_submit {
+  background-color: #454b52;
+  width: 320px;
+  height: 45px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  color: white;
+  border: 0;
+  margin-top: 15px;
+  font-family: "Noto Sans KR", sans-serif;
+}
+.signup_check {
+  background-color: #5e646b;
+  width: 120px;
+  height: 35px;
+  border-radius: 5px;
+  font-size: 13px;
+  font-weight: 400;
+  color: white;
+  border: 0;
+  margin-top: 15px;
+  font-family: "Noto Sans KR", sans-serif;
+}
+.signup_table {
+  border: 1px;
+  width: 100%;
+  margin-top: 30px;
+  font-weight: 500;
+  margin-left: 20px;
+}
+
+.signup_tr {
+  height: 40px;
+}
+.signup_th {
+  width: 20%;
+  padding-left: 0;
+  text-align: left;
+}
+.signup_td {
+  width: 50%;
+}
