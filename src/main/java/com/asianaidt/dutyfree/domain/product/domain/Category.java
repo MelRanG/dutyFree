@@ -22,7 +22,7 @@ public class Category {
     private Long id;
     private String name;
     @OneToMany(mappedBy = "category")
-    List<PurchaseLog> purchaseLogs = new ArrayList<>();
+    List<PurchaseLog> purchaseLogs;
     @OneToMany(mappedBy = "category")
     private List<Product> products;
 }
