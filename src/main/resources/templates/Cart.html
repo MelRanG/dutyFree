@@ -65,7 +65,7 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <button class="detail_buy_btn" onclick="addCart()">바로 구매</button>
+                                    <button class="detail_buy_btn">바로 구매</button>
                                 </div>
                             </div>
 
@@ -93,7 +93,7 @@
                         </div>                        
                     </div>
                     <div class="cart_btn_box">
-                        <button class="cart_buy_button">구매하기</button>
+                        <button class="cart_buy_button" th:onclick="|location.href='@{/purchase}'|">구매하기</button>
                     </div>
                 </div>
             </div>
