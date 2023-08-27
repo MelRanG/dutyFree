@@ -2,6 +2,7 @@ package com.asianaidt.dutyfree.domain.stock.service;
 
 import com.asianaidt.dutyfree.domain.stock.domain.Stock;
 import com.asianaidt.dutyfree.domain.stock.domain.StockManager;
+import com.asianaidt.dutyfree.domain.stock.domain.StockStatus;
 import com.asianaidt.dutyfree.domain.stock.dto.StockManagerRequestDto;
 import com.asianaidt.dutyfree.domain.stock.repository.StockManagerRepository;
 import com.asianaidt.dutyfree.domain.stock.repository.StockRepository;
@@ -32,8 +33,8 @@ public class StockManagerService {
         return stockRepository.save(stock);
     }
 
-    public Page<StockManager> getStockManagerList(Pageable pageable){
-        return stockManagerRepository.findAll(pageable);
+    public Page<StockManager> getStockManagerList(Pageable pageable, StockStatus status){
+        return stockManagerRepository.findAllByStatus(pageable, status);
     }
 
 

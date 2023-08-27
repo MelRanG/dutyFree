@@ -1,9 +1,10 @@
 package com.asianaidt.dutyfree.domain.stock.controller;
 
-import com.asianaidt.dutyfree.domain.purchase.dto.DailySalesDto;
-import com.asianaidt.dutyfree.domain.purchase.service.PurchaseService;
 import com.asianaidt.dutyfree.domain.purchase.dto.BrandSalesDto;
+import com.asianaidt.dutyfree.domain.purchase.dto.DailySalesDto;
 import com.asianaidt.dutyfree.domain.purchase.dto.MonthlySalesDto;
+import com.asianaidt.dutyfree.domain.purchase.service.PurchaseService;
+import com.asianaidt.dutyfree.domain.stock.domain.StockStatus;
 import com.asianaidt.dutyfree.domain.stock.dto.StockManagerRequestDto;
 import com.asianaidt.dutyfree.domain.stock.service.StockManagerService;
 import com.asianaidt.dutyfree.domain.stock.service.StockService;
@@ -68,8 +69,8 @@ public class StockManagerController {
     Stock : 객체
      */
     @GetMapping("/stock")
-    public String getStockManagerList(Pageable pageable, Model model){
-        model.addAttribute("stockManagerList",stockManagerService.getStockManagerList(pageable));
+    public String getStockManagerList(Pageable pageable, Model model, @RequestParam StockStatus status){
+        model.addAttribute("stockManagerList",stockManagerService.getStockManagerList(pageable, status));
         return "Admin";
     }
     /*
