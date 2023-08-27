@@ -44,8 +44,9 @@
                         <div class="item_content" th:each="product : ${products}">
                             <div class="item_info">
                                 <div class="item_img">
-                                    <img th:src="@{${product.path}}" src="/src/main/resources/static/img/bag/닥스_블랙 로고패턴 가죽 클러치백.jpg"
-                                    alt="product_image" />
+                                    <img th:src="@{${product.path}}"
+                                        src="/src/main/resources/static/img/bag/닥스_블랙 로고패턴 가죽 클러치백.jpg"
+                                        alt="product_image" />
                                 </div>
                                 <div class="item_title">
                                     <div th:text="${product.name}">겔랑_아베이 로얄 더블 R 리뉴 리페어 어드밴스드 세럼 50mL</div>
@@ -53,9 +54,9 @@
                                         <div th:text="${product.price}">$22.4</div>
                                     </div>
                                 </div>
-                                
+
                             </div>
-                             
+
                             <div class="item_buy">
                                 <div class="quantity_box">
                                     <div class="product_datail_quantity_button">
@@ -75,7 +76,7 @@
 
                 <div class="pay_table">
                     <div class="pay_title">예상 주문 금액</div>
-                    <br/>
+                    <br />
                     <div class="pay_list">
                         <div class="total_pay">
                             <dl>
@@ -90,7 +91,7 @@
                                 <dt>총 <span>2</span>개</dt>
                                 <dd>50,002</dd>
                             </dl>
-                        </div>                        
+                        </div>
                     </div>
                     <div class="cart_btn_box">
                         <button class="cart_buy_button">구매하기</button>
