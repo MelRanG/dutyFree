@@ -11,12 +11,12 @@
 </head>
 
 <body>
-    <div class="product_card" th:fragment="product_card">
-        <img id="product_image" th:src="@{/img/beauty/겔랑_로르 래디언스 베이스 듀오.jpg}" alt="product_image">
-        <div class="product_brand">크리니크</div>
-        <div class="product_title">(24년 7월) 퀵라이너 포 아이즈- Intense Black</div>
+    <div th:fragment="product_card(product)">
+        <img id="product_image" th:src="@{${product.path}}" alt="product_image">
+        <div class="product_brand" th:text="${product.brand}">크리니크</div>
+        <div class="product_title"><a th:href="@{/product/{productId}(productId= ${product.id})}"><span th:text="${product.name}">(24년 7월) 퀵라이너 포 아이즈- Intense Black</span></a></div>
         <div class="price_flex">
-            <div class="price_dollar">$22.4</div>
+            <div class="price_dollar" th:text="${product.price}">$22.4</div>
             <div class="price_won">30,051원</div>
         </div>
     </div>

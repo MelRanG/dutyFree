@@ -28,7 +28,7 @@
 
 <body class="main_body_style">
 
-    <div th:replace="~{Component/Header :: header}"></div>
+<div th:replace="~{Component/Header :: header(${category})}"></div>
 
     <div class="cart_body">
         <div class="cart_box">
