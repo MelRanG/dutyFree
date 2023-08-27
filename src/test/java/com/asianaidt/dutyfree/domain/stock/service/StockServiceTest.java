@@ -28,22 +28,6 @@ class StockServiceTest {
 
     Product product;
     Stock stock;
-    @BeforeEach
-    public void before(){
-        product = Product.builder()
-                .name("123")
-                .brand("구찌")
-                .price(1000)
-                .category(null)
-                .build();
-        productRepository.save(product);
-
-        stock = Stock.builder()
-                .quantity(50)
-                .product(product)
-                .build();
-        stockRepository.save(stock);
-    }
 
     @Test
     public void stockInsert(){
@@ -74,7 +58,7 @@ class StockServiceTest {
         for (int i = 0; i < threadCount; i++) {
             executorService.submit(() -> {
                 try {
-                    stockService.decrease(1L, 1);
+                    stockService.decrease(7L, 1);
                 }catch (Exception e){
                     throw new RuntimeException(e);
                 }
