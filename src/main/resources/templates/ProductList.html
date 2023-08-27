@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>아시아나IDT- DUTYFREE</title>
+    <link rel="stylesheet" type="text/css" href="../../static/css/productList.css">
+    <link rel="stylesheet" type="text/css" href="../../static/css/reset.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/header.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/footer.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/product_card_small.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/product_card.css}">
+
+
+    <link rel="stylesheet" type="text/css" th:href="@{/css/productList.css}">
+
+
+
+</head>
+
+<body class="list_body_style">
+    <div th:replace="~{Component/Header :: header}"></div>
+    <div class="product_list_card">
+
+        <div class="title_flex">
+            <div class="title">RECENT ITEM</div>
+        </div>
+        <div class="detail_card_flex">
+            <!-- product 5개짜리 채워주면 됨. -->
+            <div th:replace="~{Component/ProductCardSmall :: product_card_small}"></div>
+            <div th:replace="~{Component/ProductCardSmall :: product_card_small}"></div>
+            <div th:replace="~{Component/ProductCardSmall :: product_card_small}"></div>
+            <div th:replace="~{Component/ProductCardSmall :: product_card_small}"></div>
+            <div th:replace="~{Component/ProductCardSmall :: product_card_small}"></div>
+            <div th:replace="~{Component/ProductCardSmall :: product_card_small}"></div>
+            <div th:replace="~{Component/ProductCardSmall :: product_card_small}"></div>
+            <div th:replace="~{Component/ProductCardSmall :: product_card_small}"></div>
+            <div th:replace="~{Component/ProductCardSmall :: product_card_small}"></div>
+            <div th:replace="~{Component/ProductCardSmall :: product_card_small}"></div>
+            <div th:replace="~{Component/ProductCardSmall :: product_card_small}"></div>
+        </div>
+    </div>
+    <div th:replace="~{Component/Footer :: footer}"></div>
+
+</body>
