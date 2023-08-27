@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/admin.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/adminSidebar.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/adminHeader.css}">
+
+    <!-- 어드민 헤더 -->
+    <div th:replace="~{Component/AdminHeader :: adminHeader}"></div>
+
+    <!-- 어드민 사이드바 -->
+    <div th:replace="~{Component/AdminSidebar :: adminSidebar}"></div>
+
+
+    <!-- <div class="product_card_small" th:each="product : ${sorting}">
+        <div th:replace="~{Component/ProductCardSmall :: product_card_small(${product})}"></div>
+    </div> -->
+
+    <!-- 어드민 재고현황 -->
+    <!-- <div th:replace="~{Component/adminStock :: adminStock}" th:each=" stock : ${allStock}"></div> -->
+
+    <!-- 어드민 발주상태 (완료, 미완료) -->
+    <div th:replace="~{Component/adminHistory :: adminHistory}"></div>
+
+</body>
+</html>

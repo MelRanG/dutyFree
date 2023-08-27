@@ -15,37 +15,38 @@
 
     </head>
     <body>
-        
-        <!-- 어드민 헤더 -->
-        <div th:replace="~{Component/AdminHeader :: adminHeader}"></div>
-        
-        <!-- 어드민 사이드바 -->
-        <div th:replace="~{Component/AdminSidebar :: adminSidebar}"></div>
-
-
         <!-- 재고 관리 -->
-        <div class="admin">
-
+        <div class="admin" th:fragment="adminStock">
             <p class="admin_text">재고 관리</p>
             <br>
             <table id="admin_table">
                 <th class="admin_table_top">카테고리</th>
-                <th class="admin_table_top">제품코드</th>
                 <th class="admin_table_top">브랜드</th>
                 <th class="admin_table_top">제품명</th>
                 <th class="admin_table_top">단가</th>
                 <th class="admin_table_top">재고수량</th>
                 <th class="admin_table_top">발주개수</th>
                 <th class="admin_table_top">발주하기</th>
+                
+                <!-- <tr th:each=" stock : ${allStock}"> -->
                 <tr>
                     <!-- 줄 시작 -->
                     <!-- 타임리프로 전환 시 반복문 돌릴 것 -->
-                    <td class="admin_table_element">1번째 칸</td>
-                    <td class="admin_table_element">2번째 칸</td>
-                    <td class="admin_table_element">3번째 칸</td>
-                    <td class="admin_table_element">4번째 칸</td>
-                    <td class="admin_table_element">5번째 칸</td>
-                    <td class="admin_table_element">6번째 칸</td>
+
+                    <!-- <div class="product_card_small" th:each="product : ${sorting}"> -->
+                    <!-- <span th:text="${product.name}">(24년 7월) 퀵라이너 포 아이즈- Intense Black</span> -->
+
+                    <!-- "name": "블랙 로고패턴 가죽 클러치백",
+                    "brand": "닥스",
+                    "category": "bag",
+                    "price": 366,
+                    "quantity": 30 -->
+
+                    <td class="admin_table_element" th:text="${stock.category}">카테고리</td>
+                    <td class="admin_table_element" th:text="${stock.brand}">브랜드</td>
+                    <td class="admin_table_element" th:text="${stock.name}">제품명</td>
+                    <td class="admin_table_element" th:text="${stock.price}">단가</td>
+                    <td class="admin_table_element" th:text="${stock.quantity}">재고수량</td>
                     <td class="admin_table_element_input">
                         <input
                             type="number"
@@ -58,33 +59,6 @@
                     <td class="admin_table_element">
                         <button id="admin_table_btn">발주</button>
                     </td>
-                </tr>
-            </table>
-            <br>
-            <p class="admin_text">발주 상황</p>
-            <br>
-            <table id="admin_table">
-                <th class="admin_table_top">카테고리</th>
-                <th class="admin_table_top">브랜드</th>
-                <th class="admin_table_top">제품명</th>
-                <th class="admin_table_top">단가</th>
-                <th class="admin_table_top">재고수량</th>
-                <th class="admin_table_top">발주수량</th>
-                <th class="admin_table_top">발주현황</th>  <!-- 발주현황(대기중 일때는 버튼, 완료 상태면 글자로) -->
-                <th class="admin_table_top">책임자</th>
-                <tr>
-                    <!-- 줄 시작 -->
-                    <!-- 타임리프로 전환 시 반복문 돌릴 것 -->
-                    <td class="admin_table_element">1번째 발주</td>
-                    <td class="admin_table_element">2번째 발주</td>
-                    <td class="admin_table_element">3번째 발주</td>
-                    <td class="admin_table_element">4번째 발주</td>
-                    <td class="admin_table_element">5번째 발주</td>
-                    <td class="admin_table_element">6번째 발주</td>
-                    <td class="admin_table_element">
-                        <button id="admin_table_btn">입고 확인</button>
-                    </td>
-                    <td class="admin_table_element">구혜지</td>
                 </tr>
             </table>
         </div>
