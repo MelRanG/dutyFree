@@ -15,9 +15,7 @@
 }
 
 #admin_table_input {
-    width: 15%;
-    /* box-sizing: border-box; */
-    /* height: 100px; */
+    width: 30%;
 }
 
 #admin_table_btn {
@@ -30,4 +28,10 @@
 
 .admin_text {
     font-weight: bold;
+}
+
+.admin_table_element_input{
+    width: 8%;
+    text-align: center;
+    border: 1px solid #444444;
 }
