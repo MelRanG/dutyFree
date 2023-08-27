@@ -13,4 +13,5 @@ import java.util.Optional;
 public interface PurchaseRepository extends JpaRepository<Purchase, Long> {
     @Query("select p from Purchase p join fetch p.purchaseDetails where p.member.id=:memberId")
     Optional<List<Purchase>> findByMemberId(String memberId);
+
 }

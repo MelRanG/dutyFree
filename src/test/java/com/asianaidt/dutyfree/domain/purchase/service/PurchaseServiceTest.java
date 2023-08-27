@@ -54,7 +54,7 @@ class PurchaseServiceTest {
 
     @Test
     @DisplayName("구매 하기")
-    void purchase() {
+    void purchase() throws InterruptedException {
         PurchaseDto purchaseDto = new PurchaseDto();
         purchaseDto.setQuantity(10);
 

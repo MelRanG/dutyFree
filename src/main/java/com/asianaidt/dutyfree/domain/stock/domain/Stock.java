@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.util.List;
@@ -25,6 +26,7 @@ public class Stock {
     @OneToMany(mappedBy = "stock")
     private List<StockManager> stockManagers;
     @Version
+    @ColumnDefault("0")
     private Long version;
 
     public void decrease(int quantity) {
