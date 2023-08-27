@@ -66,7 +66,7 @@ public class ProductController {
     ) {
         Page<ProductListDto> sorting = productService.getProductByCategoryId(categoryId, sort, pageable);
         model.addAttribute("sorting", sorting);
-        return null;
+        return "productList";
 //        return ResponseEntity.ok(page);
     }
 
