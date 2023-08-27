@@ -108,13 +108,11 @@ public class PurchaseService {
     }
 
     @Transactional
-    public void purchase(Member member, Long productId, PurchaseDto purchaseDto) throws InterruptedException {
+    public void purchase(Member member, Long productId, int quantity) {
         Optional<Product> product = productRepository.findById(productId);
         Optional<Stock> stock = stockRepository.findByProductId(productId);
 
         if(product.isPresent() && stock.isPresent()) {
-            int totalAmount = purchaseDto.getQuantity();
-
             Purchase purchase = Purchase.builder()
                     .regDate(LocalDateTime.now())
                     .member(member)
@@ -122,36 +120,30 @@ public class PurchaseService {
 
             purchaseRepository.save(purchase);
 
-            if (purchaseDto.getDetailList() == null) {
+            log.info("stockId= {}", stock.get().getId());
 
-                log.info("stockId= {}", stock.get().getId());
+//                stockService.decrease(stock.get().getId(), (long) totalAmount);
 
-                stockService.decrease(stock.get().getId(),totalAmount);
+            PurchaseDetail purchaseDetail = PurchaseDetail.builder()
+                    .purchase(purchase)
+                    .quantity(quantity)
+                    .product(product.get())
+                    .build();
 
-                PurchaseDetail purchaseDetail = PurchaseDetail.builder()
-                        .purchase(purchase)
-                        .quantity(totalAmount)
-                        .product(product.get())
-                        .build();
+            purchaseDetailRepository.save(purchaseDetail);
 
-                purchaseDetailRepository.save(purchaseDetail);
+            PurchaseLog purchaseLog = PurchaseLog.builder()
+                    .regDate(LocalDateTime.now())
+                    .price(product.get().getPrice() * quantity)
+                    .brand(product.get().getBrand())
+                    .productName(product.get().getName())
+                    .productId(product.get().getId())
+                    .quantity(quantity)
+                    .category(product.get().getCategory())
+                    .build();
 
-                PurchaseLog purchaseLog = PurchaseLog.builder()
-                        .regDate(LocalDateTime.now())
-                        .price(product.get().getPrice() * totalAmount)
-                        .brand(product.get().getBrand())
-                        .productName(product.get().getName())
-                        .productId(product.get().getId())
-                        .quantity(totalAmount)
-                        .category(product.get().getCategory())
-                        .build();
+            purchaseLogRepository.save(purchaseLog);
 
-                purchaseLogRepository.save(purchaseLog);
-
-            }
-
-            purchase.setTotalAmount(totalAmount);
-            purchaseRepository.save(purchase);
         }
     }
 
