@@ -23,12 +23,6 @@ a {
     justify-content: space-around;
 }
 
-.pay_table {
-    display: flex;
-    height: 470px;
-    width: 21vw;
-}
-
 .cart_content {
     width: 52vw;
     height: 470px;
@@ -101,6 +95,8 @@ a {
 
 .pay_table {
     display: flex;
+    height: 470px;
+    width: 21vw;
     flex-direction: column;
     align-items: center;
     border-top: 5px solid black;
