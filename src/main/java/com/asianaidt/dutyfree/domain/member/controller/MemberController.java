@@ -2,6 +2,7 @@ package com.asianaidt.dutyfree.domain.member.controller;
 
 import com.asianaidt.dutyfree.domain.member.domain.Member;
 import com.asianaidt.dutyfree.domain.member.dto.MemberRequestDto;
+import com.asianaidt.dutyfree.domain.member.dto.MemberResponseDto;
 import com.asianaidt.dutyfree.domain.member.service.MemberService;
 import com.asianaidt.dutyfree.domain.purchase.domain.Purchase;
 import com.asianaidt.dutyfree.domain.purchase.domain.PurchaseDetail;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @RequestMapping("/member")
@@ -24,20 +26,29 @@ public class MemberController {
     //    로그인 페이지 이동
     @GetMapping("/login")
     public String login(){
-        return "productDetail";
+        return "Login";
     }
 
     //    로그인 로직
     @PostMapping("/login")
     public String login(HttpSession session, @RequestParam String id, @RequestParam String password, Model model){
-        boolean success = memberService.login(id, password);
-        System.out.println(success);
-        if(success) {
-            // 임시 로그인 로직
-            session.setAttribute("member",new Member(id, password));
-            model.addAttribute("userId", id);
+        Optional<Member> member = memberService.login(id, password);
+
+        if(member.isPresent()) {
+            MemberResponseDto responseDto = MemberResponseDto.builder()
+                    .id(member.get().getId())
+                    .name(member.get().getName())
+                    .build();
+            session.setAttribute("user", responseDto);
         }
-        return "test";
+
+        return "redirect:/";
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/";
     }
 
     // 회원가입 페이지 이동

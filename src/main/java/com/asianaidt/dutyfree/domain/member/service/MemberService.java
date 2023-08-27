@@ -29,25 +29,8 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final FlightRepository flightRepository;
 
-    public boolean login(String id, String password){
-//        Member member = Member.builder()
-//                .id("hihi")
-//                .phoneNumber("123")
-//                .birth("서울")
-//                .password("123")
-//                .name("곽두팔")
-//                .build();
-//        memberRepository.save(member);
-
-
-        boolean a = false;
-        Member member = memberRepository.findById(id).orElseThrow(() -> new StandardException("message"));
-        System.out.println(member);
-        //사용자 자체가 없을 때 || 비밀번호가 다를 때
-        if(member==null || !member.getPassword().equals(password)){
-            return false;
-        }
-        return true;
+    public Optional<Member> login(String id, String password){
+        return memberRepository.findById(id);
     }
 
     public boolean checkId(String id){
