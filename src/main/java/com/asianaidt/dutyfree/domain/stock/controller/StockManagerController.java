@@ -6,6 +6,7 @@ import com.asianaidt.dutyfree.domain.purchase.dto.BrandSalesDto;
 import com.asianaidt.dutyfree.domain.purchase.dto.MonthlySalesDto;
 import com.asianaidt.dutyfree.domain.stock.dto.StockManagerRequestDto;
 import com.asianaidt.dutyfree.domain.stock.service.StockManagerService;
+import com.asianaidt.dutyfree.domain.stock.service.StockService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
@@ -23,6 +24,7 @@ import java.util.Map;
 public class StockManagerController {
     private final StockManagerService stockManagerService;
     private final PurchaseService purchaseService;
+    private final StockService stockService;
 
     /*
     INPUT
@@ -68,6 +70,21 @@ public class StockManagerController {
     @GetMapping("/stock")
     public String getStockManagerList(Pageable pageable, Model model){
         model.addAttribute("stockManagerList",stockManagerService.getStockManagerList(pageable));
+        return "Admin";
+    }
+    /*
+    INPUT
+    pageable
+    OUTPUT
+    String name;
+    String brand;
+    String category;
+    int price;
+    int quantity;
+     */
+    @GetMapping("/product/list")
+    public String getProductStockList(Model model, Pageable pageable){
+        model.addAttribute(stockService.getProductStockList(pageable));
         return "Admin";
     }
 

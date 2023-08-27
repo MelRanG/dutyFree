@@ -36,4 +36,5 @@ public class StockManagerService {
         return stockManagerRepository.findAll(pageable);
     }
 
+
 }
