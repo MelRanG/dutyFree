@@ -1,9 +1,7 @@
 package com.asianaidt.dutyfree.domain.purchase.controller;
 
 import com.asianaidt.dutyfree.domain.member.domain.Member;
-import com.asianaidt.dutyfree.domain.product.dto.ProductDto;
 import com.asianaidt.dutyfree.domain.product.service.ProductService;
-import com.asianaidt.dutyfree.domain.purchase.dto.CartProductDto;
 import com.asianaidt.dutyfree.domain.purchase.dto.PurchaseDto;
 import com.asianaidt.dutyfree.domain.purchase.service.PurchaseService;
 import lombok.RequiredArgsConstructor;
@@ -14,8 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
