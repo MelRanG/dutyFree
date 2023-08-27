@@ -10,6 +10,7 @@ import com.asianaidt.dutyfree.domain.stock.service.StockManagerService;
 import com.asianaidt.dutyfree.domain.stock.service.StockService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +27,22 @@ public class StockManagerController {
     private final StockManagerService stockManagerService;
     private final PurchaseService purchaseService;
     private final StockService stockService;
+
+    @GetMapping()
+    public String admin(Model model, Pageable pageable){
+
+        model.addAttribute("allStock", stockService.getProductStockList(pageable));
+
+//        model.addAttribute("stockManagerList",stockManagerService.getStockManagerList(pageable, status)); // 프로그레스
+
+//        model.addAttribute("stockManagerList",stockManagerService.getStockManagerList(pageable, status));
+
+        return "Admin";
+    }
+
+
+
+
 
     /*
     INPUT
@@ -71,7 +88,20 @@ public class StockManagerController {
     @GetMapping("/stock")
     public String getStockManagerList(Pageable pageable, Model model, @RequestParam StockStatus status){
         model.addAttribute("stockManagerList",stockManagerService.getStockManagerList(pageable, status));
-        return "Admin";
+
+        if (status.equals(StockStatus.PROGRESS)) {
+            return "AdminStock"; // 입고 미완료 일때
+        } else {
+            return "AdminHistory"; // 입고 완료일 때
+        }
+    }
+    @GetMapping("/stock/test")
+//    public String getStockManagerList(Pageable pageable, Model model, @RequestParam StockStatus status){
+    public ResponseEntity<?> getStockManagerListTest(Pageable pageable, Model model, @RequestParam StockStatus status){
+
+        model.addAttribute("stockManagerList",stockManagerService.getStockManagerList(pageable, status));
+
+        return ResponseEntity.ok(stockManagerService.getStockManagerList(pageable,status));
     }
     /*
     INPUT
@@ -83,12 +113,17 @@ public class StockManagerController {
     int price;
     int quantity;
      */
+
     @GetMapping("/product/list")
     public String getProductStockList(Model model, Pageable pageable){
-        model.addAttribute(stockService.getProductStockList(pageable));
-        return "Admin";
+        model.addAttribute("allStock", stockService.getProductStockList(pageable));
+        return "AdminStock";
     }
-
+    @GetMapping("/product/list/test")
+    public ResponseEntity<?> getProductStockListTest(Model model, Pageable pageable){
+        model.addAttribute(stockService.getProductStockList(pageable));
+        return ResponseEntity.ok(stockService.getProductStockList(pageable));
+    }
     @GetMapping("/sales/total")
     @ResponseBody
     public Map<String, Integer> calculateTotalAmount() {

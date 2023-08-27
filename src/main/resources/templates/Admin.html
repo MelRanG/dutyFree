@@ -24,9 +24,13 @@
 
     <!-- 어드민 재고현황 -->
     <!-- <div th:replace="~{Component/adminStock :: adminStock}" th:each=" stock : ${allStock}"></div> -->
+    <!-- <div  th:each=" stock : ${allStock}"> -->
+    <div th:replace="~{Component/AdminStock :: adminStock}"></div>
+    <!-- </div> -->
 
     <!-- 어드민 발주상태 (완료, 미완료) -->
-    <div th:replace="~{Component/adminHistory :: adminHistory}"></div>
+    <!-- <div th:replace="~{Component/adminHistory :: adminHistory}"></div> -->
+    <div th:replace="~{Component/AdminHistory :: adminHistory}"></div>
 
 </body>
 </html>
