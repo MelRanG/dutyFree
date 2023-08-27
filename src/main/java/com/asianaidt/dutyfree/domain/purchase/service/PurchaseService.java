@@ -108,7 +108,7 @@ public class PurchaseService {
     }
 
     @Transactional
-    public void purchase(Member member, Long productId, int quantity) {
+    public void purchase(Member member, Long productId, int quantity) throws InterruptedException {
         Optional<Product> product = productRepository.findById(productId);
         Optional<Stock> stock = stockRepository.findByProductId(productId);
 
@@ -122,7 +122,7 @@ public class PurchaseService {
 
             log.info("stockId= {}", stock.get().getId());
 
-//                stockService.decrease(stock.get().getId(), (long) totalAmount);
+                stockService.decrease(stock.get().getId(), quantity);
 
             PurchaseDetail purchaseDetail = PurchaseDetail.builder()
                     .purchase(purchase)
