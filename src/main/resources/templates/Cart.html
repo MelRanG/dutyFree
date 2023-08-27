@@ -32,8 +32,8 @@
             <div class="title_div">
                 <ul class="title_tab">
                     <li><a href="/cart">장바구니</a></li>
-                    <li><a href="/passport">여권정보</a></li>
-                    <li><a href="/departure">출국정보</a></li>
+                    <li><a href="">여권정보</a></li>
+                    <li><a href="">출국정보</a></li>
                     <li><a href="">주문결재</a></li>
                 </ul>
             </div>
@@ -74,42 +74,31 @@
                 </div>
 
                 <div class="pay_table">
-                    <div class="pay_title">예상 주문 금액</div>
-                    <br/>
-                    <div class="pay_list">
-                        <div class="total_pay" th:if="${products} != null">
-                            <dl>
-                                <dt>주문금액합계</dt>
-                                <dd th:text="${#aggregates.sum(products.![quantity * price])}" id="total">0</dd>
-                            </dl>
-                            <dl>
-                                <dt>예상할인금액</dt>
-                                <dd>0</dd>
-                            </dl>
-                            <dl th:if="${products} !=null">
-                                <dt>총 <span th:text="${#aggregates.sum(products.![quantity])}">0</span>개</dt>
-                                <dd th:text="${#aggregates.sum(products.![quantity * price])}" >0</dd>
-                            </dl>
+                    <div th:if="${products} != null">
+                        <div class="pay_title">예상 주문 금액</div>
+                        <br/>
+                        <div class="pay_list">
+                            <div class="total_pay">
+                                <dl>
+                                    <dt>주문금액합계</dt>
+                                    <dd th:text="${#aggregates.sum(products.![quantity * price])}" id="total">0</dd>
+                                </dl>
+                                <dl>
+                                    <dt>예상할인금액</dt>
+                                    <dd>0</dd>
+                                </dl>
+                                <dl th:if="${products} !=null">
+                                    <dt>총 <span th:text="${#aggregates.sum(products.![quantity])}">0</span>개</dt>
+                                    <dd th:text="${#aggregates.sum(products.![quantity * price])}" >0</dd>
+                                </dl>
+                            </div>
                         </div>
-                        <div class="total_pay" th:unless="${products} != null">
-                            <dl>
-                                <dt>주문금액합계</dt>
-                                <dd>0</dd>
-                            </dl>
-                            <dl>
-                                <dt>예상할인금액</dt>
-                                <dd>0</dd>
-                            </dl>
-                            <dl>
-                                <dt>총<span>0</span>개</dt>
-                                <dd>0</dd>
-                            </dl>
+                        <div class="cart_btn_box">
+                            <button class="cart_buy_button" onclick="location.href='/passport'">구매하기</button>
                         </div>
                     </div>
-                    <div class="cart_btn_box">
-                        <button class="cart_buy_button" th:onclick="|location.href='@{/purchase}'|">구매하기</button>
                     </div>
-                </div>
+
             </div>
         </div>
     </div>

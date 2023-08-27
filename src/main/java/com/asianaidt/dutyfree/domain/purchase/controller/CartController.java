@@ -66,6 +66,11 @@ public class CartController {
         return "Departure";
     }
 
+    @GetMapping("/purchase")
+    public String purchasePage(Model model) {
+        return "Purchase";
+    }
+
     @PostMapping("/purchase")
     public String purchase(HttpSession session, @RequestBody PurchaseDto purchaseDto) throws InterruptedException {
         Member member = (Member) session.getAttribute("member");

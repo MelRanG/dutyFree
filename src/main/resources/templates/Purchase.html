@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>아시아나IDT- DUTYFREE</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/product_detail.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/cart.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/passport.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/departure.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/header.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/footer.css}">
+
+
+    <link rel="stylesheet" type="text/css" href="../static/css/product_detail.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/departure.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/cart.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/passport.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/reset.css">
+
+    <!-- 부트스트랩 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+</head>
+
+<body class="main_body_style">
+
+<div th:replace="~{Component/Header :: header(${category})}"></div>
+
+    <div class="cart_body">
+        <div class="cart_box">
+            <div class="title_div">
+                <ul class="title_tab">
+                    <li><a href="">장바구니</a></li>
+                    <li><a href="">여권정보</a></li>
+                    <li><a href="">출국정보</a></li>
+                    <li><a href="">주문결재</a></li>
+                </ul>
+            </div>
+
+            <div class="page_content">
+                <div class="passport_content">
+                    <div class="departure_title">주문 및 결재 정보</div>
+                    <div class="departure_area">
+                        <div class="departure_box">
+                            <div>주문이 완료되었습니다.</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="login_box">                 
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:replace="~{Component/Footer :: footer}"></div>
+</body>
+
+</html>
