@@ -64,6 +64,8 @@
             return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }
 
+
+        //카트에 담는 함수
         function addCart() {
             console.log("카트에 담기");
             const quantity = document.getElementById('quantity2').innerText;
@@ -107,9 +109,59 @@
 
             if (confirmation) {
                 // 사용자가 확인 버튼을 눌렀을 때의 동작
-                window.location.href = "/Main"; // 장바구니 페이지로 이동
+                window.location.href = "/Cart"; // 장바구니 페이지로 이동
             }
 
+        }
+
+        function buy() {
+            console.log("카트에 담기");
+            const quantity = document.getElementById('quantity2').innerText;
+            console.log(quantity);
+            const productId = 1;
+
+            //cart 불러오기
+            let cart = JSON.parse(sessionStorage.getItem("cart")) || [];
+
+            // 기존의 카트 데이터를 세션 스토리지에서 가져오기
+            console.log(cart);
+            // 추가할 product 객체
+            let newProduct = { productId: productId, quantity: quantity };
+
+            let existingProductIndex = -1;
+            for (let i = 0; i < cart.length; i++) {
+                if (cart[i].productId === newProduct.productId) {
+                    existingProductIndex = i;
+                    break;
+                }
+            }
+
+            if (existingProductIndex !== -1) {
+                cart[existingProductIndex].quantity += quantity;
+            } else {
+                // 새로운 product 추가
+                newProduct.quantity = quantity;
+                cart.push(newProduct);
+            }
+
+            // 변경된 카트 데이터를 세션 스토리지에 저장
+            sessionStorage.setItem("cart", JSON.stringify(cart));
+            window.location.href = "/Cart"
+        }
+
+        function goCartWithCart() {
+            $.ajax({
+                url: '/cart',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(data),
+                success: function (result) {
+                    console.log(result);
+                },
+                error: function (error) {
+                    console.error('Error: ', error);
+                }
+            });
         }
     </script>
 </head>
@@ -146,7 +198,7 @@
                 <div class="detail_button_box">
                     <button class="detail_cart_btn" onclick="addCart()"><img id="cartIcon"
                             th:src="@{/img/icon/shopping-cart.png}" alt="product_image"></button>
-                    <button class="detail_buy_btn" onclick="addCart()">바로 구매</button>
+                    <button class="detail_buy_btn" onclick="buy()">바로 구매</button>
                 </div>
             </div>
         </div>

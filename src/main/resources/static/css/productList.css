@@ -1,13 +1,9 @@
-.product_five_card {
+.product_list_card {
   width: 80vw;
   margin-bottom: 50px;
-}
-
-.product_four_card {
-  width: 80vw;
-  margin-bottom: 50px;
-  padding-top: 30px;
-  padding-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .title_flex {
@@ -28,12 +24,13 @@
   font-weight: 600;
 }
 
-.card_flex {
+.detail_card_flex {
+  width: 100%;
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  width: 100%;
 }
+
 .list_body_style {
   display: flex;
   flex-direction: column;
