@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>아시아나IDT- DUTYFREE</title>
-    <link rel="stylesheet" type="text/css" href="../../static/css/productList.css">
-    <link rel="stylesheet" type="text/css" href="../../static/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/productList.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/reset.css">
     <link rel="stylesheet" type="text/css" th:href="@{/css/reset.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/header.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/footer.css}">
@@ -25,8 +25,54 @@
     <div class="product_list_card">
 
         <div class="title_flex">
-            <div class="title">RECENT ITEM</div>
+            <div class="title">스킨케어 / 메이크업</div>
         </div>
+
+        <div class="search_table_div">
+            <table class="search_table">
+                <tr class="search_shopping_info">
+                    <th class="search_title"> 쇼핑정보 </th>
+                    <td class="search_content">
+                        <button class="search_button">세일</button>
+                        <button class="search_button">품절상품제외</button>
+                    </td>
+                </tr>
+                <tr class="search_price">
+                    <th class="search_title" rowspan="2">가격</th>
+                    <td class="search_content">
+                        <button class="search_button">$ 1~100</button>
+                        <button class="search_button">$ 100~200</button>
+                        <button class="search_button">$ 200~300</button>
+                        <button class="search_button">$ 300~400</button>
+                        <button class="search_button">$ 400~500</button>
+                        <button class="search_button">~ $ 500</button>
+                    </td>
+                </tr>
+                <tr class="search_price_input">
+                    <td class="search_content_input">
+                        <div class="search_price_self">
+                            직접 입력
+                            $ <input class="search_value_input" type="text" name="min">
+                            ~
+                            $ <input class="search_value_input" type="text" name="max">
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+
+            <div class="button_list">
+                <button class="search_back_btn">초기화</button>
+                <button class="search_result_btn">적용</button>
+            </div>
+        </div>
+
+        <select name="sortOption" id="sortOption">
+            <option class="sort_option" value="sortbyPriceAsc">낮은 가격순</option>
+            <option class="sort_option" value="sortbyPriceDesc">높은 가격순</option>
+            <option class="sort_option" value="sortbyDateAsc">신상품순</option>
+        </select>
+
         <div class="detail_card_flex">
             <!-- product 5개짜리 채워주면 됨. -->
             <div th:replace="~{Component/ProductCardSmall :: product_card_small}"></div>
