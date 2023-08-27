@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" href="../static/css/signup.css">
     <link rel="stylesheet" type="text/css" th:href="@{/css/reset.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/signup.css}">
-
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
     <script>
         let agree = false;
 
@@ -26,6 +26,26 @@
 
         //아이디 중복체크 로직 들어갈 공간
         function checkId() {
+            var memberId = document.getElementById('id').value;
+                $.ajax({
+                    url: "http://localhost:8080/member/check/id/"+ memberId, // 서버 API URL을 입력하세요.
+                    type: 'GET',
+                    success: function(result){
+                    // #data 요소에 서버로부터 받은 데이터를 삽입합니다.
+                        console.log(result);
+                        if(result.result){
+                            alert("사용가능한 아이디입니다.");
+                            $('#signup_submit').css('display', 'block');
+                        }else{
+                            alert("중복된 아이디입니다.");
+                            $('#signup_submit').css('display', 'none');
+                        }
+                    },
+                    error: function(error){
+                    console.log("Error", error);
+                    alert("An error occurred");
+                    }
+                });
             console.log("test");
         }
 
@@ -33,6 +53,18 @@
         function signUp() {
             // 생년월일 파트 캘린더 클릭하는거 안만들어뒀는데 만드는거 오래걸릴것같으면 말해유 그럼 나 옛날 코드 찾아볼게
 
+        }
+
+        function validatePassword(){
+            var p1 = document.getElementById('password1').value;
+            var p2 = document.getElementById('password2').value;
+            if(p1 !== p2){
+                document.getElementById("passwordCheck").innerHTML='비밀번호가 일치하지 않습니다.'
+                document.getElementById("passwordCheck").style.color='red'
+            }else{
+                document.getElementById("passwordCheck").innerHTML='비밀번호가 일치합니다.'
+                document.getElementById("passwordCheck").style.color='blue'
+            }
         }
     </script>
 </head>
@@ -86,7 +118,7 @@
                         </tr>
                         <tr class="signup_tr">
                             <th class="signup_th">생년월일</th>
-                            <td class="signup_td"><input class="signup_input" type="text" name="birth"></td>
+                            <td class="signup_td"><input class="signup_input" type="date" name="birth" id="birthdate"></td>
                         </tr>
                         <tr class="signup_tr">
                             <th class="signup_th">휴대폰 번호</th>
@@ -94,18 +126,18 @@
                         </tr>
                         <tr class="signup_tr">
                             <th class="signup_th">아이디</th>
-                            <td class="signup_td"><input class="signup_input" type="text" name="id"></td>
+                            <td class="signup_td"><input class="signup_input" type="text" name="id" id="id"></td>
                             <td class="signup_td">
                                 <button class="signup_check" type="button" onclick="checkId()">중복확인</button>
                             </td>
                         </tr>
                         <tr class="signup_tr">
                             <th class="signup_th">비밀번호</th>
-                            <td class="signup_td"><input class="signup_input" type="text" name="password"></td>
+                            <td class="signup_td"><input class="signup_input" type="text" name="password" id="password1" onchange="validatePassword()"></td>
                         </tr>
                         <tr class="signup_tr">
                             <th class="signup_th">비밀번호 확인</th>
-                            <td class="signup_td"><input class="signup_input" type="text" name="passwordConfirm"></td>
+                            <td class="signup_td"><input class="signup_input" type="text" name="passwordConfirm" id="password2" onchange="validatePassword()"> &nbsp;<div id="passwordCheck"></div></td> </td>
                         </tr>
                     </table>
                 </form>

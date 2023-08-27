@@ -36,10 +36,7 @@ public class MemberService {
     public boolean checkId(String id){
         Member member = memberRepository.findById(id).orElse(null);
         //아이디가 중복되지 않으면
-        if(member==null){
-            return true;
-        }
-        return false;
+        return member == null;
     }
 
     public boolean signUp(MemberRequestDto memberRequestDto){

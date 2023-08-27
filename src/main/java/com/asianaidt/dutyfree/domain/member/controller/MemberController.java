@@ -7,14 +7,15 @@ import com.asianaidt.dutyfree.domain.member.service.MemberService;
 import com.asianaidt.dutyfree.domain.purchase.domain.Purchase;
 import com.asianaidt.dutyfree.domain.purchase.domain.PurchaseDetail;
 import com.asianaidt.dutyfree.domain.purchase.service.PurchaseService;
-import com.asianaidt.dutyfree.global.error.StandardException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -54,19 +55,17 @@ public class MemberController {
     // 회원가입 페이지 이동
     @GetMapping("/signup")
     public String signUp(){
-        return "Signup";
+        return "SignUp";
     }
 
     @GetMapping("/check/id/{id}")
-    public String checkId(@PathVariable String id, Model model){
-        try{
-            boolean success = memberService.checkId(id);
-            model.addAttribute("checkId", success);
-            System.out.println(success);
-        }catch (StandardException e){
-            model.addAttribute("error", e.getMessage());
-        }
-        return "test";
+    @ResponseBody
+    public Map<String, Boolean> checkId(@PathVariable String id){
+        boolean result = memberService.checkId(id);
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("result", result);
+        System.out.println(result);
+        return response;
     }
 
     //회원가입 로직
