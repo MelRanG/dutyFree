@@ -7,25 +7,107 @@
     <title>아시아나IDT- DUTYFREE</title>
     <link rel="stylesheet" type="text/css" href="../../static/css/header.css">
     <link rel="stylesheet" type="text/css" href="../../static/css/reset.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        const API_KEY = "wPnhtZf2C5wBS4dIvnpMulIU7xYNZ2UG"
+        // $(document).ready(function () {
+        //     let today = new Date();
+        //     var year = today.getFullYear();
+        //     var month = ('0' + (today.getMonth() + 1)).slice(-2);
+        //     var day = ('0' + today.getDate()).slice(-2);
 
+        //     var searchdate = year + month + day;
+        //     var value = [];
+        //     var count = 0;
+        //     while (count <= 5 && value.length == 0) {
+        //         count++;
+        //         $.ajax({
+        //             url: `https://www.koreaexim.go.kr/site/program/financial/exchangeJSON?authkey=${API_KEY}&searchdate=${searchdate}&data=AP01`,
+        //             type: 'GET',
+        //             success: function (data) {
+        //                 // API로부터 받아온 데이터를 처리
+        //                 if (data.length != 0) {
+        //                     value = data;
+        //                     console.log(data);
+        //                 } else {
+        //                     today = new Date(today.setDate(today.getDate() - 1));
+        //                     year = today.getFullYear();
+        //                     month = ('0' + (today.getMonth() + 1)).slice(-2);
+        //                     day = ('0' + today.getDate()).slice(-2);
+
+        //                     searchdate = year + month + day;
+        //                     console.log(searchdate);
+        //                 }
+        //                 // 화면에 표시
+        //             },
+        //             error: function () {
+        //                 console.error('Error fetching exchange rates.');
+        //             }
+        //         });
+        //     }
+        // })
+
+        function fetchExchangeRate(searchdate, count) {
+            if (count > 5) {
+                console.error('Max retry count exceeded.');
+                return;
+            }
+
+            $.ajax({
+                url: `https://www.koreaexim.go.kr/site/program/financial/exchangeJSON?authkey=${API_KEY}&searchdate=${searchdate}&data=AP01`,
+                type: 'GET',
+                success: function (data) {
+                    if (data.length !== 0) {
+                        // 데이터가 존재하는 경우 처리
+                        console.log(data);
+                        $('#exchangeRate').text("$1 = " + data[22].tts);
+                    } else {
+                        // 데이터가 없는 경우 날짜 변경 후 재귀 호출
+                        const newDate = new Date(searchdate.substring(0, 4), parseInt(searchdate.substring(4, 6)) - 1, searchdate.substring(6, 8));
+                        newDate.setDate(newDate.getDate() - 1);
+                        const newYear = newDate.getFullYear();
+                        const newMonth = ('0' + (newDate.getMonth() + 1)).slice(-2);
+                        const newDay = ('0' + newDate.getDate()).slice(-2);
+                        const newSearchDate = newYear + newMonth + newDay;
+                        fetchExchangeRate(newSearchDate, count + 1);
+                    }
+
+
+                },
+                error: function () {
+                    console.error('Error fetching exchange rates.');
+                }
+            });
+        }
+
+        $(document).ready(function () {
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = ('0' + (today.getMonth() + 1)).slice(-2);
+            const day = ('0' + today.getDate()).slice(-2);
+            const searchdate = year + month + day;
+
+            fetchExchangeRate(searchdate, 0);
+        });
+    </script>
 </head>
 
 <body>
     <div id="HeaderDiv" th:fragment="header" class="header">
         <div class="header_top">
-            <div class="exchangeRate">$1 = 1346.5원</div>
+            <div class="exchangeRate" id="exchangeRate">$1 = 1346.5원</div>
 
             <!-- 로그인 되어있을 때 내브바 -->
             <div class="nav_bar" th:if="${session.user}!=null">
                 <div class="nav_bar_element">
-                    <div th:text="${session.user.name}님 안녕하세요"></div>
+                    <div th:text="|${session.user.name}님 안녕하세요|"></div>
                 </div>
                 <div class="nav_bar_element"><a th:href="@{/member/logout}">로그아웃</a></div>
                 <div class="nav_bar_element">고객센터</div>
             </div>
 
             <!-- 로그인 안되어있을 때 내브바 -->
-            <div class="nav_bar" th:if="${session.user}==null">
+            <div class="nav_bar" th:unless="${session.user}!=null">
                 <div class="nav_bar_element"><a th:href="@{/member/login}">로그인</a></div>
                 <div class="nav_bar_element"><a th:href="@{/member/signup}">회원가입</a></div>
                 <div class="nav_bar_element">고객센터</div>

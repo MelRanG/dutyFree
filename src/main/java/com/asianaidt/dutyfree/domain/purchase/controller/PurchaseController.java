@@ -1,7 +1,6 @@
 package com.asianaidt.dutyfree.domain.purchase.controller;
 
 import com.asianaidt.dutyfree.domain.member.domain.Member;
-import com.asianaidt.dutyfree.domain.purchase.dto.PurchaseDto;
 import com.asianaidt.dutyfree.domain.purchase.service.PurchaseService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,10 +23,10 @@ public class PurchaseController {
 
     @PostMapping("/{categoryId}/product/{productId}")
     public String purchaseOne(HttpSession session, @PathVariable Long categoryId, @PathVariable Long productId,
-                           @RequestBody PurchaseDto purchaseDto) throws InterruptedException {
+                           @RequestParam int quantity) {
 
         Member member = (Member) session.getAttribute("user");
-        purchaseService.purchase(member, productId, purchaseDto);
+        purchaseService.purchase(member, productId, quantity);
 
         return "test";
     }

@@ -1,0 +1,61 @@
+.passport_content {
+    width: 52vw;
+    height: 470px;
+    display: flex;
+    border-top: 5px solid black;
+    flex-direction: column;
+}
+
+.passport_title {
+    display: flex;
+    font-size: 22px;
+    font-weight: 500;
+    margin: 20px;
+}
+
+.passport_area {
+    display: flex;
+    border-top : 1px solid lightgray;
+    padding-top: 20px;
+    align-items: center;
+    font-size: 16px;
+}
+
+.form_list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.form_list li{
+    margin-right: 5vw;
+}
+
+.form_input {
+    width: 18vw;
+    height: 5vh;
+}
+
+.checking {
+    color: red;
+}
+
+.login_box {
+    display: flex;
+    height: 470px;
+    width: 21vw;
+    flex-direction: column;
+    align-items: center;
+    border-top: 5px solid black;
+    padding-top: 4%;
+    font-size: 16px;
+}
+
+.login_btn {
+    margin: 40px;
+}
+
+.login_btn_name {
+    border: 1px solid black;
+    padding: 15px 20px;
+}
+

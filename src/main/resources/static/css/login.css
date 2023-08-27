@@ -1,0 +1,95 @@
+.login_body {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login_box {
+  width: 40vw;
+  height: 470px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo_small {
+  width: 130px;
+  margin-left: 12px;
+}
+
+#login_form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login_title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #474747;
+}
+
+.login_input {
+  width: 250px;
+  height: 45px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #474747;
+  border: 0;
+  outline: none;
+  padding-left: 20px;
+  padding-right: 50px;
+  background-color: #f7f7f7;
+  font-family: "Noto Sans KR", sans-serif;
+  margin: 10px 0px;
+}
+
+input::placeholder {
+  color: #b8b8b8;
+}
+
+.login_submit {
+  background-color: #454b52;
+  width: 320px;
+  height: 45px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  color: white;
+  border: 0;
+  margin-top: 15px;
+}
+
+.login_menu {
+  width: 320px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.login_link {
+  font-size: 14px;
+  font-weight: bold;
+  color: #474747;
+}
+
+.etc {
+  font-size: 14px;
+  font-weight: bold;
+  color: #b8b8b8;
+}
+
+.etc_menu {
+  width: 320px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.etc_link {
+  font-size: 10px;
+  color: #8c8c8c;
+  font-weight: 500;
+}
