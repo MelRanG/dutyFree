@@ -1,0 +1,160 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap");
+
+.product_list_card {
+  width: 80vw;
+  margin-bottom: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title_flex {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  margin-top: 50px;
+}
+
+.title {
+  font-weight: bold;
+  font-size: 28px;
+}
+
+.more {
+  font-size: 14px;
+  color: #474747;
+  font-weight: 600;
+}
+
+.detail_card_flex {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.list_body_style {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.search_table_div {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+  margin-bottom: 120px;
+}
+
+.search_table {
+  border: 0;
+  width: 100%;
+  margin: auto;
+}
+
+.search_shopping_info {
+  height: 75px;
+  border-top: 2px solid #bbbbbb;
+}
+
+.search_price {
+  height: 100px;
+  border-top: 1px solid #b8b8b8;
+}
+.search_price_input {
+  height: 70px;
+  border-bottom: 2px solid #bbbbbb;
+}
+
+.search_title {
+  vertical-align: middle;
+  background-color: #f7f7f7;
+  color: #474747;
+  font-weight: bold;
+  font-size: 16px;
+  font-family: "Noto Sans KR", sans-serif;
+  width: 120px;
+}
+
+.search_button {
+  background-color: #f0f0f0;
+  border: 0;
+  border-radius: 30px;
+  font-weight: 500;
+  font-size: 14px;
+  font-family: "Noto Sans KR", sans-serif;
+  margin: 10px;
+  padding: 10px 30px;
+}
+
+.search_content {
+  vertical-align: middle;
+  padding-left: 40px;
+}
+
+.search_content_input {
+  vertical-align: top;
+  padding-left: 50px;
+}
+
+.button_list {
+  display: flex;
+  margin-top: 20px;
+}
+.search_back_btn {
+  background-color: #f7f7f7;
+  border: 0;
+  border-radius: 5px;
+  font-weight: 600;
+  font-size: 14px;
+  font-family: "Noto Sans KR", sans-serif;
+  margin: 10px;
+  padding: 10px 40px;
+  color: #454b52;
+}
+
+.search_result_btn {
+  background-color: #454b52;
+  border: 0;
+  border-radius: 5px;
+  font-weight: 500;
+  font-size: 14px;
+  font-family: "Noto Sans KR", sans-serif;
+  margin: 10px;
+  padding: 10px 40px;
+  color: white;
+}
+
+.search_price_self {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.search_value_input {
+  border: 1px solid #f7f7f7;
+  padding: 3px 5px;
+  background-color: #f0f0f0;
+  height: 30px;
+  width: 70px;
+  border-radius: 3px;
+  font-family: "Noto Sans KR", sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  color: #474747;
+}
+
+#sortOption {
+  border: 0px;
+  font-weight: 600;
+  padding: 10px;
+  height: 45px;
+  font-size: 14px;
+  align-self: flex-end;
+}
+.sort_option {
+  padding: 5px 3px;
+  border-color: 0;
+}

@@ -5,11 +5,116 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/signup.css">
     <link rel="stylesheet" type="text/css" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/signup.css}">
+
+    <script>
+        let agree = false;
+
+        // 약관동의 관련 이미지 변경 함수
+        function clickAgree() {
+            if (!agree) {
+                document.getElementById("selectIcon").src = "../static/img/icon/selectIcon_agree.png";
+            } else {
+                document.getElementById("selectIcon").src = "../static/img/icon/selectIcon_notAgree.png";
+            }
+            agree = !agree;
+            console.log("test");
+        }
+
+        //아이디 중복체크 로직 들어갈 공간
+        function checkId() {
+            console.log("test");
+        }
+
+        //회원가입 로직 들어갈 공간
+        function signUp() {
+            // 생년월일 파트 캘린더 클릭하는거 안만들어뒀는데 만드는거 오래걸릴것같으면 말해유 그럼 나 옛날 코드 찾아볼게
+
+        }
+    </script>
 </head>
 
 <body>
-    회원가입
+    <div class="signup_body">
+        <div class="signup_box">
+
+            <img class="logo_small" src="/img/main/Logo.png" alt="Logo">
+            <div class="signup_title">회원가입</div>
+            <form id="signup_form" action="">
+
+
+                <!-- 약관 동의 관련 html -->
+                <div class="input_title">약관동의</div>
+                <div class="flex_row_w300">
+                    <img onclick="clickAgree()" id="selectIcon" src="/img/icon/selectIcon_notAgree.png"
+                        alt="product_image">
+                    <div class="agree_title">본인 확인을 위한 약관 모두 동의</div>
+                    <div class="agree_red">(필수)</div>
+                </div>
+
+                <div class="agree_info">
+                    제1조 (목적) <br><br>
+
+                    이 약관은 ㈜아시아나 IDT 면세점이 운영하는 아시아나IDT면세점 사이버 몰(이하 “아시아나IDT인터넷면세점”이라 한다)에서 제공하는 인터넷 관련 서비스(이하 “서비스”라 한다)를
+                    이용함에 있어 사이버 몰과 이용자의 권리∙의무 및
+                    책임사항을 규정함을 목적으로 합니다.<br><br><br>
+
+                    제2조 (정의) <br><br>
+
+                    ① “아시아나IDT인터넷면세점” 이란 ㈜아시아나IDT 아시아나IDT면세점이 재화 또는 용역(이하 “재화 등”이라 함)을 이용자에게 제공하기 위하여 컴퓨터등 정보통신설비를 이용하여
+                    재화 또는 용역 등을 거래할 수 있도록 설정한 가상의 영업장을 말하며, 아울러 사이버몰을 운영하는 사업자의 의미로도 사용합니다.<br><br>
+                    ② “아시아나IDT인터넷면세점회원”(이하 회원이라 함) 이라 함은 아시아나IDT인터넷면세점이 제공하는 서비스를 이용하기로 하여 필요한 이용자ID와 비밀번호를 설정하여
+                    아시아나IDT인터넷면세점과의 서비스이용계약을 체결한 자로서
+                    “아시아나IDT인터넷면세점”의 정보를 지속적으로 제공받으며, “아시아나IDT인터넷면세점”이 제공하는 서비스를 계속적으로 이용할 수 있는 자를 말합니다.<br><br>
+                    아시아나IDT인터넷면세점회원은 “아시아나IDT면세점회원”, “VIP회원”을 포함합니다. 다만 카카오톡, 위챗 등 SNS 채널을 통하여 가입한 자는 추후 회원정보를 등록하여야
+                    정식 회원으로서 아시아나IDT인터넷면세점 서비스를 제한 없이 이용할 수 있습니다.<br><br>
+                    ③ “아시아나IDT면세점회원”이라 함은 아시아나IDT인터넷면세점 사이트를 통해서 회원가입을 함으로써 아시아나IDT인터넷면세점에서 제공되는 서비스만을 제공받을 수 있도록 회원 등록한
+                    자를 말합니다.
+                </div>
+
+
+                <!-- 회원가입을 위한 입력 폼 -->
+                <div class="input_title">기본정보</div>
+                <form action="">
+                    <table class="signup_table">
+                        <tr class="signup_tr">
+                            <th class="signup_th">이름</th>
+                            <td class="signup_td"><input class="signup_input" type="text" name="name"></td>
+                        </tr>
+                        <tr class="signup_tr">
+                            <th class="signup_th">생년월일</th>
+                            <td class="signup_td"><input class="signup_input" type="text" name="birth"></td>
+                        </tr>
+                        <tr class="signup_tr">
+                            <th class="signup_th">휴대폰 번호</th>
+                            <td class="signup_td"><input class="signup_input" type="text" name="phoneNumber"></td>
+                        </tr>
+                        <tr class="signup_tr">
+                            <th class="signup_th">아이디</th>
+                            <td class="signup_td"><input class="signup_input" type="text" name="id"></td>
+                            <td class="signup_td">
+                                <button class="signup_check" type="button" onclick="checkId()">중복확인</button>
+                            </td>
+                        </tr>
+                        <tr class="signup_tr">
+                            <th class="signup_th">비밀번호</th>
+                            <td class="signup_td"><input class="signup_input" type="text" name="password"></td>
+                        </tr>
+                        <tr class="signup_tr">
+                            <th class="signup_th">비밀번호 확인</th>
+                            <td class="signup_td"><input class="signup_input" type="text" name="passwordConfirm"></td>
+                        </tr>
+                    </table>
+                </form>
+                <button class="signup_submit" onclick="signUp()">로그인</button>
+            </form>
+        </div>
+    </div>
+
+
 </body>
 
 </html>

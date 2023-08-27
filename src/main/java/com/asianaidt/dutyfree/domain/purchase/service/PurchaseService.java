@@ -13,11 +13,8 @@ import com.asianaidt.dutyfree.domain.purchase.repository.PurchaseDetailRepositor
 import com.asianaidt.dutyfree.domain.purchase.repository.PurchaseLogRepository;
 import com.asianaidt.dutyfree.domain.purchase.repository.PurchaseRepository;
 import com.asianaidt.dutyfree.domain.stock.domain.Stock;
-import com.asianaidt.dutyfree.domain.purchase.dto.BrandSalesDto;
-import com.asianaidt.dutyfree.domain.purchase.dto.DailySalesDto;
-import com.asianaidt.dutyfree.domain.purchase.dto.MonthlySalesDto;
-import com.asianaidt.dutyfree.domain.stock.facade.OptimisticLockStockFacade;
 import com.asianaidt.dutyfree.domain.stock.repository.StockRepository;
+import com.asianaidt.dutyfree.domain.stock.service.StockService;
 import com.asianaidt.dutyfree.global.error.StandardException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -38,8 +35,7 @@ public class PurchaseService {
     private final PurchaseDetailRepository purchaseDetailRepository;
     private final StockRepository stockRepository;
     private final PurchaseLogRepository purchaseLogRepository;
-    private final OptimisticLockStockFacade stockService;
-
+    private final StockService stockService;
 
     public List<Purchase> getPurchaseList(String memberId) {
         return purchaseRepository.findByMemberId(memberId).orElse(new ArrayList<>());
@@ -54,16 +50,17 @@ public class PurchaseService {
         return details.get();
     }
 
-    public void addPurchaseDetails(Purchase purchase, List<PurchaseDetailDto> detailDtoList) throws InterruptedException {
+    public void addPurchaseDetails(Purchase purchase, List<PurchaseDetailDto> detailDtoList) {
         int totalAmount = 0;
 
         for(PurchaseDetailDto detailDto : detailDtoList) {
             long productId = detailDto.getProductId();
             Optional<Product> product = productRepository.findById(productId);
             Optional<Stock> stock = stockRepository.findByProductId(productId);
+
             if(product.isPresent() && stock.isPresent()) {
                 // 재고 확인
-                stockService.decrease(stock.get().getId(), detailDto.getQuantity());
+//                stockService.decrease(stock.get().getId(), detailDto.getQuantity());
 
                 PurchaseDetail purchaseDetail = PurchaseDetail.builder()
                         .purchase(purchase)
@@ -96,7 +93,7 @@ public class PurchaseService {
     }
 
     @Transactional
-    public void purchaseMany(Member member, PurchaseDto purchaseDto) throws InterruptedException {
+    public void purchaseMany(Member member, PurchaseDto purchaseDto) {
         Purchase purchase = Purchase.builder()
                 .regDate(LocalDateTime.now())
                 .member(member)
@@ -108,13 +105,11 @@ public class PurchaseService {
     }
 
     @Transactional
-    public void purchase(Member member, Long productId, PurchaseDto purchaseDto) throws InterruptedException {
+    public void purchase(Member member, Long productId, int quantity) {
         Optional<Product> product = productRepository.findById(productId);
         Optional<Stock> stock = stockRepository.findByProductId(productId);
 
         if(product.isPresent() && stock.isPresent()) {
-            int totalAmount = purchaseDto.getQuantity();
-
             Purchase purchase = Purchase.builder()
                     .regDate(LocalDateTime.now())
                     .member(member)
@@ -122,53 +117,30 @@ public class PurchaseService {
 
             purchaseRepository.save(purchase);
 
-            if (purchaseDto.getDetailList() == null) {
+            log.info("stockId= {}", stock.get().getId());
 
-                log.info("stockId= {}", stock.get().getId());
+//                stockService.decrease(stock.get().getId(), (long) totalAmount);
 
-                stockService.decrease(stock.get().getId(),totalAmount);
+            PurchaseDetail purchaseDetail = PurchaseDetail.builder()
+                    .purchase(purchase)
+                    .quantity(quantity)
+                    .product(product.get())
+                    .build();
 
-                PurchaseDetail purchaseDetail = PurchaseDetail.builder()
-                        .purchase(purchase)
-                        .quantity(totalAmount)
-                        .product(product.get())
-                        .build();
+            purchaseDetailRepository.save(purchaseDetail);
 
-                purchaseDetailRepository.save(purchaseDetail);
+            PurchaseLog purchaseLog = PurchaseLog.builder()
+                    .regDate(LocalDateTime.now())
+                    .price(product.get().getPrice() * quantity)
+                    .brand(product.get().getBrand())
+                    .productName(product.get().getName())
+                    .productId(product.get().getId())
+                    .quantity(quantity)
+                    .category(product.get().getCategory())
+                    .build();
 
-                PurchaseLog purchaseLog = PurchaseLog.builder()
-                        .regDate(LocalDateTime.now())
-                        .price(product.get().getPrice() * totalAmount)
-                        .brand(product.get().getBrand())
-                        .productName(product.get().getName())
-                        .productId(product.get().getId())
-                        .quantity(totalAmount)
-                        .category(product.get().getCategory())
-                        .build();
+            purchaseLogRepository.save(purchaseLog);
 
-                purchaseLogRepository.save(purchaseLog);
-
-            }
-
-            purchase.setTotalAmount(totalAmount);
-            purchaseRepository.save(purchase);
         }
     }
-
-    public int calculateTotalAmount(){
-        return purchaseLogRepository.findAll().stream()
-                .mapToInt(d -> d.getPrice() * d.getQuantity())
-                .sum();
-    }
-
-    public List<MonthlySalesDto> calculateMonthlySales(){
-        return purchaseLogRepository.findMonthlySales();
-    }
-    public List<BrandSalesDto> calculateBrandSales(){
-        return purchaseLogRepository.findBrandSales();
-    }
-    public List<DailySalesDto> calculateDailySalesForMonth(int year, int month){
-        return purchaseLogRepository.findDailySalesForMonth(year, month);
-    }
-
 }

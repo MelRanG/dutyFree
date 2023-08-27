@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>아시아나IDT- DUTYFREE</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/product_detail.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/cart.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/header.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/footer.css}">
+
+    <link rel="stylesheet" type="text/css" href="../static/css/product_detail.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/cart.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/reset.css">
+
+    <!-- 부트스트랩 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+</head>
+
+<body class="main_body_style">
+
+    <div th:replace="~{Component/Header :: header}"></div>
+
+    <div class="cart_body">
+        <div class="cart_box">
+            <div class="title_div">
+                <ul class="title_tab">
+                    <li><a href="/cart">장바구니</a></li>
+                    <li><a href="/passport">여권정보</a></li>
+                    <li><a href="/departure">출국정보</a></li>
+                    <li><a href="">주문결재</a></li>
+                </ul>
+            </div>
+
+            <div class="page_content">
+                <div class="cart_content">
+                    <div class="item_area" th:if="${products} != null">
+                        <div class="item_content" th:each="product : ${products}">
+                            <div class="item_info">
+                                <div class="item_img">
+                                    <img th:src="@{${product.path}}" src="/src/main/resources/static/img/bag/닥스_블랙 로고패턴 가죽 클러치백.jpg"
+                                    alt="product_image" />
+                                </div>
+                                <div class="item_title">
+                                    <div th:text="${product.name}">겔랑_아베이 로얄 더블 R 리뉴 리페어 어드밴스드 세럼 50mL</div>
+                                    <div class="item_price">
+                                        <div th:text="${product.price}">$22.4</div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                             
+                            <div class="item_buy">
+                                <div class="quantity_box">
+                                    <div class="product_datail_quantity_button">
+                                        <button class="quantity_button" onclick="count('minus');">–</button>
+                                        <div th:text="${product.quantity}" id="quantity">2</div>
+                                        <button class="quantity_button" onclick="count('plus');">+</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="item_area" th:unless="${products} != null">
+                        <div class="notice_box">장바구니가 비어있습니다.</div>
+                    </div>
+                </div>
+
+                <div class="pay_table">
+                    <div class="pay_title">예상 주문 금액</div>
+                    <br/>
+                    <div class="pay_list">
+                        <div class="total_pay" th:if="${products} != null">
+                            <dl>
+                                <dt>주문금액합계</dt>
+                                <dd th:text="${#aggregates.sum(products.![quantity * price])}" id="total">0</dd>
+                            </dl>
+                            <dl>
+                                <dt>예상할인금액</dt>
+                                <dd>0</dd>
+                            </dl>
+                            <dl th:if="${products} !=null">
+                                <dt>총 <span th:text="${#aggregates.sum(products.![quantity])}">0</span>개</dt>
+                                <dd th:text="${#aggregates.sum(products.![quantity * price])}" >0</dd>
+                            </dl>
+                        </div>
+                        <div class="total_pay" th:unless="${products} != null">
+                            <dl>
+                                <dt>주문금액합계</dt>
+                                <dd>0</dd>
+                            </dl>
+                            <dl>
+                                <dt>예상할인금액</dt>
+                                <dd>0</dd>
+                            </dl>
+                            <dl>
+                                <dt>총<span>0</span>개</dt>
+                                <dd>0</dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="cart_btn_box">
+                        <button class="cart_buy_button" th:onclick="|location.href='@{/purchase}'|">구매하기</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:replace="~{Component/Footer :: footer}"></div>
+</body>
+
+</html>
