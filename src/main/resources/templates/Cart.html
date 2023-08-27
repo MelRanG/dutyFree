@@ -31,7 +31,7 @@
         <div class="cart_box">
             <div class="title_div">
                 <ul class="title_tab">
-                    <li><a href="">장바구니</a></li>
+                    <li><a href="/cart">장바구니</a></li>
                     <li><a href="">여권정보</a></li>
                     <li><a href="">출국정보</a></li>
                     <li><a href="">주문결재</a></li>
@@ -80,15 +80,15 @@
                         <div class="total_pay">
                             <dl>
                                 <dt>주문금액합계</dt>
-                                <dd>60,102</dd>
+                                <dd th:text="${#aggregates.sum(products.![quantity * price])}" id="total">60,102</dd>
                             </dl>
                             <dl>
                                 <dt>예상할인금액</dt>
-                                <dd>10,100</dd>
+                                <dd>0</dd>
                             </dl>
                             <dl>
-                                <dt>총 <span>2</span>개</dt>
-                                <dd>50,002</dd>
+                                <dt>총 <span th:text="${#aggregates.sum(products.![quantity])}">2</span>개</dt>
+                                <dd th:text="${#aggregates.sum(products.![quantity * price])}" >50,002</dd>
                             </dl>
                         </div>                        
                     </div>
