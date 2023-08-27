@@ -100,14 +100,14 @@
             <!-- 로그인 되어있을 때 내브바 -->
             <div class="nav_bar" th:if="${session.user}!=null">
                 <div class="nav_bar_element">
-                    <div th:text="${session.user.name}님 안녕하세요"></div>
+                    <div th:text="|${session.user.name}님 안녕하세요|"></div>
                 </div>
                 <div class="nav_bar_element"><a th:href="@{/member/logout}">로그아웃</a></div>
                 <div class="nav_bar_element">고객센터</div>
             </div>
 
             <!-- 로그인 안되어있을 때 내브바 -->
-            <div class="nav_bar" th:if="${session.user}==null">
+            <div class="nav_bar" th:unless="${session.user}!=null">
                 <div class="nav_bar_element"><a th:href="@{/member/login}">로그인</a></div>
                 <div class="nav_bar_element"><a th:href="@{/member/signup}">회원가입</a></div>
                 <div class="nav_bar_element">고객센터</div>
