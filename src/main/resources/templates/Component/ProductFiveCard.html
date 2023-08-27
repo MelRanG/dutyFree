@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>아시아나IDT- DUTYFREE</title>
     <link rel="stylesheet" type="text/css" href="../../static/css/productFiveCard.css">
+    <link rel="stylesheet" type="text/css" href="../../static/css/product_card_small.css">
+
     <link rel="stylesheet" type="text/css" href="../../static/css/reset.css">
 
 </head>
@@ -18,11 +20,11 @@
         </div>
         <div class="card_flex">
             <!-- product 5개짜리 채워주면 됨. -->
-            <div th:replace="~{Component/ProductCard :: product_card}"></div>
-            <div th:replace="~{Component/ProductCard :: product_card}"></div>
-            <div th:replace="~{Component/ProductCard :: product_card}"></div>
-            <div th:replace="~{Component/ProductCard :: product_card}"></div>
-            <div th:replace="~{Component/ProductCard :: product_card}"></div>
+            <div th:replace="~{Component/ProductCardSmall :: product_card_small}"></div>
+            <div th:replace="~{Component/ProductCardSmall :: product_card_small}"></div>
+            <div th:replace="~{Component/ProductCardSmall :: product_card_small}"></div>
+            <div th:replace="~{Component/ProductCardSmall :: product_card_small}"></div>
+            <div th:replace="~{Component/ProductCardSmall :: product_card_small}"></div>
         </div>
     </div>
 </body>
