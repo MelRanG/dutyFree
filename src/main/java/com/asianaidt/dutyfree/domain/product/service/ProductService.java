@@ -12,8 +12,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -29,7 +30,25 @@ public class ProductService {
         return categoryRepository.save(category);
     }
 
+    public List<ProductDto> getRecentProduct() {
+        List<ProductDto> dto = new ArrayList<>();
+        productRepository.findTop5ByOrderByIdDesc().stream().forEach(
+                product -> {
+                   dto.add(new ProductDto(product));
+                }
+        );
+        return dto;
+    }
 
+    public List<ProductDto> getSaleProducts() {
+        List<ProductDto> dto = new ArrayList<>();
+        productRepository.findTop4ByOrderByName().stream().forEach(
+                product -> {
+                    dto.add(new ProductDto(product));
+                }
+        );
+        return dto;
+    }
     public Product addProduct() {
         Product product = Product.builder()
                 .name("bag")

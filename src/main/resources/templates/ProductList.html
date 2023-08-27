@@ -21,7 +21,7 @@
 </head>
 
 <body class="list_body_style">
-    <div th:replace="~{Component/Header :: header}"></div>
+    <div th:replace="~{Component/Header :: header(${category})}"></div>
     <div class="product_list_card">
 
         <div class="title_flex">
@@ -75,17 +75,9 @@
 
         <div class="detail_card_flex">
             <!-- product 5개짜리 채워주면 됨. -->
-            <div th:replace="~{Component/ProductCardSmall :: product_card_small}"></div>
-            <div th:replace="~{Component/ProductCardSmall :: product_card_small}"></div>
-            <div th:replace="~{Component/ProductCardSmall :: product_card_small}"></div>
-            <div th:replace="~{Component/ProductCardSmall :: product_card_small}"></div>
-            <div th:replace="~{Component/ProductCardSmall :: product_card_small}"></div>
-            <div th:replace="~{Component/ProductCardSmall :: product_card_small}"></div>
-            <div th:replace="~{Component/ProductCardSmall :: product_card_small}"></div>
-            <div th:replace="~{Component/ProductCardSmall :: product_card_small}"></div>
-            <div th:replace="~{Component/ProductCardSmall :: product_card_small}"></div>
-            <div th:replace="~{Component/ProductCardSmall :: product_card_small}"></div>
-            <div th:replace="~{Component/ProductCardSmall :: product_card_small}"></div>
+            <div class="product_card_small" th:each="product : ${sorting}">
+                <div th:replace="~{Component/ProductCardSmall :: product_card_small(${product})}"></div>
+            </div>
         </div>
     </div>
     <div th:replace="~{Component/Footer :: footer}"></div>
