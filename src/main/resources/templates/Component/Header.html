@@ -60,7 +60,7 @@
                     if (data.length !== 0) {
                         // 데이터가 존재하는 경우 처리
                         console.log(data);
-                        $('#exchangeRate').text("$1 = " + data[22].tts);
+                        $('#exchangeRate').text("$1 = " + data[22].tts + "원");
                     } else {
                         // 데이터가 없는 경우 날짜 변경 후 재귀 호출
                         const newDate = new Date(searchdate.substring(0, 4), parseInt(searchdate.substring(4, 6)) - 1, searchdate.substring(6, 8));
@@ -99,21 +99,21 @@
 <body>
     <div id="HeaderDiv" th:fragment="header(categories)" class="header">
         <div class="header_top">
-            <div class="exchangeRate" id="exchangeRate">$1 = 1346.5원</div>
+            <div class="exchangeRate" id="exchangeRate">$1 = 원</div>
 
             <!-- 로그인 되어있을 때 내브바 -->
             <div class="nav_bar" th:if="${session.user}!=null">
                 <div class="nav_bar_element">
                     <div th:text="|${session.user.name}님 안녕하세요|"></div>
                 </div>
-                <div class="nav_bar_element"><a th:href="@{/member/logout}">로그아웃</a></div>
+                <div class="nav_bar_element"><a id="a_style" th:href="@{/member/logout}">로그아웃</a></div>
                 <div class="nav_bar_element">고객센터</div>
             </div>
 
             <!-- 로그인 안되어있을 때 내브바 -->
             <div class="nav_bar" th:unless="${session.user}!=null">
-                <div class="nav_bar_element"><a th:href="@{/member/login}">로그인</a></div>
-                <div class="nav_bar_element"><a th:href="@{/member/signup}">회원가입</a></div>
+                <div class="nav_bar_element"><a id="a_style" th:href="@{/member/login}">로그인</a></div>
+                <div class="nav_bar_element"><a id="a_style" th:href="@{/member/signup}">회원가입</a></div>
                 <div class="nav_bar_element">고객센터</div>
             </div>
         </div>
@@ -137,7 +137,7 @@
         <div class="header_category">
             <div th:each="category : ${categories}" class="header_category_flex">
                 <div class="header_category_item">
-                    <a th:href="@{/list/{categoryId}(categoryId= ${category.id})}"><span
+                    <a id="a_style" th:href="@{/list/{categoryId}(categoryId= ${category.id})}"><span
                             th:text="${category.name}"></span></a>
                 </div>
             </div>

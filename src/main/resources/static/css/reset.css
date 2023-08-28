@@ -135,11 +135,26 @@ table {
 }
 
 a {
-  text-decoration: none !important;
-  color: #474747 !important;
+  text-decoration: none;
+  color: #474747;
 }
 
 a:hover {
-  text-decoration: none !important;
-  color: #3c3e71 !important;
+  text-decoration: none;
+  color: #3c3e71;
+}
+
+a {
+  text-decoration: none;
+  color: #474747;
+}
+
+#a_style {
+  text-decoration: none;
+  color: #474747;
+}
+
+#a_style:hover {
+  text-decoration: none;
+  color: #474747;
 }

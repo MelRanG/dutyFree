@@ -16,7 +16,7 @@
     <div class="login_body">
         <div class="login_box">
 
-            <a href="/"><img class="logo_small" th:src="@{/img/main/Logo.png}" alt="Logo"></a>
+            <a id="a_style" href="/"><img class="logo_small" th:src="@{/img/main/Logo.png}" alt="Logo"></a>
             <div class="login_title">로그인</div>
             <form id="login_form" th:action="@{/member/login}" method="post">
                 <input class="login_input" type="text" placeholder="아이디를 입력해주세요." name="id">
@@ -29,7 +29,9 @@
                 <div class="etc">|</div>
                 <div class="login_link">비밀번호 찾기</div>
                 <div class="etc">|</div>
-                <a href="/member/signup"><div class="login_link">회원가입</div></a>
+                <a id="a_style" href="/member/signup">
+                    <div class="login_link">회원가입</div>
+                </a>
             </div>
             <div class="etc_menu">
                 <div class="etc_link">이용약관</div>
