@@ -25,9 +25,60 @@
         integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
-        $(function() {
-            console.log(sessionStorage.getItem("cart"));
-        })
+        $(document).ready(function() {
+            let cartList = JSON.parse(sessionStorage.getItem('cart'));
+            console.log(cartList);
+            
+            if(cartList == null || cartList == undefined) {
+                document.getElementById("cartDiv").style.display = "none";
+                document.getElementById("payDiv").style.display = "none";
+                
+            } else {
+
+                document.getElementById("noticeDiv").style.display = "none";
+
+                let totalAmount = 0;
+                let price = 0;
+                let totalPrice = 0;
+
+                for (product of cartList) {
+                        $('#cartDiv').append(
+                            `<div class="item_content">
+                            <div class="item_info">
+                                <div class="item_img">
+                                    <img 
+                                        src=${product.path}
+                                        alt="product_image" />
+                                </div>
+                                <div class="item_title">
+                                    <div>${product.name}</div>
+                                    <div class="item_price">
+                                        <div>${product.price}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item_buy">
+                                <div class="quantity_box">
+                                    <div class="product_datail_quantity_button">
+                                        <button class="quantity_button" onclick="count('minus');">–</button>
+                                        <div id="quantity">${product.quantity}</div>
+                                        <button class="quantity_button" onclick="count('plus');">+</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>`
+                        );
+
+                        totalAmount += product.quantity;
+                        price += product.price;
+                        totalPrice += product.quantity * product.price;
+                    }
+                    
+                    $('#totalAmount').text(totalAmount);
+                    $('#price').text(price);
+                    $('#totalPrice').text(totalPrice);            
+            }
+        });
     </script>
 </head>
 
@@ -48,57 +99,26 @@
 
             <div class="page_content">
                 <div class="cart_content">
-                    <div class="item_area" th:if="${session.cart} != null">
-                        <div class="item_content" th:each="product : ${session.cart}">
-                            <div class="item_info">
-                                <div class="item_img">
-                                    <img th:src="@{${product.path}}"
-                                        src="/src/main/resources/static/img/bag/닥스_블랙 로고패턴 가죽 클러치백.jpg"
-                                        alt="product_image" />
-                                </div>
-                                <div class="item_title">
-                                    <div th:text="${product.name}">겔랑_아베이 로얄 더블 R 리뉴 리페어 어드밴스드 세럼 50mL</div>
-                                    <div class="item_price">
-                                        <div th:text="${product.price}">$22.4</div>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <div class="item_buy">
-                                <div class="quantity_box">
-                                    <div class="product_datail_quantity_button">
-                                        <button class="quantity_button" onclick="count('minus');">–</button>
-                                        <div th:text="${product.quantity}" id="quantity">2</div>
-                                        <button class="quantity_button" onclick="count('plus');">+</button>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
+                    <div id="cartDiv" class="item_area">
                     </div>
-                    <div class="item_area" th:unless="${session.cart} != null">
+                    <div id="noticeDiv" class="item_area">
                         <div class="notice_box">장바구니가 비어있습니다.</div>
                     </div>
                 </div>
 
                 <div class="pay_table">
-                    <div class="pay_box"  th:if="${session.cart} != null">
+                    <div class="pay_box" id="payDiv">
                         <div class="pay_title">예상 주문 금액</div>
                         <br/>
                         <div class="pay_list">
                             <div class="total_pay">
                                 <dl>
                                     <dt>주문금액합계</dt>
-                                    <dd th:text="${#aggregates.sum(session.cart.![quantity * price])}" id="total">0</dd>
+                                    <dd id="price"></dd>
                                 </dl>
                                 <dl>
-                                    <dt>예상할인금액</dt>
-                                    <dd>0</dd>
-                                </dl>
-                                <dl th:if="${products} !=null">
-                                    <dt>총 <span th:text="${#aggregates.sum(session.cart.![quantity])}">0</span>개</dt>
-                                    <dd th:text="${#aggregates.sum(session.cart.![quantity * price])}" >0</dd>
+                                    <dt>총 <span id="totalAmount"></span>개</dt>
+                                    <span>$<dd id="totalPrice"></dd></span>
                                 </dl>
                             </div>
                         </div>

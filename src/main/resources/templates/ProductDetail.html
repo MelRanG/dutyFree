@@ -66,11 +66,17 @@
 
 
         //카트에 담는 함수
-        function addCart() {
+        function addCart(id) {
             console.log("카트에 담기");
+            const path = document.getElementById('productPath').src;
+            const brand = document.getElementById('productBrand').innerText;
+            const name = document.getElementById('productName').innerText;
             const quantity = document.getElementById('quantity2').innerText;
+            const price = document.getElementById('orPriceDollar').innerText;
+
             console.log(quantity);
-            const productId = 1;
+
+            const productId = id;
 
             //cart 불러오기
             let cart = JSON.parse(sessionStorage.getItem("cart")) || [];
@@ -78,7 +84,14 @@
             // 기존의 카트 데이터를 세션 스토리지에서 가져오기
             console.log(cart);
             // 추가할 product 객체
-            let newProduct = { productId: productId, quantity: quantity };
+            let newProduct = {
+                productId: productId,
+                path : path,
+                brand : brand,
+                name : name,
+                quantity: quantity,
+                price : price
+            };
 
             let existingProductIndex = -1;
             for (let i = 0; i < cart.length; i++) {
@@ -114,11 +127,16 @@
 
         }
 
-        function buy() {
+        function buy(id) {
             console.log("카트에 담기");
+            const path = document.getElementById('productPath').src;
+            const brand = document.getElementById('productBrand').innerText;
+            const name = document.getElementById('productName').innerText;
             const quantity = document.getElementById('quantity2').innerText;
+            const price = document.getElementById('orPriceDollar').innerText;
+
             console.log(quantity);
-            const productId = 1;
+            const productId = id;
 
             //cart 불러오기
             let cart = JSON.parse(sessionStorage.getItem("cart")) || [];
@@ -126,7 +144,14 @@
             // 기존의 카트 데이터를 세션 스토리지에서 가져오기
             console.log(cart);
             // 추가할 product 객체
-            let newProduct = { productId: productId, quantity: quantity };
+            let newProduct = {
+                productId: productId,
+                path : path,
+                brand : brand,
+                name : name,
+                quantity: quantity,
+                price : price
+            };
 
             let existingProductIndex = -1;
             for (let i = 0; i < cart.length; i++) {
@@ -170,12 +195,12 @@
 <div th:replace="~{Component/Header :: header(${category})}"></div>
     <div class="product_detail_body">
         <div class="product_card_big">
-            <img id="product_detail_image" th:src="@{${product.path}}"
+            <img class="product_detail_image" th:src="@{${product.path}}" id="productPath"
                 alt="product_image">
             <div class="product_detail_box">
                 <!-- <div th:text="${product.productId}" id="productId" hidden></div> -->
-                <div class="product_detail_brand" th:text="${product.brand}">크리니크</div>
-                <div class="product_detail_title" th:text="${product.name}">(24년 7월) 퀵라이너 포 아이즈- Intense Black</div>
+                <div class="product_detail_brand" th:text="${product.brand}" id="productBrand">크리니크</div>
+                <div class="product_detail_title" th:text="${product.name}" id="productName">(24년 7월) 퀵라이너 포 아이즈- Intense Black</div>
                 <div class="price_detail_flex">
                     <div class="product_datail_quantity_button">
                         <button class="quantity_button" onclick="count('minus');">–</button>
@@ -196,16 +221,16 @@
                     <div id="totalPrice">30,051원</div>
                 </div>
                 <div class="detail_button_box">
-                    <button class="detail_cart_btn" onclick="addCart()"><img id="cartIcon"
+                    <button class="detail_cart_btn" th:onclick="|addCart(${product.id})|"><img id="cartIcon"
                             th:src="@{/img/icon/shopping-cart.png}" alt="product_image"></button>
-                    <button class="detail_buy_btn" onclick="buy()">바로 구매</button>
+                    <button class="detail_buy_btn" th:onclick="|buy(${product.id})|">바로 구매</button>
                 </div>
             </div>
         </div>
 
         <div class="detail_info_body">
             <div class="detail_info_title">상세정보</div>
-            <img id="product_detail_image" th:src="@{${product.path}}"
+            <img class="product_detail_image" th:src="@{${product.path}}"
                 alt="product_image">
         </div>
     </div>

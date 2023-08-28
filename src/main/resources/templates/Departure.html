@@ -30,6 +30,10 @@
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         function setFlight(date, code, boarding, flightId) {
+            if(sessionStorage.getItem('departureInfo') != null || sessionStorage.getItem('departureInfo') != undefined) {
+                sessionStorage.removeItem('departureInfo');
+            }
+
             var flightData = {
                 "flightId" : flightId,
                 "flightCode" : code,
