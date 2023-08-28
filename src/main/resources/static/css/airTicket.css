@@ -1,0 +1,32 @@
+.departure_div {
+  position: relative;
+  width: 400px;
+  height: auto;
+  color: #474747;
+}
+.departure_img {
+  width: 100%;
+}
+.departure_bordingTime {
+  position: absolute;
+  top: 50px;
+  left: 200px;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.departure_FlightNo {
+  position: absolute;
+  top: 100px;
+  left: 200px;
+  font-weight: 600;
+  font-size: 24px;
+}
+
+.departure_Departure {
+  position: absolute;
+  top: 100px;
+  left: 300px;
+  font-weight: 600;
+  font-size: 24px;
+}
