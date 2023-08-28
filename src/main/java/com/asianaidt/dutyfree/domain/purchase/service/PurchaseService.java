@@ -151,8 +151,8 @@ public class PurchaseService {
                 .sum();
     }
 
-    public List<MonthlySalesDto> calculateMonthlySales(int year){
-        return purchaseLogRepository.findMonthlySales(year);
+    public List<MonthlySalesDto> calculateMonthlySales(){
+        return purchaseLogRepository.findMonthlySales();
     }
     public List<BrandSalesDto> calculateBrandSales(){
         return purchaseLogRepository.findBrandSales();

@@ -146,9 +146,9 @@ public class StockManagerController {
  */
     @GetMapping("/sales/month")
     @ResponseBody
-    public Map<String, List<MonthlySalesDto>> calculateMonthlySales(@RequestParam int year){
+    public Map<String, List<MonthlySalesDto>> calculateMonthlySales(){
         Map<String, List<MonthlySalesDto>> response = new HashMap<>();
-        response.put("monthlySales", purchaseService.calculateMonthlySales(year));
+        response.put("monthlySales", purchaseService.calculateMonthlySales());
         return response;
     }
 

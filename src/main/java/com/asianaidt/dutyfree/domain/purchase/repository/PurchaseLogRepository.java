@@ -16,10 +16,10 @@ import java.util.List;
 public interface PurchaseLogRepository extends JpaRepository<PurchaseLog, Long> {
     @Query("SELECT new com.asianaidt.dutyfree.domain.purchase.dto.MonthlySalesDto(FUNCTION('YEAR', p.regDate), FUNCTION('MONTH', p.regDate), SUM(p.price), SUM(p.quantity)) " +
             "FROM PurchaseLog p " +
-            "WHERE YEAR(p.regDate) = :year " +
             "GROUP BY FUNCTION('YEAR', p.regDate), FUNCTION('MONTH', p.regDate) " +
-            "ORDER BY FUNCTION('YEAR', p.regDate) DESC, FUNCTION('MONTH', p.regDate) DESC")
-    List<MonthlySalesDto> findMonthlySales(@Param("year") int year);
+            "ORDER BY FUNCTION('YEAR', p.regDate) DESC, FUNCTION('MONTH', p.regDate) DESC " +
+            "LIMIT 12")
+    List<MonthlySalesDto> findMonthlySales();
 
     @Query("SELECT p.brand as brand, SUM(p.price) as totalSales from PurchaseLog p " +
             "GROUP BY p.brand " +
