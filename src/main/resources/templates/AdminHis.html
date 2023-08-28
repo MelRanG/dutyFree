@@ -19,34 +19,38 @@
         />
     </head>
     <body>
-        <div class="admin">
-            <br />
-            <p class="admin_text">입고 상황</p>
-            <br />
-            <table id="admin_table">
-                <th class="admin_table_top">카테고리</th>
-                <th class="admin_table_top">브랜드</th>
-                <th class="admin_table_top">제품명</th>
-                <th class="admin_table_top">단가</th>
-                <th class="admin_table_top">재고수량</th>
-                <th class="admin_table_top">발주수량</th>
-                <th class="admin_table_top">발주현황</th>
-                <!-- 발주현황(대기중 일때는 버튼, 완료 상태면 글자로) -->
-                <th class="admin_table_top">책임자</th>
-                <!-- <tr th:each=" pro : ${complete}"> -->
-                <tr>
-                    <!-- 줄 시작 -->
-                    <!-- 타임리프로 전환 시 반복문 돌릴 것 -->
-                    <td class="admin_table_element">카테고리(없음)</td>
-                    <td class="admin_table_element">브랜드(없음)</td>
-                    <td class="admin_table_element">제품명(없음)</td>
-                    <td class="admin_table_element">단가(없음)</td>
-                    <td class="admin_table_element">재고수량</td>
-                    <td class="admin_table_element">발주수량</td>
-                    <td class="admin_table_element">입고 완료</td>
-                    <td class="admin_table_element">책임자</td>
-                </tr>
-            </table>
+        <div class="split_sidebar">
+            <div th:replace="~{Component/AdminSidebar :: adminSidebar}"></div>
+
+            <div class="admin">
+                <br />
+                <p class="admin_text">입고 상황</p>
+                <br />
+                <table id="admin_table">
+                    <th class="admin_table_top">카테고리</th>
+                    <th class="admin_table_top">브랜드</th>
+                    <th class="admin_table_top">제품명</th>
+                    <th class="admin_table_top">단가</th>
+                    <th class="admin_table_top">재고수량</th>
+                    <th class="admin_table_top">발주수량</th>
+                    <th class="admin_table_top">발주현황</th>
+                    <!-- 발주현황(대기중 일때는 버튼, 완료 상태면 글자로) -->
+                    <th class="admin_table_top">책임자</th>
+                    <!-- <tr th:each=" pro : ${complete}"> -->
+                    <tr>
+                        <!-- 줄 시작 -->
+                        <!-- 타임리프로 전환 시 반복문 돌릴 것 -->
+                        <td class="admin_table_element">카테고리(없음)</td>
+                        <td class="admin_table_element">브랜드(없음)</td>
+                        <td class="admin_table_element">제품명(없음)</td>
+                        <td class="admin_table_element">단가(없음)</td>
+                        <td class="admin_table_element">재고수량</td>
+                        <td class="admin_table_element">발주수량</td>
+                        <td class="admin_table_element">입고 완료</td>
+                        <td class="admin_table_element">책임자</td>
+                    </tr>
+                </table>
+            </div>
         </div>
     </body>
 </html>

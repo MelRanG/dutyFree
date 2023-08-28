@@ -66,7 +66,7 @@ public class StockManagerController {
             stockManagerService.insertStock(dto);
             model.addAttribute("message", "발주가 신청됐습니다.");
             System.out.println("dto = " + dto.toString());
-            return "Admin";
+            return "redirect:/Admin";
         }catch (Exception e){
             model.addAttribute("message", e.getMessage());
             return "error";
