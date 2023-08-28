@@ -3,9 +3,11 @@ package com.asianaidt.dutyfree.domain.product.controller;
 import com.asianaidt.dutyfree.domain.product.dto.CategoryListDto;
 import com.asianaidt.dutyfree.domain.product.service.CategoryService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -34,5 +36,10 @@ public class CategoryController {
         // html 변경가능
         return null;
 //        return ResponseEntity.ok(categoryList);
+    }
+
+    @GetMapping("/category/{categoryNum}")
+    public ResponseEntity<?> test(@PathVariable Long categoryNum) {
+        return ResponseEntity.ok(categoryService.getCategory(categoryNum));
     }
 }
