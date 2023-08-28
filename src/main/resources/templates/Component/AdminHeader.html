@@ -4,15 +4,21 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Document</title>
-        <link rel="stylesheet" type="text/css" href="../../static/css/adminHeader.css">
-        <link rel="stylesheet" type="text/css" href="../../static/css/reset.css">
+        <!-- <link rel="stylesheet" type="text/css" href="../../static/css/adminHeader.css">
+        <link rel="stylesheet" type="text/css" href="../../static/css/reset.css"> -->
+
+        <link rel="stylesheet" type="text/css" th:href="@{/css/adminHeader.css}">
+
     </head>
     <body>
-        <div id="admin_header">
-            <!-- 로고 -->
-            <img id="admin_header_logo" src="../../static/img/main/Logo.png" alt="안나옴">
-            <!-- 로그인 관리자 확인 -->
+        <div th:fragment="adminHeader">
+            <div id="admin_header">
+                <!-- 로고 -->
+                <!-- th:src="@{/img/main/advertisement_image.png}" -->
+                <img id="admin_header_logo" th:src="@{img/main/Logo.png}" alt="안나옴">
+                <!-- 로그인 관리자 확인 -->
+            </div>
+            <p id="admin_header_user">안녕하세요. 구혜지 관리자님</p>
         </div>
-        <p id="admin_header_user">안녕하세요. 구혜지 관리자님</p>
     </body>
 </html>
