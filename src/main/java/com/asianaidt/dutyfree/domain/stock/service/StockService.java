@@ -20,7 +20,7 @@ public class StockService {
 
         Stock stock = stockRepository.findByIdWithOptimisticLock(id);
         stock.decrease(quantity);
-        Stock s = stockRepository.save(stock);
+        stockRepository.save(stock);
     }
 
     public Page<ProductStockDto> getProductStockList(Pageable pageable) {
