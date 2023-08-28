@@ -29,10 +29,10 @@ $(function () {
           labels: labelDataDay, //라벨
           datasets: [
             {
-              label: "Revenue",
-              backgroundColor: "#4e73df",
-              hoverBackgroundColor: "#2e59d9",
-              borderColor: "#4e73df",
+              label: "매출액",
+              backgroundColor: "#717E75",
+              hoverBackgroundColor: "#5E6661",
+              borderColor: "#717E75",
               data: priceDataDay, //데이터
             },
           ],

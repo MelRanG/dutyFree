@@ -13,7 +13,7 @@ colorDataBrand = [
   "#324C7C",
   "#89BD82",
 ];
-colotDataBrandHover = [
+colorDataBrandHover = [
   "#97BDA9",
   "#5E6661",
   "#859BA8",
@@ -21,35 +21,57 @@ colotDataBrandHover = [
   "#1F304E",
   "#699064",
 ];
-var ctx = document.getElementById("myPieChart");
-var myPieChart = new Chart(ctx, {
-  type: "doughnut",
-  data: {
-    labels: ["Direct", "Referral", "Social", "a", "b", "c"],
-    datasets: [
-      {
-        data: [100, 100, 100, 100, 100, 100],
-        backgroundColor: colorDataBrand,
-        hoverBackgroundColor: colotDataBrandHover,
-        hoverBorderColor: "rgba(234, 236, 244, 1)",
-      },
-    ],
-  },
-  options: {
-    maintainAspectRatio: false,
-    tooltips: {
-      backgroundColor: "rgb(255,255,255)",
-      bodyFontColor: "#858796",
-      borderColor: "#dddfeb",
-      borderWidth: 1,
-      xPadding: 15,
-      yPadding: 15,
-      displayColors: false,
-      caretPadding: 10,
+
+$(function () {
+  let labelDataCategory = [];
+  let priceDataCategory = [];
+  $.ajax({
+    url: `http://localhost:8080/admin/sales/category`,
+    type: "GET",
+    success: function (data) {
+      let categoryData = data.categorySales;
+      console.log(categoryData);
+      categoryData.forEach((dataByCategory) => {
+        priceDataCategory.push(dataByCategory.totalSales);
+        labelDataCategory.push(dataByCategory.category);
+      });
+      console.log(priceDataCategory);
+      console.log(labelDataCategory);
+      var ctx = document.getElementById("myPieChart");
+      var myPieChart = new Chart(ctx, {
+        type: "doughnut",
+        data: {
+          labels: labelDataCategory,
+          datasets: [
+            {
+              data: priceDataCategory,
+              backgroundColor: colorDataBrand,
+              hoverBackgroundColor: ["#97BDA9", "#5E6661"],
+              hoverBorderColor: "rgba(234, 236, 244, 1)",
+            },
+          ],
+        },
+        options: {
+          maintainAspectRatio: false,
+          tooltips: {
+            backgroundColor: "rgb(255,255,255)",
+            bodyFontColor: "#858796",
+            borderColor: "#dddfeb",
+            borderWidth: 1,
+            xPadding: 15,
+            yPadding: 15,
+            displayColors: false,
+            caretPadding: 10,
+          },
+          legend: {
+            display: false,
+          },
+          cutoutPercentage: 80,
+        },
+      });
     },
-    legend: {
-      display: false,
+    error: function () {
+      console.error("Error fetching exchange rates.");
     },
-    cutoutPercentage: 80,
-  },
+  });
 });

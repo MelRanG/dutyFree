@@ -26,11 +26,74 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
         crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var flightCode = $('input[name=flightCode]').val();
+            var flightDate = $('input[name=flightDate]').val();
+            var boarding = $('#departAt option:selected').val();
+
+            var data = {
+                "flightCode" : flightCode,
+                "flightDate" : flightDate,
+                "boarding" : boarding
+            };
+
+            $("#flightSearchBtn").click(function() {
+                console.log(data);
+
+                if(airline == '' || flightDate =='' || boarding == '') {
+                    alert('항공편을 입력해주세요.');
+                }
+
+                $.ajax({
+                    url: `http://localhost:8080/flight?flightDate=${flightDate}&flightCode=${flightCode}&boarding=${boarding}`,
+                    type: 'GET',
+                    contentType: 'application/json; charset=utf-8',
+                    success: function(result){
+                        console.log(result);
+                    },
+                    error: function(error){
+                        console.log("Error", error);
+                        alert("An error occurred");
+                    }
+                });
+
+            });
+
+            $("#purchaseBtn").click( function(){
+                if(airline == '' || flightDate =='' || boarding == '') {
+                        alert('항공편을 입력해주세요.');
+                        return ;
+                }
+
+                sessionStorage.setItem("departInfo", JSON.stringify(data));
+                console.log(data);
+
+                $.ajax({
+                    url: "http://localhost:8080/purchase",
+                    type: 'POST',
+                    contentType: 'application/json; charset=utf-8',
+                    success: function(result){
+                        console.log(result);
+                    },
+                    error: function(error){
+                        console.log("Error", error);
+                        alert("An error occurred");
+                    }
+                });
+
+            });
+    
+
+                
+        })
+    </script>
 </head>
 
 <body class="main_body_style">
 
-    <div th:replace="~{Component/Header :: header}"></div>
+<div th:replace="~{Component/Header :: header(${category})}"></div>
 
     <div class="cart_body">
         <div class="cart_box">
@@ -38,7 +101,7 @@
                 <ul class="title_tab">
                     <li><a href="/cart">장바구니</a></li>
                     <li><a href="/passport">여권정보</a></li>
-                    <li><a href="">출국정보</a></li>
+                    <li><a href="/departure">출국정보</a></li>
                     <li><a href="">주문결재</a></li>
                 </ul>
             </div>
@@ -47,49 +110,76 @@
                 <div class="passport_content">
                     <div class="departure_title">출국 정보</div>
                     <div class="departure_area">
-                        <form method="post">
                             <div class="departure_box">
                                 <ul class="form_list">
                                     <li>
                                         <p>출국장소<span class="checking">*</span></p>
                                         <span>
-                                            <select class="form_input">
-                                                <option>인천공항</option>
-                                                <option>김포공항</option>
-                                                <option>김해공항</option>
+                                            <select class="form_input" id="departAt">
+                                                <option></option>
+                                                <option value="JEJU">제주</option>
+                                                <option value="SEOUL">서울/김포</option>
+                                                <option value="CHEONGJU">청주</option>
+                                                <option value="">김해</option>
                                             </select>
                                         </span>
                                     </li>
                                     <li>
                                         <p>편명<span class="checking">*</span></p>
                                         <span>
-                                            <input class="form_input" type="text" name="airline" placeholder="편명"/>
+                                            <input class="form_input" type="text" name="flightCode" placeholder="편명"/>
                                         </span>
                                     </li>
                                     <li>
                                         <p>출국일시<span class="checking">*</span></p>
-                                        <span><input class="form_input" type="text" name="departureDate" placeholder="YYYY-MM-DD"/></span>
-                                    </li>
-                                    
-                                    <li>
-                                        <p>직항/경유<span class="checking">*</span></p>
-                                        <span><input type="radio" id="d1" checked/><label for="d1">직항</label></label></span>
-                                        <span><input type="radio" id="d2"/><label for="d2">경유</label></label></span>
+                                        <span><input class="form_input" type="text" name="flightDate" placeholder="YYYY-MM-DD"/></span>
                                     </li>
                                 </ul>                          
                             </div>
-                        </form>
+                            <div>
+                                <button class="search_departure_btn" id="flightSearchBtn">검색</button>
+                            </div>
+                    </div>
+                    <div class="departure_list">
+                        <div class="departure_table">
+                            
+                        </div>
                     </div>
                 </div>
                 <div class="login_box">
-                    <div>
-                        로그인 하시면, 적립금 및 쿠폰등 
+                    <div th:if="${session.user} == null">
+                        <div>
+                            로그인 하시면, 적립금 및 쿠폰등
+                            <br/>
+                            다양한 혜택을 받으실 수 있습니다.
+                        </div>
+                        <div class="login_btn">
+                            <a href="/member/login"><span class="login_btn_name">로그인</span></a>
+                        </div>
+                    </div>
+                    <div th:if="${session.user} == null and ${products} != null">
+                        <div class="pay_title">예상 주문 금액</div>
                         <br/>
-                        다양한 혜택을 받으실 수 있습니다.
-                    </div>
-                    <div class="login_btn">
-                        <a href="/member/login"><span class="login_btn_name">로그인</span></a>
-                    </div>
+                        <div class="pay_list">
+                            <div class="total_pay">
+                                <dl>
+                                    <dt>주문금액합계</dt>
+                                    <dd th:text="${#aggregates.sum(products.![quantity * price])}" id="total">0</dd>
+                                </dl>
+                                <dl>
+                                    <dt>예상할인금액</dt>
+                                    <dd>0</dd>
+                                </dl>
+                                <dl th:if="${products} !=null">
+                                    <dt>총 <span th:text="${#aggregates.sum(products.![quantity])}">0</span>개</dt>
+                                    <dd th:text="${#aggregates.sum(products.![quantity * price])}" >0</dd>
+                                </dl>
+                            </div>
+                        </div>
+                        <div class="cart_btn_box">
+                            <button class="cart_buy_button" id="purchaseBtn">구매하기</button>
+                        </div>
+                    </div>                    
                 </div>
             </div>
         </div>
