@@ -15,15 +15,16 @@ import java.util.List;
 public interface PurchaseLogRepository extends JpaRepository<PurchaseLog, Long> {
     @Query("SELECT new com.asianaidt.dutyfree.domain.purchase.dto.MonthlySalesDto(FUNCTION('YEAR', p.regDate), FUNCTION('MONTH', p.regDate), SUM(p.price), SUM(p.quantity)) " +
             "FROM PurchaseLog p " +
+            "WHERE YEAR(p.regDate) = :year " +
             "GROUP BY FUNCTION('YEAR', p.regDate), FUNCTION('MONTH', p.regDate) " +
             "ORDER BY FUNCTION('YEAR', p.regDate) DESC, FUNCTION('MONTH', p.regDate) DESC")
-    List<MonthlySalesDto> findMonthlySales();
+    List<MonthlySalesDto> findMonthlySales(@Param("year") int year);
 
-    @Query("SELECT p.brand as brand, SUM(p.price * p.quantity) as totalSales from PurchaseLog p " +
+    @Query("SELECT p.brand as brand, SUM(p.price) as totalSales from PurchaseLog p " +
             "GROUP BY p.brand")
     List<BrandSalesDto> findBrandSales();
 
-    @Query("SELECT FUNCTION('DATE', p.regDate) AS day, SUM(p.price * p.quantity) as totalSales FROM PurchaseLog p " +
+    @Query("SELECT FUNCTION('DATE', p.regDate) AS day, SUM(p.price) as totalSales FROM PurchaseLog p " +
             "WHERE YEAR(p.regDate) = :year AND MONTH(p.regDate) = :month " +
             "GROUP BY FUNCTION('DATE', p.regDate) " +
             "ORDER BY FUNCTION('DATE', p.regDate) DESC")
