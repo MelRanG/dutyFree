@@ -34,9 +34,9 @@ public class StockManagerController {
 
         model.addAttribute("allStock", stockService.getProductStockList(pageable));
 
-        model.addAttribute("stockProgress",stockManagerService.getStockManagerProgress(pageable)); // 프로그레스
+        model.addAttribute("progress",stockManagerService.getStockManagerProgress(pageable)); // 프로그레스
 
-        model.addAttribute("stockCompleted",stockManagerService.getStockManagerCompleted(pageable));
+//f
 
         return "Admin";
     }
@@ -44,16 +44,15 @@ public class StockManagerController {
     @GetMapping("/history")
     public String adminStock(Model model, Pageable pageable){
 
-//        model.addAttribute("allStock", stockService.getProductStockList(pageable));
-//
-////        model.addAttribute("stockManagerList",stockManagerService.getStockManagerList(pageable, status)); // 프로그레스
-//
-////        model.addAttribute("stockManagerList",stockManagerService.getStockManagerList(pageable, status));
-//
+        model.addAttribute("stockCompleted",stockManagerService.getStockManagerCompleted(pageable));
+
         return "AdminHis";
     }
 
-
+    @GetMapping("/sales")
+    public String adminSales(Model model, Pageable pageable){
+        return "AdminSales";
+    }
 
 
 
@@ -70,7 +69,7 @@ public class StockManagerController {
             stockManagerService.insertStock(dto);
             model.addAttribute("message", "발주가 신청됐습니다.");
             System.out.println("dto = " + dto.toString());
-            return "Admin";
+            return "redirect:/Admin";
         }catch (Exception e){
             model.addAttribute("message", e.getMessage());
             return "error";
@@ -108,6 +107,14 @@ public class StockManagerController {
         model.addAttribute("stockManagerList",stockManagerService.getStockManagerList(pageable, status));
 
         return ResponseEntity.ok(stockManagerService.getStockManagerList(pageable,status));
+    }
+    @GetMapping("/stock/status/test")
+//    public String getStockManagerList(Pageable pageable, Model model, @RequestParam StockStatus status){
+    public ResponseEntity<?> getStatus(Pageable pageable, Model model){
+
+//        model.addAttribute("stockManagerList",stockManagerService.getStockManagerList(pageable, status));
+
+        return ResponseEntity.ok(stockManagerService.getStockManagerProgress(pageable));
     }
     /*
     INPUT

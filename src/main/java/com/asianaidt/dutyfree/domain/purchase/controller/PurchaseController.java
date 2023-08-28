@@ -18,11 +18,6 @@ public class PurchaseController {
     private final PurchaseService purchaseService;
     private final CategoryService categoryService;
 
-    @GetMapping("/{categoryId}/product/{productId}")
-    public String getPurchase() {
-        return "";
-    }
-
     @PostMapping("/{categoryId}/product/{productId}")
     public String purchaseOne(HttpSession session, @PathVariable Long categoryId, @PathVariable Long productId,
                            @RequestParam int quantity) throws InterruptedException {

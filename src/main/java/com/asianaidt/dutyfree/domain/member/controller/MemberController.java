@@ -56,7 +56,7 @@ public class MemberController {
     // 회원가입 페이지 이동
     @GetMapping("/signup")
     public String signUp(){
-        return "AdminSales";
+        return "Signup";
     }
 
     @GetMapping("/check/id/{id}")

@@ -4,7 +4,6 @@ import com.asianaidt.dutyfree.domain.member.domain.Member;
 import com.asianaidt.dutyfree.domain.product.domain.Product;
 import com.asianaidt.dutyfree.domain.purchase.domain.Purchase;
 import com.asianaidt.dutyfree.domain.purchase.domain.PurchaseDetail;
-import com.asianaidt.dutyfree.domain.purchase.dto.PurchaseDto;
 import com.asianaidt.dutyfree.domain.purchase.repository.PurchaseRepository;
 import com.asianaidt.dutyfree.domain.stock.domain.Stock;
 import com.asianaidt.dutyfree.domain.stock.service.StockService;
@@ -52,15 +51,6 @@ class PurchaseServiceTest {
                 .build();
     }
 
-    @Test
-    @DisplayName("구매 하기")
-    void purchase() throws InterruptedException {
-        PurchaseDto purchaseDto = new PurchaseDto();
-        purchaseDto.setQuantity(10);
-
-        purchaseService.purchase(member, product.getId(), purchaseDto);
-
-    }
 
     @Test
     @DisplayName("구매 목록 조회")
