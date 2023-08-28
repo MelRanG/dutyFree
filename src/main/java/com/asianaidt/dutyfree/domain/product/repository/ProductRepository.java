@@ -1,12 +1,12 @@
 package com.asianaidt.dutyfree.domain.product.repository;
 
 import com.asianaidt.dutyfree.domain.product.domain.Product;
-import com.asianaidt.dutyfree.domain.product.dto.ProductListDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -24,6 +24,10 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     Page<Product> findByCategoryIdAndPriceBetween(Long categoryId, Integer min, Integer max, Pageable pageable);
 
     Optional<Product> findById(Long productId);
+
+    List<Product> findTop5ByOrderByIdDesc();
+
+    List<Product> findTop4ByOrderByName();
 
     Page<Product> findAllByNameContaining(String productName, Pageable pageable);
 }

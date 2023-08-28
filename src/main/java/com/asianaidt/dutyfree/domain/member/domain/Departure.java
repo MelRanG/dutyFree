@@ -9,22 +9,23 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class Flight {
+@Data
+public class Departure {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "flightId")
+    @Column(name = "departureId")
     private Long id;
     private String flightDate;
-    private String airlineEng;
-    private String airlineKor;
-    private String boardingEng;
-    private String boardingKor;
-    private String city;
-    private String flightCode;
-    private String flightStatus;
+    private String boarding;
+    private String airline;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "memberId")
+    private Member member;
+    @OneToOne
+    @JoinColumn(name = "flightId")
+    private Flight flight;
     private LocalDateTime regDate;
 }

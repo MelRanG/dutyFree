@@ -27,13 +27,13 @@
 
 <body class="main_body_style">
 
-    <div th:replace="~{Component/Header :: header}"></div>
+    <div th:replace="~{Component/Header :: header(${category})}"></div>
 
     <!-- 배너 -->
     <div th:replace="~{Component/Carousel :: carousel}"></div>
 
     <!-- Product For You -->
-    <div th:replace="~{Component/ProductFiveCard :: ProductFiveCard}"></div>
+    <div th:replace="~{Component/ProductFiveCard :: ProductFiveCard(${products})}"></div>
 
     <!-- 기획전 -->
     <div th:replace="~{Component/Exhibition :: exhibition}"></div>
@@ -43,7 +43,7 @@
 
     <!-- SALE -->
     <div class="sale_bg">
-        <div th:replace="~{Component/ProductFourCard :: ProductFourCard}"></div>
+        <div th:replace="~{Component/ProductFourCard :: ProductFourCard(${saleProducts})}"></div>
     </div>
 
     <!-- 쇼핑혜택 -->

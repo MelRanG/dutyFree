@@ -93,7 +93,7 @@
 </head>
 
 <body>
-    <div id="HeaderDiv" th:fragment="header" class="header">
+    <div id="HeaderDiv" th:fragment="header(categories)" class="header">
         <div class="header_top">
             <div class="exchangeRate" id="exchangeRate">$1 = 1346.5원</div>
 
@@ -130,15 +130,10 @@
         </div>
 
         <div class="header_category">
-            <div class="header_category_flex">
-                <div class="header_category_item">스킨케어 / 메이크업</div>
-                <div class="header_category_item">향수 / 헤어 / 바디</div>
-                <div class="header_category_item">가방 / 지갑</div>
-                <div class="header_category_item">시계 / 주얼리</div>
-                <div class="header_category_item">패션 / 잡화</div>
-                <div class="header_category_item">스포츠 / 레저</div>
-                <div class="header_category_item">전자 / 리빙</div>
-                <div class="header_category_item">주류</div>
+            <div th:each="category : ${categories}" class="header_category_flex">
+                <div class="header_category_item">
+                    <a th:href="@{/list/{categoryId}(categoryId= ${category.id})}"><span th:text="${category.name}"></span></a>
+                </div>
             </div>
 
         </div>

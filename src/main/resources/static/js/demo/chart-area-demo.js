@@ -28,14 +28,14 @@ $(function () {
             {
               label: "Earnings",
               lineTension: 0.3,
-              backgroundColor: "rgba(69, 75, 82, 0.05)", //꺾은선 그래프 아래쪽 색
-              borderColor: "rgba(69, 75, 82, 1)", //꺾은선 그래프의 색
+              backgroundColor: "rgba(151, 189, 169, 0.05)", //꺾은선 그래프 아래쪽 색
+              borderColor: "rgba(151, 189, 169, 1)", //꺾은선 그래프의 색
               pointRadius: 3, //포인트의 크기
-              pointBackgroundColor: "rgba(69, 75, 82, 1)", //포인트 색
-              pointBorderColor: "rgba(69, 75, 82, 1)", //포인트의 테두리색
+              pointBackgroundColor: "#81A291", //포인트 색
+              pointBorderColor: "#81A291", //포인트의 테두리색
               pointHoverRadius: 3,
-              pointHoverBackgroundColor: "rgba(69, 75, 82, 1)", //마우스 올렸을때 점 색
-              pointHoverBorderColor: "rgba(769, 75, 82, 1)",
+              pointHoverBackgroundColor: "#81A291", //마우스 올렸을때 점 색
+              pointHoverBorderColor: "#81A291",
               pointHitRadius: 10,
               pointBorderWidth: 2,
               data: priceData.reverse(),
@@ -70,7 +70,7 @@ $(function () {
             yAxes: [
               {
                 ticks: {
-                  maxTicksLimit: 5,
+                  maxTicksLimit: 12,
                   padding: 10,
                   // Include a dollar sign in the ticks
                   callback: function (value, index, values) {
