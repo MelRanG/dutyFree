@@ -1,6 +1,7 @@
 package com.asianaidt.dutyfree.domain.stock.controller;
 
 import com.asianaidt.dutyfree.domain.purchase.dto.BrandSalesDto;
+import com.asianaidt.dutyfree.domain.purchase.dto.CategorySalesDto;
 import com.asianaidt.dutyfree.domain.purchase.dto.DailySalesDto;
 import com.asianaidt.dutyfree.domain.purchase.dto.MonthlySalesDto;
 import com.asianaidt.dutyfree.domain.purchase.service.PurchaseService;
@@ -33,12 +34,25 @@ public class StockManagerController {
 
         model.addAttribute("allStock", stockService.getProductStockList(pageable));
 
-//        model.addAttribute("stockManagerList",stockManagerService.getStockManagerList(pageable, status)); // 프로그레스
+        model.addAttribute("stockProgress",stockManagerService.getStockManagerProgress(pageable)); // 프로그레스
 
-//        model.addAttribute("stockManagerList",stockManagerService.getStockManagerList(pageable, status));
+        model.addAttribute("stockCompleted",stockManagerService.getStockManagerCompleted(pageable));
 
         return "Admin";
     }
+
+    @GetMapping("/history")
+    public String adminStock(Model model, Pageable pageable){
+
+//        model.addAttribute("allStock", stockService.getProductStockList(pageable));
+//
+////        model.addAttribute("stockManagerList",stockManagerService.getStockManagerList(pageable, status)); // 프로그레스
+//
+////        model.addAttribute("stockManagerList",stockManagerService.getStockManagerList(pageable, status));
+//
+        return "AdminHis";
+    }
+
 
 
 
@@ -55,7 +69,8 @@ public class StockManagerController {
         try{
             stockManagerService.insertStock(dto);
             model.addAttribute("message", "발주가 신청됐습니다.");
-            return "redirect:/Admin";
+            System.out.println("dto = " + dto.toString());
+            return "Admin";
         }catch (Exception e){
             model.addAttribute("message", e.getMessage());
             return "error";
@@ -85,16 +100,7 @@ public class StockManagerController {
     status : String
     Stock : 객체
      */
-    @GetMapping("/stock")
-    public String getStockManagerList(Pageable pageable, Model model, @RequestParam StockStatus status){
-        model.addAttribute("stockManagerList",stockManagerService.getStockManagerList(pageable, status));
 
-        if (status.equals(StockStatus.PROGRESS)) {
-            return "AdminStock"; // 입고 미완료 일때
-        } else {
-            return "AdminHistory"; // 입고 완료일 때
-        }
-    }
     @GetMapping("/stock/test")
 //    public String getStockManagerList(Pageable pageable, Model model, @RequestParam StockStatus status){
     public ResponseEntity<?> getStockManagerListTest(Pageable pageable, Model model, @RequestParam StockStatus status){
@@ -146,6 +152,13 @@ public class StockManagerController {
         return response;
     }
 
+    @GetMapping("/sales/category")
+    @ResponseBody
+    public Map<String, List<CategorySalesDto>> calculateCategorySales(){
+        Map<String, List<CategorySalesDto>> response = new HashMap<>();
+        response.put("categorySales", purchaseService.calculateCategorySales());
+        return response;
+    }
     /*
     OUTPUT
     int brand
