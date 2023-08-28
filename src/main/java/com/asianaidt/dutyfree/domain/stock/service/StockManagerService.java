@@ -4,6 +4,7 @@ import com.asianaidt.dutyfree.domain.stock.domain.Stock;
 import com.asianaidt.dutyfree.domain.stock.domain.StockManager;
 import com.asianaidt.dutyfree.domain.stock.domain.StockStatus;
 import com.asianaidt.dutyfree.domain.stock.dto.StockManagerRequestDto;
+import com.asianaidt.dutyfree.domain.stock.dto.StockStatusResponseDto;
 import com.asianaidt.dutyfree.domain.stock.repository.StockManagerRepository;
 import com.asianaidt.dutyfree.domain.stock.repository.StockRepository;
 import lombok.RequiredArgsConstructor;
@@ -38,12 +39,12 @@ public class StockManagerService {
         return stockManagerRepository.findAllByStatus(pageable, status);
     }
 
-    public Page<StockManager> getStockManagerProgress(Pageable pageable){
-        return stockManagerRepository.findAllByStatus(pageable, StockStatus.PROGRESS);
+    public Page<StockStatusResponseDto> getStockManagerProgress(Pageable pageable){
+        return stockRepository.findByStockManagerAndProductAndStockStatus(pageable, StockStatus.PROGRESS);
     }
 
-    public Page<StockManager> getStockManagerCompleted(Pageable pageable){
-        return stockManagerRepository.findAllByStatus(pageable, StockStatus.COMPLETED);
+    public Page<StockStatusResponseDto> getStockManagerCompleted(Pageable pageable){
+        return stockRepository.findByStockManagerAndProductAndStockStatus(pageable, StockStatus.COMPLETED);
     }
 
 
