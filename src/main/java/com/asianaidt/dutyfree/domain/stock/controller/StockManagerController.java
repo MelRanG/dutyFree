@@ -53,7 +53,10 @@ public class StockManagerController {
         return "AdminHis";
     }
 
-
+    @GetMapping("/sales")
+    public String adminSales(Model model, Pageable pageable){
+        return "AdminSales";
+    }
 
 
 
