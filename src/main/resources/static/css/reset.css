@@ -136,10 +136,10 @@ table {
 
 a {
   text-decoration: none !important;
-  color: #474747;
+  color: #474747 !important;
 }
 
 a:hover {
   text-decoration: none !important;
-  color: #3c3e71;
+  color: #3c3e71 !important;
 }

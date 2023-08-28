@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    <div th:fragment="product_card_small(product)">
+    <div th:fragment="product_card_small(product)" style="width:100%">
         <img id="product_image" th:src="@{${product.path}}" src="/img/beauty/겔랑_로르 래디언스 베이스 듀오.jpg" alt="product_image">
         <div class="product_brand" th:text="${product.brand}">크리니크</div>
         <div class="product_title">
@@ -20,7 +20,7 @@
             </a>
         </div>
         <div class="price_flex">
-            <div class="price_dollar" th:text="${product.price}">$22.4</div>
+            <div class="price_dollar" th:text="'$' + ${product.price}">$22.4</div>
             <div class="price_won">30,051원</div>
         </div>
     </div>

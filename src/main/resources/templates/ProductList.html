@@ -5,13 +5,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>아시아나IDT- DUTYFREE</title>
-    <link rel="stylesheet" type="text/css" href="../static/css/productList.css">
-    <link rel="stylesheet" type="text/css" href="../static/css/reset.css">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/reset.css}">
+    <!-- <link rel="stylesheet" type="text/css" href="../static/css/productList.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/reset.css"> -->
     <link rel="stylesheet" type="text/css" th:href="@{/css/header.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/footer.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/product_card_small.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/product_card.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/productFiveCard.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/exhibition.css}">
+
+
+
 
 
     <link rel="stylesheet" type="text/css" th:href="@{/css/productList.css}">
@@ -76,7 +82,8 @@
         <div class="detail_card_flex">
             <!-- product 5개짜리 채워주면 됨. -->
             <div class="product_card_small" th:each="product : ${sorting}">
-                <div th:replace="~{Component/ProductCardSmall :: product_card_small(${product})}"></div>
+                <div th:replace="~{Component/ProductCardSmall :: product_card_small(${product})}">
+                </div>
             </div>
         </div>
     </div>
