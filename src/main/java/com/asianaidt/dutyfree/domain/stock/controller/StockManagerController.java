@@ -33,9 +33,9 @@ public class StockManagerController {
 
         model.addAttribute("allStock", stockService.getProductStockList(pageable));
 
-        model.addAttribute("stockManagerList",stockManagerService.getStockManagerProgress(pageable)); // 프로그레스
+        model.addAttribute("stockProgress",stockManagerService.getStockManagerProgress(pageable)); // 프로그레스
 
-        model.addAttribute("stockManagerList",stockManagerService.getStockManagerCompleted(pageable));
+        model.addAttribute("stockCompleted",stockManagerService.getStockManagerCompleted(pageable));
 
         return "Admin";
     }
