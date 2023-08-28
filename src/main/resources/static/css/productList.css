@@ -27,7 +27,7 @@
 }
 
 .detail_card_flex {
-  width: 100%;
+  width: 80vw;
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;

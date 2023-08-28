@@ -89,6 +89,10 @@
 
             fetchExchangeRate(searchdate, 0);
         });
+
+        function goHome() {
+            window.location.href = "/"
+        }
     </script>
 </head>
 
@@ -125,14 +129,16 @@
             </div>
 
             <!-- 로고 -->
-            <div class="logo"><img class="logo_img" th:src="@{/img/main/Logo.png}" alt="logo"></div>
+            <div class="logo" onClick="window.location.href='/'"><img class="logo_img" th:src="@{/img/main/Logo.png}"
+                    alt="logo"></div>
 
         </div>
 
         <div class="header_category">
             <div th:each="category : ${categories}" class="header_category_flex">
                 <div class="header_category_item">
-                    <a th:href="@{/list/{categoryId}(categoryId= ${category.id})}"><span th:text="${category.name}"></span></a>
+                    <a th:href="@{/list/{categoryId}(categoryId= ${category.id})}"><span
+                            th:text="${category.name}"></span></a>
                 </div>
             </div>
 
