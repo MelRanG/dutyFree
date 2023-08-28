@@ -3,22 +3,52 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Document</title>        
+        <title>Document</title>
+        <link rel="stylesheet" type="text/css" th:href="@{/css/reset.css}" />
+        <link rel="stylesheet" type="text/css" th:href="@{/css/admin.css}" />
+        <link
+            rel="stylesheet"
+            type="text/css"
+            th:href="@{/css/adminSidebar.css}"
+        />
+        <link
+            rel="stylesheet"
+            type="text/css"
+            th:href="@{/css/adminHeader.css}"
+        />
 
-        <link rel="stylesheet" type="text/css" th:href="@{/css/reset.css}">
-        <link rel="stylesheet" type="text/css" th:href="@{/css/admin.css}">
-        <link rel="stylesheet" type="text/css" th:href="@{/css/adminSidebar.css}">
-        <link rel="stylesheet" type="text/css" th:href="@{/css/adminHeader.css}">
-
-        <link rel="stylesheet" href="../static/css/admin.css">
-
-
+        <!-- <link rel="stylesheet" href="../static/css/admin.css"> -->
     </head>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            // Loop through each button with an ID that starts with "btn_"
+            $('[id^="btn_"]').on("click", function () {
+                // Get the number from the button ID
+                var btnNumber = $(this).attr("id").replace("btn_", "");
+
+                // Construct the corresponding input ID
+                var inputId = "input_" + btnNumber;
+
+                console.log(inputId);
+
+                // Get the value of the input using the constructed ID
+                var inputValue = $("#" + inputId).val();
+
+                console.log(inputValue);
+
+                // Log the input value
+                console.log("Input value for " + inputId + ": " + inputValue);
+            });
+        });
+    </script>
     <body>
         <!-- 재고 관리 -->
         <div class="admin" th:fragment="adminStock">
             <p class="admin_text">재고 관리</p>
-            <br>
+            <br />
             <table id="admin_table">
                 <th class="admin_table_top">카테고리</th>
                 <th class="admin_table_top">브랜드</th>
@@ -27,37 +57,43 @@
                 <th class="admin_table_top">재고수량</th>
                 <th class="admin_table_top">발주개수</th>
                 <th class="admin_table_top">발주하기</th>
-                
+
                 <!-- <tr th:each=" stock : ${allStock}"> -->
                 <tr th:each=" stock : ${allStock}">
                     <!-- 줄 시작 -->
                     <!-- 타임리프로 전환 시 반복문 돌릴 것 -->
-
-                    <!-- <div class="product_card_small" th:each="product : ${sorting}"> -->
-                    <!-- <span th:text="${product.name}">(24년 7월) 퀵라이너 포 아이즈- Intense Black</span> -->
-
-                    <!-- "name": "블랙 로고패턴 가죽 클러치백",
-                    "brand": "닥스",
-                    "category": "bag",
-                    "price": 366,
-                    "quantity": 30 -->
-
-                    <td class="admin_table_element" th:text="${stock.category}">카테고리</td>
-                    <td class="admin_table_element" th:text="${stock.brand}">브랜드</td>
-                    <td class="admin_table_element" th:text="${stock.name}">제품명</td>
-                    <td class="admin_table_element" th:text="${stock.price}">단가</td>
-                    <td class="admin_table_element" th:text="${stock.quantity}">재고수량</td>
+                    <td class="admin_table_element" th:text="${stock.category}">
+                        카테고리
+                    </td>
+                    <td class="admin_table_element" th:text="${stock.brand}">
+                        브랜드
+                    </td>
+                    <td class="admin_table_element" th:text="${stock.name}">
+                        제품명
+                    </td>
+                    <td class="admin_table_element" th:text="${stock.price}">
+                        단가
+                    </td>
+                    <td class="admin_table_element" th:text="${stock.quantity}">
+                        재고수량
+                    </td>
                     <td class="admin_table_element_input">
                         <input
                             type="number"
                             name=""
-                            id="admin_table_input"
+                            class="admin_table_input"
                             min="1"
                             value="1"
+                            th:id="'input_' + ${stock.id}"
                         />
                     </td>
                     <td class="admin_table_element">
-                        <button id="admin_table_btn">발주</button>
+                        <button
+                            class="admin_table_btn"
+                            th:id="'btn_' + ${stock.id}"
+                        >
+                            발주
+                        </button>
                     </td>
                 </tr>
             </table>

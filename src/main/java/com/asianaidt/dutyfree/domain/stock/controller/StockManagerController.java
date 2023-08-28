@@ -40,6 +40,19 @@ public class StockManagerController {
         return "Admin";
     }
 
+    @GetMapping("/history")
+    public String adminStock(Model model, Pageable pageable){
+
+//        model.addAttribute("allStock", stockService.getProductStockList(pageable));
+//
+////        model.addAttribute("stockManagerList",stockManagerService.getStockManagerList(pageable, status)); // 프로그레스
+//
+////        model.addAttribute("stockManagerList",stockManagerService.getStockManagerList(pageable, status));
+//
+        return "AdminHis";
+    }
+
+
 
 
 
@@ -55,7 +68,8 @@ public class StockManagerController {
         try{
             stockManagerService.insertStock(dto);
             model.addAttribute("message", "발주가 신청됐습니다.");
-            return "redirect:/Admin";
+            System.out.println("dto = " + dto.toString());
+            return "Admin";
         }catch (Exception e){
             model.addAttribute("message", e.getMessage());
             return "error";
