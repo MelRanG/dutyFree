@@ -21,6 +21,14 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
         crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+        integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        $(function() {
+            console.log(sessionStorage.getItem("cart"));
+        })
+    </script>
 </head>
 
 <body class="main_body_style">
@@ -40,8 +48,8 @@
 
             <div class="page_content">
                 <div class="cart_content">
-                    <div class="item_area" th:if="${products} != null">
-                        <div class="item_content" th:each="product : ${products}">
+                    <div class="item_area" th:if="${session.cart} != null">
+                        <div class="item_content" th:each="product : ${session.cart}">
                             <div class="item_info">
                                 <div class="item_img">
                                     <img th:src="@{${product.path}}"
@@ -69,28 +77,28 @@
 
                         </div>
                     </div>
-                    <div class="item_area" th:unless="${products} != null">
+                    <div class="item_area" th:unless="${session.cart} != null">
                         <div class="notice_box">장바구니가 비어있습니다.</div>
                     </div>
                 </div>
 
                 <div class="pay_table">
-                    <div class="pay_box"  th:if="${products} != null">
+                    <div class="pay_box"  th:if="${session.cart} != null">
                         <div class="pay_title">예상 주문 금액</div>
                         <br/>
                         <div class="pay_list">
                             <div class="total_pay">
                                 <dl>
                                     <dt>주문금액합계</dt>
-                                    <dd th:text="${#aggregates.sum(products.![quantity * price])}" id="total">0</dd>
+                                    <dd th:text="${#aggregates.sum(session.cart.![quantity * price])}" id="total">0</dd>
                                 </dl>
                                 <dl>
                                     <dt>예상할인금액</dt>
                                     <dd>0</dd>
                                 </dl>
                                 <dl th:if="${products} !=null">
-                                    <dt>총 <span th:text="${#aggregates.sum(products.![quantity])}">0</span>개</dt>
-                                    <dd th:text="${#aggregates.sum(products.![quantity * price])}" >0</dd>
+                                    <dt>총 <span th:text="${#aggregates.sum(session.cart.![quantity])}">0</span>개</dt>
+                                    <dd th:text="${#aggregates.sum(session.cart.![quantity * price])}" >0</dd>
                                 </dl>
                             </div>
                         </div>
