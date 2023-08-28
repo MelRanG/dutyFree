@@ -17,7 +17,7 @@ public interface StockRepository extends JpaRepository<Stock, Long> {
     @Query("select s from Stock s where s.id = :id")
     Stock findByIdWithOptimisticLock(Long id);
 
-    @Query("select new com.asianaidt.dutyfree.domain.stock.dto.ProductStockDto(p.name, p.brand, c.name, p.price , s.quantity) " +
+    @Query("select new com.asianaidt.dutyfree.domain.stock.dto.ProductStockDto(p.id, p.name, p.brand, c.name, p.price , s.quantity) " +
             "from Stock s " +
             "left join s.product p " +
             "left join p.category c " +

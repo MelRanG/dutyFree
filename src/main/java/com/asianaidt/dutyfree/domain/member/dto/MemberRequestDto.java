@@ -1,10 +1,13 @@
 package com.asianaidt.dutyfree.domain.member.dto;
 
 import com.asianaidt.dutyfree.domain.member.domain.Member;
+import com.asianaidt.dutyfree.global.util.PasswordEncoder;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -15,7 +18,7 @@ public class MemberRequestDto {
     private String name;
     private String password;
     private String phoneNumber;
-    private String birth;
+    private LocalDate birth;
 
     public static Member toEntity(MemberRequestDto dto){
         return Member.builder()
@@ -23,7 +26,7 @@ public class MemberRequestDto {
                 .birth(dto.birth)
                 .phoneNumber(dto.phoneNumber)
                 .name(dto.name)
-                .password(dto.password)
+                .password(PasswordEncoder.encode(dto.password))
                 .build();
     }
 }

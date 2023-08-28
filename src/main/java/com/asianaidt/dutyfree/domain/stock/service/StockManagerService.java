@@ -21,7 +21,8 @@ public class StockManagerService {
     private final StockRepository stockRepository;
 
     public StockManager insertStock(StockManagerRequestDto dto){
-        return stockManagerRepository.save(StockManagerRequestDto.toEntity(dto));
+        Stock stock = stockRepository.findById(dto.getStockId()).orElseThrow();
+        return stockManagerRepository.save(StockManagerRequestDto.toEntity(dto,stock));
 
     }
 
@@ -35,6 +36,14 @@ public class StockManagerService {
 
     public Page<StockManager> getStockManagerList(Pageable pageable, StockStatus status){
         return stockManagerRepository.findAllByStatus(pageable, status);
+    }
+
+    public Page<StockManager> getStockManagerProgress(Pageable pageable){
+        return stockManagerRepository.findAllByStatus(pageable, StockStatus.PROGRESS);
+    }
+
+    public Page<StockManager> getStockManagerCompleted(Pageable pageable){
+        return stockManagerRepository.findAllByStatus(pageable, StockStatus.COMPLETED);
     }
 
 

@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.List;
 
 @NoArgsConstructor
@@ -21,7 +22,7 @@ public class Member {
     private String name;
     private String password;
     private String phoneNumber;
-    private String birth;
+    private LocalDate birth;
     @OneToMany(mappedBy = "member")
     private List<Purchase> purchases;
     @OneToOne(mappedBy = "member")

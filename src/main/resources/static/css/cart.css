@@ -1,106 +1,106 @@
 ul {
-    list-style:none;
+  list-style: none;
 }
 a {
-    text-decoration: none;
+  text-decoration: none;
 }
 .cart_body {
-    width: 100vw;
-    height: 80vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  width: 100vw;
+  height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .cart_box {
-    width: 80vw;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+  width: 80vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 .page_content {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }
 
 .cart_content {
-    width: 52vw;
-    height: 470px;
-    display: flex;
-    border-top: 5px solid black;
-    justify-content: center;
+  width: 52vw;
+  height: 470px;
+  display: flex;
+  border-top: 5px solid black;
+  justify-content: center;
 }
 
 .title_div {
-    width: 80vw;
-    height: 50px;
-    display: flex;
-    margin-bottom: 15px;
+  width: 80vw;
+  height: 50px;
+  display: flex;
+  margin-bottom: 15px;
 }
 
 .title_tab li {
-    display: flex;
-    float: left;
-    margin-left: 10px;
-    margin-right: 10px;
+  display: flex;
+  float: left;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .title_tab a {
-    text-decoration: none;
-    font-size: 28px;
-    font-weight: 600;
-    color: black;
+  text-decoration: none;
+  font-size: 28px;
+  font-weight: 600;
+  color: black;
 }
 
 .item_buy {
-    display: flex;
-    flex-direction: column;
-    width: 20%;
-    justify-content: center;
-    align-items: center;
-    margin : 10px;
+  display: flex;
+  flex-direction: column;
+  width: 20%;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
 }
 
 .item_content {
-    display: flex;
-    font-weight: 500;
-    flex-direction: row;
-    margin-top: 20px;
-    width: 52vw;
-    height: 20vh;
-    border-top: 1px solid lightgray;
+  display: flex;
+  font-weight: 500;
+  flex-direction: row;
+  margin-top: 20px;
+  width: 52vw;
+  height: 20vh;
+  border-top: 1px solid lightgray;
 }
 
 .item_list {
-    margin: 10px;
+  margin: 10px;
 }
 
 .item_title {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin-left: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 40px;
 }
 
 .item_info {
-    display: flex;
-    width: 80%;
-    margin: 10px;
+  display: flex;
+  width: 80%;
+  margin: 10px;
 }
 
 .item_img {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 .pay_table {
-    display: flex;
-    height: 470px;
-    width: 21vw;
-    flex-direction: column;
-    align-items: center;
-    border-top: 5px solid black;
-    padding-top: 4%;
+  display: flex;
+  height: 470px;
+  width: 21vw;
+  flex-direction: column;
+  align-items: center;
+  border-top: 5px solid black;
+  padding-top: 4%;
 }
 
 .pay_box {
@@ -109,32 +109,32 @@ a {
     align-items: center;
 }
 
-.pay_title{
-    font-size: 20px;
-    font-weight: 600;
+.pay_title {
+  font-size: 20px;
+  font-weight: 600;
 }
 
 .quantity_box {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 .cart_btn_box {
-    width: 25vw;
-    display: flex;
-    justify-content: center;
+  width: 25vw;
+  display: flex;
+  justify-content: center;
 }
 
 .cart_buy_button {
-    color: white;
-    background-color: #454b52;
-    width: 50%;
-    height: 40px;
-    border-radius: 5px;
-    border: 0;
-    box-shadow: 0px 4px 2px rgba(0, 0, 0, 0.25);
+  color: white;
+  background-color: #454b52;
+  width: 50%;
+  height: 40px;
+  border-radius: 5px;
+  border: 0;
+  box-shadow: 0px 4px 2px rgba(0, 0, 0, 0.25);
 }
 
 .notice_box {
-    margin: 20px;
+  margin: 20px;
 }

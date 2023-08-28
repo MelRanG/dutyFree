@@ -7,15 +7,16 @@ import com.asianaidt.dutyfree.domain.member.service.MemberService;
 import com.asianaidt.dutyfree.domain.purchase.domain.Purchase;
 import com.asianaidt.dutyfree.domain.purchase.domain.PurchaseDetail;
 import com.asianaidt.dutyfree.domain.purchase.service.PurchaseService;
-import com.asianaidt.dutyfree.global.error.StandardException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @RequestMapping("/member")
@@ -32,17 +33,18 @@ public class MemberController {
     //    로그인 로직
     @PostMapping("/login")
     public String login(HttpSession session, @RequestParam String id, @RequestParam String password, Model model){
-        Optional<Member> member = memberService.login(id, password);
-
-        if(member.isPresent()) {
+        try{
+            Member member = memberService.login(id, password);
             MemberResponseDto responseDto = MemberResponseDto.builder()
-                    .id(member.get().getId())
-                    .name(member.get().getName())
+                    .id(member.getId())
+                    .name(member.getName())
                     .build();
             session.setAttribute("user", responseDto);
+            return "redirect:/";
+        }catch (Exception e){
+            model.addAttribute("message", e.getMessage());
+            return "Login";
         }
-
-        return "redirect:/";
     }
 
     @GetMapping("/logout")
@@ -54,27 +56,31 @@ public class MemberController {
     // 회원가입 페이지 이동
     @GetMapping("/signup")
     public String signUp(){
-        return "Signup";
+        return "AdminSales";
     }
 
     @GetMapping("/check/id/{id}")
-    public String checkId(@PathVariable String id, Model model){
-        try{
-            boolean success = memberService.checkId(id);
-            model.addAttribute("checkId", success);
-            System.out.println(success);
-        }catch (StandardException e){
-            model.addAttribute("error", e.getMessage());
-        }
-        return "test";
+    @ResponseBody
+    public Map<String, Boolean> checkId(@PathVariable String id){
+        boolean result = memberService.checkId(id);
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("result", result);
+        System.out.println(result);
+        return response;
     }
 
     //회원가입 로직
     @PostMapping("/signup")
-    public String signUp(MemberRequestDto memberRequestDto){
+    public ResponseEntity<?> signUp(@RequestBody MemberRequestDto memberRequestDto){
         System.out.println(memberRequestDto);
-        boolean test = memberService.signUp(memberRequestDto);
-        return "test";
+        Map<String, String> map = new HashMap<>();
+        if(memberService.signUp(memberRequestDto)){
+            map.put("message", "회원가입에 성공했습니다.");
+            map.put("url", "/member/login");
+            return ResponseEntity.ok().body(map);
+        }else{
+            return ResponseEntity.badRequest().body("회원가입에 실패했습니다.");
+        }
     }
 
     @GetMapping("/purchase")
