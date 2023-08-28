@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>아시아나IDT- DUTYFREE</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/airTicket.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/product_detail.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/cart.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/passport.css}">
@@ -13,7 +14,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/header.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/footer.css}">
 
-
+    <link rel="stylesheet" type="text/css" href="../static/css/airTicket.css">
     <link rel="stylesheet" type="text/css" href="../static/css/product_detail.css">
     <link rel="stylesheet" type="text/css" href="../static/css/departure.css">
     <link rel="stylesheet" type="text/css" href="../static/css/cart.css">
@@ -28,66 +29,91 @@
         crossorigin="anonymous"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        $(document).ready(function() {
+        function setFlight(date, code, boarding, flightId) {
+            if(sessionStorage.getItem('departureInfo') != null || sessionStorage.getItem('departureInfo') != undefined) {
+                sessionStorage.removeItem('departureInfo');
+            }
+
+            var flightData = {
+                "flightId" : flightId,
+                "flightCode" : code,
+                "flightDate" : date,
+                "boarding" : boarding
+            };
+
+            sessionStorage.setItem("departureInfo", JSON.stringify(flightData));
+            console.log('session data:');
+            console.log(flightData);
+
+        }
+
+        function searchFlight() {
             var flightCode = $('input[name=flightCode]').val();
             var flightDate = $('input[name=flightDate]').val();
-            var boarding = $('#departAt option:selected').val();
+            var boardingEng = $('#departAt option:selected').val();
 
             var data = {
                 "flightCode" : flightCode,
                 "flightDate" : flightDate,
-                "boarding" : boarding
+                "boardingEng" : boardingEng
             };
 
-            $("#flightSearchBtn").click(function() {
-                console.log(data);
+            console.log(data);
 
-                if(airline == '' || flightDate =='' || boarding == '') {
-                    alert('항공편을 입력해주세요.');
-                }
+            if(flightCode == '' || flightDate =='' || boardingEng == '') {
+                alert('항공편을 입력해주세요.');
+            }
 
-                $.ajax({
-                    url: `http://localhost:8080/flight?flightDate=${flightDate}&flightCode=${flightCode}&boarding=${boarding}`,
-                    type: 'GET',
-                    contentType: 'application/json; charset=utf-8',
-                    success: function(result){
-                        console.log(result);
-                    },
-                    error: function(error){
-                        console.log("Error", error);
-                        alert("An error occurred");
+            $.ajax({
+                url: `http://localhost:8080/flight?flightDate=${flightDate}&flightCode=${flightCode}&boarding=${boardingEng}`,
+                type: 'GET',
+                contentType: 'application/json; charset=utf-8',
+                success: function(result){
+                    console.log(result);
+
+                    for (var data of result) {
+                        $('#ticket_list').append(
+                            `<div class="departure_div" onclick="setFlight('${data.flightDate}', '${data.flightCode}', '${data.boardingEng}', '${data.id}')">
+                                <img src="/img/main/departure.png" class="departure_img" alt="">
+                                <div class="departure_bordingTime">${data.flightDate}</div>
+                                <div class="departure_FlightNo">${data.flightCode}</div>
+                                <div class="departure_Departure">${data.boardingEng}</div>
+                            </div>`
+                        );
                     }
-                });
 
-            });
-
-            $("#purchaseBtn").click( function(){
-                if(airline == '' || flightDate =='' || boarding == '') {
-                        alert('항공편을 입력해주세요.');
-                        return ;
+                },
+                error: function(error){
+                    console.log("Error", error);
+                    alert("An error occurred");
                 }
-
-                sessionStorage.setItem("departInfo", JSON.stringify(data));
-                console.log(data);
-
-                $.ajax({
-                    url: "http://localhost:8080/purchase",
-                    type: 'POST',
-                    contentType: 'application/json; charset=utf-8',
-                    success: function(result){
-                        console.log(result);
-                    },
-                    error: function(error){
-                        console.log("Error", error);
-                        alert("An error occurred");
-                    }
-                });
-
             });
-    
+        }
 
-                
-        })
+        function purchase() {
+            var cart = sessionStorage.getItem('cart');
+            var passportInfo = sessionStorage.getItem('passportInfo');
+            var departureInfo = sessionStorage.getItem('departureInfo');
+
+            var data = {
+                'products' : JSON.stringify(cart),
+                'departureInfo' : JSON.stringify(departureInfo),
+                'passportInfo' : JSON.stringify(passportInfo)
+            };
+            $.ajax({
+                url: "http://localhost:8080/purchase",
+                type: 'POST',
+                data : JSON.stringify(data),
+                contentType: 'application/json; charset=utf-8',
+                success: function(result){
+                    console.log(result);
+                },
+                error: function(error){
+                    console.log("Error", error);
+                    alert("An error occurred");
+                }
+            });
+        }
     </script>
 </head>
 
@@ -118,9 +144,10 @@
                                             <select class="form_input" id="departAt">
                                                 <option></option>
                                                 <option value="JEJU">제주</option>
-                                                <option value="SEOUL">서울/김포</option>
+                                                <option value="GIMPO">서울/김포</option>
+                                                <option value="DAEGU">대구</option>
                                                 <option value="CHEONGJU">청주</option>
-                                                <option value="">김해</option>
+                                                <option value="GIMHAE">김해</option>
                                             </select>
                                         </span>
                                     </li>
@@ -137,13 +164,13 @@
                                 </ul>                          
                             </div>
                             <div>
-                                <button class="search_departure_btn" id="flightSearchBtn">검색</button>
+                                <button class="search_departure_btn" onclick="searchFlight()">검색</button>
                             </div>
                     </div>
-                    <div class="departure_list">
-                        <div class="departure_table">
-                            
-                        </div>
+
+
+                    <!-- 티켓  -->
+                    <div class="departure_list" id="ticket_list">
                     </div>
                 </div>
                 <div class="login_box">
@@ -157,27 +184,27 @@
                             <a href="/member/login"><span class="login_btn_name">로그인</span></a>
                         </div>
                     </div>
-                    <div th:if="${session.user} == null and ${products} != null">
+                    <div>
                         <div class="pay_title">예상 주문 금액</div>
                         <br/>
                         <div class="pay_list">
                             <div class="total_pay">
                                 <dl>
                                     <dt>주문금액합계</dt>
-                                    <dd th:text="${#aggregates.sum(products.![quantity * price])}" id="total">0</dd>
+                                    <dd id="total">0</dd>
                                 </dl>
                                 <dl>
                                     <dt>예상할인금액</dt>
                                     <dd>0</dd>
                                 </dl>
-                                <dl th:if="${products} !=null">
-                                    <dt>총 <span th:text="${#aggregates.sum(products.![quantity])}">0</span>개</dt>
-                                    <dd th:text="${#aggregates.sum(products.![quantity * price])}" >0</dd>
+                                <dl>
+                                    <dt>총 <span>0</span>개</dt>
+                                    <dd>0</dd>
                                 </dl>
                             </div>
                         </div>
                         <div class="cart_btn_box">
-                            <button class="cart_buy_button" id="purchaseBtn">구매하기</button>
+                            <button class="cart_buy_button" onclick="purchase()">구매하기</button>
                         </div>
                     </div>                    
                 </div>

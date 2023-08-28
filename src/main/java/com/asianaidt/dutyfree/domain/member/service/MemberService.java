@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.XML;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -53,6 +54,7 @@ public class MemberService {
         }
     }
 
+    @Scheduled(cron = "0 0 0 * * *")
     public void addFlightInfo() {
         for (int no = 1; no <= 10; no++) {
             try {
@@ -95,7 +97,6 @@ public class MemberService {
                         String flightDate = (String) object.get("flightDate");
                         String airFln = (String) object.get("airFln");
                         String boardingEng = (String) object.get("boardingEng");
-                        String rmkEng = (String) object.get("rmkEng");
                         String boardingKor = (String) object.get("boardingKor");
                         String airlineEng = (String) object.get("airlineEnglish");
                         String airlineKor = (String) object.get("airlineKorean");
@@ -108,7 +109,6 @@ public class MemberService {
                                 .flightCode(airFln)
                                 .airlineEng(airlineEng)
                                 .airlineKor(airlineKor)
-                                .flightStatus(rmkEng)
                                 .city(city)
                                 .build();
 

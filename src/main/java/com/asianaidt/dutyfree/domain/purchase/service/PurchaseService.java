@@ -2,6 +2,8 @@ package com.asianaidt.dutyfree.domain.purchase.service;
 
 
 import com.asianaidt.dutyfree.domain.member.domain.Member;
+import com.asianaidt.dutyfree.domain.member.dto.MemberResponseDto;
+import com.asianaidt.dutyfree.domain.member.repository.MemberRepository;
 import com.asianaidt.dutyfree.domain.product.domain.Product;
 import com.asianaidt.dutyfree.domain.product.repository.ProductRepository;
 import com.asianaidt.dutyfree.domain.purchase.domain.Purchase;
@@ -38,7 +40,7 @@ public class PurchaseService {
     private final StockRepository stockRepository;
     private final PurchaseLogRepository purchaseLogRepository;
     private final OptimisticLockStockFacade stockService;
-
+    private final MemberRepository memberRepository;
 
     public List<Purchase> getPurchaseList(String memberId) {
         return purchaseRepository.findByMemberId(memberId).orElse(new ArrayList<>());
@@ -53,10 +55,10 @@ public class PurchaseService {
         return details.get();
     }
 
-    public void addPurchaseDetails(Purchase purchase, List<PurchaseDetailDto> detailDtoList) throws InterruptedException {
+    public void addPurchaseDetails(Purchase purchase, List<CartProductDto> detailDtoList) throws InterruptedException {
         int totalAmount = 0;
 
-        for(PurchaseDetailDto detailDto : detailDtoList) {
+        for(CartProductDto detailDto : detailDtoList) {
             long productId = detailDto.getProductId();
             Optional<Product> product = productRepository.findById(productId);
             Optional<Stock> stock = stockRepository.findByProductId(productId);
@@ -95,15 +97,21 @@ public class PurchaseService {
     }
 
     @Transactional
-    public void purchaseMany(Member member, PurchaseDto purchaseDto) throws InterruptedException {
-        Purchase purchase = Purchase.builder()
-                .regDate(LocalDateTime.now())
-                .member(member)
-                .build();
+    public void purchaseMany(MemberResponseDto memberResponseDto, List<CartProductDto> purchaseDto) throws InterruptedException {
+        Optional<Member> member = memberRepository.findById(memberResponseDto.getId());
 
-        purchaseRepository.save(purchase);
+        if(member.isPresent()) {
+            Purchase purchase = Purchase.builder()
+                    .regDate(LocalDateTime.now())
+                    .member(member.get())
+                    .build();
 
-        addPurchaseDetails(purchase, purchaseDto.getDetailList());
+            purchaseRepository.save(purchase);
+
+            addPurchaseDetails(purchase, purchaseDto);
+        }
+
+
     }
 
     @Transactional
