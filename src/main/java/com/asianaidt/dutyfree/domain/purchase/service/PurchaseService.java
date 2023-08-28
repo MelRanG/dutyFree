@@ -7,24 +7,23 @@ import com.asianaidt.dutyfree.domain.product.repository.ProductRepository;
 import com.asianaidt.dutyfree.domain.purchase.domain.Purchase;
 import com.asianaidt.dutyfree.domain.purchase.domain.PurchaseDetail;
 import com.asianaidt.dutyfree.domain.purchase.domain.PurchaseLog;
-import com.asianaidt.dutyfree.domain.purchase.dto.PurchaseDetailDto;
-import com.asianaidt.dutyfree.domain.purchase.dto.PurchaseDto;
+import com.asianaidt.dutyfree.domain.purchase.dto.*;
 import com.asianaidt.dutyfree.domain.purchase.repository.PurchaseDetailRepository;
 import com.asianaidt.dutyfree.domain.purchase.repository.PurchaseLogRepository;
 import com.asianaidt.dutyfree.domain.purchase.repository.PurchaseRepository;
 import com.asianaidt.dutyfree.domain.stock.domain.Stock;
-import com.asianaidt.dutyfree.domain.purchase.dto.BrandSalesDto;
-import com.asianaidt.dutyfree.domain.purchase.dto.DailySalesDto;
-import com.asianaidt.dutyfree.domain.purchase.dto.MonthlySalesDto;
 import com.asianaidt.dutyfree.domain.stock.facade.OptimisticLockStockFacade;
 import com.asianaidt.dutyfree.domain.stock.repository.StockRepository;
 import com.asianaidt.dutyfree.global.error.StandardException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -149,18 +148,34 @@ public class PurchaseService {
 
     public int calculateTotalAmount(){
         return purchaseLogRepository.findAll().stream()
-                .mapToInt(d -> d.getPrice() * d.getQuantity())
+                .mapToInt(PurchaseLog::getPrice)
                 .sum();
     }
 
     public List<MonthlySalesDto> calculateMonthlySales(){
-        return purchaseLogRepository.findMonthlySales();
+        return purchaseLogRepository.findMonthlySales(PageRequest.of(0,12));
     }
     public List<BrandSalesDto> calculateBrandSales(){
-        return purchaseLogRepository.findBrandSales();
+        return purchaseLogRepository.findBrandSales(PageRequest.of(0,6));
+    }
+    public List<CategorySalesDto> calculateCategorySales(){
+        return purchaseLogRepository.findCategorySales(PageRequest.of(0,6));
     }
     public List<DailySalesDto> calculateDailySalesForMonth(int year, int month){
-        return purchaseLogRepository.findDailySalesForMonth(year, month);
+        int daysInMonth = YearMonth.of(year,month).lengthOfMonth();
+        List<DailySalesDto> allDays = new ArrayList<>();
+        for (int day = 1; day <= daysInMonth; day++) {
+            allDays.add(new DailySalesDtoImpl(LocalDate.of(year, month, day), 0));
+        }
+        // 2단계: DB에서 실제 판매 데이터 가져오기
+        List<DailySalesDto> actualData = purchaseLogRepository.findDailySalesForMonth(year, month);
+
+        // 실제 판매 데이터로 더미 데이터 업데이트
+        for (DailySalesDto data : actualData) {
+            int index = data.getDay().getDayOfMonth() - 1;
+            allDays.set(index, data);
+        }
+        return allDays;
     }
 
 }

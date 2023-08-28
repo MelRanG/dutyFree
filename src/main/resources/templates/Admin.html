@@ -33,43 +33,61 @@
         <!-- jquery -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-        <script>
-            function insertStock(buttonId) {
-                var btnNumber = buttonId.replace("btn_", ""); // 제품 아이디
-                console.log(btnNumber);
-                var inputId = "input_" + btnNumber;
-                console.log(inputId);
-                var inputValue = $("#" + inputId).val(); // 주문 수량
-                console.log(inputValue);
-                // 멤버 추가 필요함 session.~~~
-                var sendData = {
-                    stockId: btnNumber,
-                    quantity: inputValue,
-                    memberId: "황도영",
-                };
+    </head>
 
-                $.ajax({
-                    // /admin/stock/insert
-                    /*
-                        INPUT
-                        stockId : Long,
-                        quantity : int,
-                        memberId : String
-                    */
-                    url: "http://localhost:8080/admin/stock/insert", // 서버 API URL을 입력하세요.
-                    type: "POST",
-                    data: JSON.stringify(sendData),
-                    contentType: "application/json",
-                    success: function (response) {
-                        console.log(response);
-                    },
-                    error: function (error) {
-                        console.log("Error", error);
-                    },
-                });
-                console.log(sendData);
-                console.log("아이디 : " + inputId + "주문수량 : " + inputValue);
-            }
+    <body>
+        <link rel="stylesheet" type="text/css" th:href="@{/css/reset.css}">
+        <link rel="stylesheet" type="text/css" th:href="@{/css/admin.css}">
+        <link rel="stylesheet" type="text/css" th:href="@{/css/adminSidebar.css}">
+        <link rel="stylesheet" type="text/css" th:href="@{/css/adminHeader.css}">
+
+        <head>
+            <meta charset="UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <title>Document</title>
+            <link rel="stylesheet" type="text/css" th:href="@{/css/reset.css}" />
+            <link rel="stylesheet" type="text/css" th:href="@{/css/admin.css}" />
+            <link rel="stylesheet" type="text/css" th:href="@{/css/adminSidebar.css}" />
+            <link rel="stylesheet" type="text/css" th:href="@{/css/adminHeader.css}" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+            <script>
+                function insertStock(buttonId) {
+                    var btnNumber = buttonId.replace("btn_", ""); // 제품 아이디
+                    console.log(btnNumber);
+                    var inputId = "input_" + btnNumber;
+                    console.log(inputId);
+                    var inputValue = $("#" + inputId).val(); // 주문 수량
+                    console.log(inputValue);
+                    // 멤버 추가 필요함 session.~~~
+                    var sendData = {
+                        stockId: btnNumber,
+                        quantity: inputValue,
+                        memberId: "황도영",
+                    };
+
+                    $.ajax({
+                        // /admin/stock/insert
+                        /*
+                            INPUT
+                            stockId : Long,
+                            quantity : int,
+                            memberId : String
+                        */
+                        url: "http://localhost:8080/admin/stock/insert", // 서버 API URL을 입력하세요.
+                        type: "POST",
+                        data: JSON.stringify(sendData),
+                        contentType: "application/json",
+                        success: function (response) {
+                            console.log(response);
+                        },
+                        error: function (error) {
+                            console.log("Error", error);
+                        },
+                    });
+                    console.log(sendData);
+                    console.log("아이디 : " + inputId + "주문수량 : " + inputValue);
+                }
 
             function chageStatus(buttonId) {
                 var btnNumber = buttonId.replace("sbtn_", ""); // 발주번호 아이디
@@ -100,28 +118,29 @@
         </script>
     </head>
 
-    <body>
-        <!-- 어드민 헤더 -->
-        <div th:replace="~{Component/AdminHeader :: adminHeader}"></div>
 
-        <!-- 어드민 사이드바 -->
-        <div th:replace="~{Component/AdminSidebar :: adminSidebar}"></div>
+        <body>
+            <!-- 어드민 헤더 -->
+            <div th:replace="~{Component/AdminHeader :: adminHeader}"></div>
 
-        <!-- <div th:replace="~{Component/AdminStock :: adminStock}"></div> -->
-        <!-- </div> -->
+            <!-- 어드민 사이드바 -->
+            <div th:replace="~{Component/AdminSidebar :: adminSidebar}"></div>
 
-        <!-- 재고 관리 -->
-        <div class="admin">
-            <p class="admin_text">재고 관리</p>
-            <br />
-            <table id="admin_table">
-                <th class="admin_table_top">카테고리</th>
-                <th class="admin_table_top">브랜드</th>
-                <th class="admin_table_top">제품명</th>
-                <th class="admin_table_top">단가</th>
-                <th class="admin_table_top">재고수량</th>
-                <th class="admin_table_top">발주개수</th>
-                <th class="admin_table_top">발주하기</th>
+            <!-- <div th:replace="~{Component/AdminStock :: adminStock}"></div> -->
+            <!-- </div> -->
+
+            <!-- 재고 관리 -->
+            <div class="admin">
+                <p class="admin_text">재고 관리</p>
+                <br />
+                <table id="admin_table">
+                    <th class="admin_table_top">카테고리</th>
+                    <th class="admin_table_top">브랜드</th>
+                    <th class="admin_table_top">제품명</th>
+                    <th class="admin_table_top">단가</th>
+                    <th class="admin_table_top">재고수량</th>
+                    <th class="admin_table_top">발주개수</th>
+                    <th class="admin_table_top">발주하기</th>
 
                 <!-- <tr th:each=" stock : ${allStock}"> -->
                 <tr th:each=" stock : ${allStock}">
@@ -251,3 +270,4 @@
         </div>
     </body>
 </html>
+

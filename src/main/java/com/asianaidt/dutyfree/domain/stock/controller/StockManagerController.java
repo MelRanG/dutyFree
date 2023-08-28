@@ -1,6 +1,7 @@
 package com.asianaidt.dutyfree.domain.stock.controller;
 
 import com.asianaidt.dutyfree.domain.purchase.dto.BrandSalesDto;
+import com.asianaidt.dutyfree.domain.purchase.dto.CategorySalesDto;
 import com.asianaidt.dutyfree.domain.purchase.dto.DailySalesDto;
 import com.asianaidt.dutyfree.domain.purchase.dto.MonthlySalesDto;
 import com.asianaidt.dutyfree.domain.purchase.service.PurchaseService;
@@ -155,6 +156,13 @@ public class StockManagerController {
         return response;
     }
 
+    @GetMapping("/sales/category")
+    @ResponseBody
+    public Map<String, List<CategorySalesDto>> calculateCategorySales(){
+        Map<String, List<CategorySalesDto>> response = new HashMap<>();
+        response.put("categorySales", purchaseService.calculateCategorySales());
+        return response;
+    }
     /*
     OUTPUT
     int brand
