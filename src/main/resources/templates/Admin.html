@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+
+        <!-- 부트스트랩 -->
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+            crossorigin="anonymous"
+        />
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+            crossorigin="anonymous"
+        ></script>
+        <!-- css -->
+        <link rel="stylesheet" type="text/css" th:href="@{/css/reset.css}" />
+        <link rel="stylesheet" type="text/css" th:href="@{/css/admin.css}" />
+        <link
+            rel="stylesheet"
+            type="text/css"
+            th:href="@{/css/adminSidebar.css}"
+        />
+        <link
+            rel="stylesheet"
+            type="text/css"
+            th:href="@{/css/adminHeader.css}"
+        />
+        <!-- jquery -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+        <script>
+            function insertStock(buttonId) {
+                var btnNumber = buttonId.replace("btn_", ""); // 제품 아이디
+                console.log(btnNumber);
+                var inputId = "input_" + btnNumber;
+                console.log(inputId);
+                var inputValue = $("#" + inputId).val(); // 주문 수량
+                console.log(inputValue);
+                // 멤버 추가 필요함 session.~~~
+                var sendData = {
+                    stockId: btnNumber,
+                    quantity: inputValue,
+                    memberId: "황도영",
+                };
+
+                $.ajax({
+                    // /admin/stock/insert
+                    /*
+                        INPUT
+                        stockId : Long,
+                        quantity : int,
+                        memberId : String
+                    */
+                    url: "http://localhost:8080/admin/stock/insert", // 서버 API URL을 입력하세요.
+                    type: "POST",
+                    data: JSON.stringify(sendData),
+                    contentType: "application/json",
+                    success: function (response) {
+                        console.log(response);
+                    },
+                    error: function (error) {
+                        console.log("Error", error);
+                    },
+                });
+                console.log(sendData);
+                console.log("아이디 : " + inputId + "주문수량 : " + inputValue);
+            }
+
+            function chageStatus(buttonId) {
+                var btnNumber = buttonId.replace("sbtn_", ""); // 발주번호 아이디
+
+                $.ajax({
+                    url: `http://localhost:8080/admin/stock/${btnNumber}`,
+                    type: "PATCH",
+                    success: function (response) {
+                        console.log(response);
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    },
+                });
+                console.log(btnNumber);
+            }
+
+            $(document).ready(function () {
+                // Associate the insertStock function with specific buttons
+                $('[id^="btn_"]').on("click", function () {
+                    insertStock($(this).attr("id"));
+                });
+
+                $('[id^="sbtn_"]').on("click", function () {
+                    chageStatus($(this).attr("id"));
+                });
+            });
+        </script>
+    </head>
+
+    <body>
+        <!-- 어드민 헤더
+        <div th:replace="~{Component/AdminHeader :: adminHeader}"></div> -->
+
+        <div class="split_sidebar">
+            <!-- 어드민 사이드바 -->
+            <div th:replace="~{Component/AdminSidebar :: adminSidebar}"></div>
+
+            <!-- <div th:replace="~{Component/AdminStock :: adminStock}"></div> -->
+            <!-- </div> -->
+            <div style="background-color: rgb(248, 249, 252)">
+                <!-- 재고 관리 -->
+                <div class="admin">
+                    <p class="admin_text">재고 관리</p>
+                    <br />
+                    <table id="admin_table">
+                        <th class="admin_table_top">카테고리</th>
+                        <th class="admin_table_top">브랜드</th>
+                        <th class="admin_table_top">제품명</th>
+                        <th class="admin_table_top">단가</th>
+                        <th class="admin_table_top">재고수량</th>
+                        <th class="admin_table_top">발주개수</th>
+                        <th class="admin_table_top">발주하기</th>
+
+                        <!-- <tr th:each=" stock : ${allStock}"> -->
+                        <tr th:each=" stock : ${allStock}">
+                            <!-- 줄 시작 -->
+                            <!-- 타임리프로 전환 시 반복문 돌릴 것 -->
+                            <td
+                                class="admin_table_element"
+                                th:text="${stock.category}"
+                            >
+                                카테고리
+                            </td>
+                            <td
+                                class="admin_table_element"
+                                th:text="${stock.brand}"
+                            >
+                                브랜드
+                            </td>
+                            <td
+                                class="admin_table_element"
+                                th:text="${stock.name}"
+                            >
+                                제품명
+                            </td>
+                            <td
+                                class="admin_table_element"
+                                th:text="${stock.price}"
+                            >
+                                단가
+                            </td>
+                            <td
+                                class="admin_table_element"
+                                th:text="${stock.quantity}"
+                            >
+                                재고수량
+                            </td>
+                            <td class="admin_table_element_input">
+                                <input
+                                    type="number"
+                                    name=""
+                                    class="admin_table_input"
+                                    min="1"
+                                    value="1"
+                                    th:id="'input_' + ${stock.id}"
+                                />
+                            </td>
+                            <td class="admin_table_element">
+                                <button
+                                    class="admin_table_btn"
+                                    th:id="'btn_' + ${stock.id}"
+                                >
+                                    발주
+                                </button>
+                            </td>
+                        </tr>
+                    </table>
+                    <ul
+                        class="pagination"
+                        th:with="
+                    pageNumber = ${allStock.pageable.pageNumber},
+                    pageSize = ${allStock.pageable.pageSize},
+                    totalPages = ${allStock.totalPages},
+                    startPage = ${T(java.lang.Math).floor(pageNumber / pageSize) * pageSize + 1},
+                    tempEndPage = ${startPage + pageSize - 1},
+                    endPage = (${tempEndPage < totalPages ? tempEndPage : totalPages})"
+                    >
+                        <li
+                            th:classappend="${allStock.first} ? 'disabled'"
+                            class="page-item"
+                        >
+                            <a
+                                class="page-link"
+                                th:href="${allStock.first} ? '#' : @{/admin?(page=${pageNumber - 1})}"
+                            >
+                                <span aria-hidden="true">&lt;</span>
+                            </a>
+                        </li>
+
+                        <li
+                            th:each="page: ${#numbers.sequence(startPage, endPage)}"
+                            th:classappend="${page == pageNumber + 1} ? 'active'"
+                            class="page-item"
+                        >
+                            <a
+                                th:text="${page}"
+                                class="page-link"
+                                th:href="@{/admin?(page=${page - 1})}"
+                            ></a>
+                        </li>
+
+                        <li
+                            th:classappend="${allStock.last} ? 'disabled'"
+                            class="page-item"
+                        >
+                            <a
+                                class="page-link"
+                                th:href="${allStock.last} ? '#' : @{/admin?(page=${pageNumber + 1})}"
+                                aria-label="Next"
+                            >
+                                <span aria-hidden="true">&gt;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- 어드민 발주상태 (완료, 미완료) -->
+                <!-- <div th:replace="~{Component/AdminHistory :: adminHistory}"></div> -->
+                <div class="admin">
+                    <br />
+                    <p class="admin_text">발주 상황</p>
+                    <br />
+                    <table id="admin_table">
+                        <th class="admin_table_top">카테고리</th>
+                        <th class="admin_table_top">브랜드</th>
+                        <th class="admin_table_top">제품명</th>
+                        <th class="admin_table_top">단가</th>
+                        <th class="admin_table_top">재고수량</th>
+                        <th class="admin_table_top">발주수량</th>
+                        <th class="admin_table_top">발주현황</th>
+                        <!-- 발주현황(대기중 일때는 버튼, 완료 상태면 글자로) -->
+                        <th class="admin_table_top">책임자</th>
+                        <!-- <tr th:each=" pro : ${progress}"> -->
+                        <tr>
+                            <!-- 줄 시작 -->
+                            <!-- 타임리프로 전환 시 반복문 돌릴 것 -->
+                            <td class="admin_table_element">카테고리(없음)</td>
+                            <td class="admin_table_element">브랜드(없음)</td>
+                            <td class="admin_table_element">제품명(없음)</td>
+                            <td class="admin_table_element">단가(없음)</td>
+                            <td class="admin_table_element">재고수량</td>
+                            <td class="admin_table_element">발주수량</td>
+                            <td class="admin_table_element">
+                                <!-- <button
+                                class="admin_table_btn"
+                                th:id="'sbtn_' + ${pro.id}"
+                            >
+                                입고 확인
+                            </button> -->
+                            </td>
+                            <td class="admin_table_element">책임자</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Data
@@ -25,5 +26,5 @@ public class Flight {
     private String city;
     private String flightCode;
     private String flightStatus;
-
+    private LocalDateTime regDate;
 }

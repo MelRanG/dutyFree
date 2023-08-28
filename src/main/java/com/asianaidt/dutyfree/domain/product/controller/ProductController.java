@@ -118,9 +118,9 @@ public class ProductController {
         ProductDto detail = productService.getProductDetail(productId);
         List<CategoryListDto> categoryList = categoryService.getAllCategory();
         model.addAttribute("category", categoryList);
-        model.addAttribute("detail", detail);
+        model.addAttribute("product", detail);
 //        return ResponseEntity.ok(productDetail);
-        return null;
+        return "ProductDetail";
     }
     // 상품 검색 => 검색한 내용이 포함된 모든 상품 리스트
     @GetMapping("/search/{productName}")

@@ -8,7 +8,28 @@
 .departure_area {
     display: flex;
     border-top : 1px solid lightgray;
+    flex-direction: column;
     padding-top: 20px;
     align-items: center;
     font-size: 16px;
+}
+
+.search_departure_btn {
+background-color: #454b52;
+  border: 0;
+  border-radius: 5px;
+  font-weight: 500;
+  font-size: 14px;
+  font-family: "Noto Sans KR", sans-serif;
+  margin: 10px;
+  padding: 10px 40px;
+  color: white;
+}
+
+.departure_list {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 52vw;
+    padding: 50px;
 }

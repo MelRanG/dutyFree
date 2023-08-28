@@ -1,6 +1,7 @@
 package com.asianaidt.dutyfree.domain.stock.controller;
 
 import com.asianaidt.dutyfree.domain.purchase.dto.BrandSalesDto;
+import com.asianaidt.dutyfree.domain.purchase.dto.CategorySalesDto;
 import com.asianaidt.dutyfree.domain.purchase.dto.DailySalesDto;
 import com.asianaidt.dutyfree.domain.purchase.dto.MonthlySalesDto;
 import com.asianaidt.dutyfree.domain.purchase.service.PurchaseService;
@@ -10,6 +11,7 @@ import com.asianaidt.dutyfree.domain.stock.service.StockManagerService;
 import com.asianaidt.dutyfree.domain.stock.service.StockService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +29,34 @@ public class StockManagerController {
     private final PurchaseService purchaseService;
     private final StockService stockService;
 
+    @GetMapping()
+    public String admin(Model model, Pageable pageable){
+
+        model.addAttribute("allStock", stockService.getProductStockList(pageable));
+
+        model.addAttribute("progress",stockManagerService.getStockManagerProgress(pageable)); // 프로그레스
+
+//f
+
+        return "Admin";
+    }
+
+    @GetMapping("/history")
+    public String adminStock(Model model, Pageable pageable){
+
+        model.addAttribute("stockCompleted",stockManagerService.getStockManagerCompleted(pageable));
+
+        return "AdminHis";
+    }
+
+    @GetMapping("/sales")
+    public String adminSales(Model model, Pageable pageable){
+        return "AdminSales";
+    }
+
+
+
+
     /*
     INPUT
     stockId : Long,
@@ -38,6 +68,7 @@ public class StockManagerController {
         try{
             stockManagerService.insertStock(dto);
             model.addAttribute("message", "발주가 신청됐습니다.");
+            System.out.println("dto = " + dto.toString());
             return "redirect:/Admin";
         }catch (Exception e){
             model.addAttribute("message", e.getMessage());
@@ -68,10 +99,22 @@ public class StockManagerController {
     status : String
     Stock : 객체
      */
-    @GetMapping("/stock")
-    public String getStockManagerList(Pageable pageable, Model model, @RequestParam StockStatus status){
+
+    @GetMapping("/stock/test")
+//    public String getStockManagerList(Pageable pageable, Model model, @RequestParam StockStatus status){
+    public ResponseEntity<?> getStockManagerListTest(Pageable pageable, Model model, @RequestParam StockStatus status){
+
         model.addAttribute("stockManagerList",stockManagerService.getStockManagerList(pageable, status));
-        return "Admin";
+
+        return ResponseEntity.ok(stockManagerService.getStockManagerList(pageable,status));
+    }
+    @GetMapping("/stock/status/test")
+//    public String getStockManagerList(Pageable pageable, Model model, @RequestParam StockStatus status){
+    public ResponseEntity<?> getStatus(Pageable pageable, Model model){
+
+//        model.addAttribute("stockManagerList",stockManagerService.getStockManagerList(pageable, status));
+
+        return ResponseEntity.ok(stockManagerService.getStockManagerProgress(pageable));
     }
     /*
     INPUT
@@ -83,12 +126,17 @@ public class StockManagerController {
     int price;
     int quantity;
      */
+
     @GetMapping("/product/list")
     public String getProductStockList(Model model, Pageable pageable){
-        model.addAttribute(stockService.getProductStockList(pageable));
-        return "Admin";
+        model.addAttribute("allStock", stockService.getProductStockList(pageable));
+        return "AdminStock";
     }
-
+    @GetMapping("/product/list/test")
+    public ResponseEntity<?> getProductStockListTest(Model model, Pageable pageable){
+        model.addAttribute(stockService.getProductStockList(pageable));
+        return ResponseEntity.ok(stockService.getProductStockList(pageable));
+    }
     @GetMapping("/sales/total")
     @ResponseBody
     public Map<String, Integer> calculateTotalAmount() {
@@ -111,6 +159,13 @@ public class StockManagerController {
         return response;
     }
 
+    @GetMapping("/sales/category")
+    @ResponseBody
+    public Map<String, List<CategorySalesDto>> calculateCategorySales(){
+        Map<String, List<CategorySalesDto>> response = new HashMap<>();
+        response.put("categorySales", purchaseService.calculateCategorySales());
+        return response;
+    }
     /*
     OUTPUT
     int brand

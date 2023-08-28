@@ -1,24 +1,27 @@
 #admin_table {
     border-collapse: collapse;
-    width: 70%;
+    width: 90%;
     border: 1px solid #444444;
 }
 
 .admin_table_top {
     /* border: 1px solid black; */
-    background-color: #87ceeb;
+    background-color: #454b52;
+    color: white;
 }
 
 .admin_table_element {
     border: 1px solid #444444;
     text-align: center;
+    height: 28px;
+    vertical-align: middle;
 }
 
-#admin_table_input {
+.admin_table_input {
     width: 30%;
 }
 
-#admin_table_btn {
+.admin_table_btn {
     color: white;
     /* light black */
     background: #474747;
@@ -28,10 +31,19 @@
 
 .admin_text {
     font-weight: bold;
+    margin-right: 83%;
 }
 
-.admin_table_element_input{
+.admin_table_element_input {
     width: 8%;
     text-align: center;
     border: 1px solid #444444;
+}
+
+.admin {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    width: 86%;
+    padding-top: 60px;
 }

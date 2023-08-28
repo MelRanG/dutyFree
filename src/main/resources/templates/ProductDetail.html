@@ -109,7 +109,7 @@
 
             if (confirmation) {
                 // 사용자가 확인 버튼을 눌렀을 때의 동작
-                window.location.href = "/Cart"; // 장바구니 페이지로 이동
+                window.location.href = "/cart"; // 장바구니 페이지로 이동
             }
 
         }
@@ -146,7 +146,7 @@
 
             // 변경된 카트 데이터를 세션 스토리지에 저장
             sessionStorage.setItem("cart", JSON.stringify(cart));
-            window.location.href = "/Cart"
+            window.location.href = "/cart"
         }
 
         function goCartWithCart() {
@@ -170,19 +170,19 @@
 <div th:replace="~{Component/Header :: header(${category})}"></div>
     <div class="product_detail_body">
         <div class="product_card_big">
-            <img id="product_detail_image" th:src="@{/img/beauty/겔랑_아베이 로얄 더블 R 리뉴 리페어 어드밴스드 세럼 50mL.jpg}"
+            <img id="product_detail_image" th:src="@{${product.path}}"
                 alt="product_image">
             <div class="product_detail_box">
                 <!-- <div th:text="${product.productId}" id="productId" hidden></div> -->
-                <div class="product_detail_brand">크리니크</div>
-                <div class="product_detail_title">(24년 7월) 퀵라이너 포 아이즈- Intense Black</div>
+                <div class="product_detail_brand" th:text="${product.brand}">크리니크</div>
+                <div class="product_detail_title" th:text="${product.name}">(24년 7월) 퀵라이너 포 아이즈- Intense Black</div>
                 <div class="price_detail_flex">
                     <div class="product_datail_quantity_button">
                         <button class="quantity_button" onclick="count('minus');">–</button>
                         <div id="quantity">1</div>
                         <button class="quantity_button" onclick="count('plus');">+</button>
                     </div>
-                    <div class="price_detail_dollar" id="orPriceDollar">$22.4</div>
+                    <div class="price_detail_dollar" id="orPriceDollar" th:text="${product.price}">$22.4</div>
                     <div class="price_detail_won" id="price">30,051원</div>
                 </div>
                 <hr class="detail_hr">
@@ -205,7 +205,7 @@
 
         <div class="detail_info_body">
             <div class="detail_info_title">상세정보</div>
-            <img id="product_detail_image" th:src="@{/img/beauty/겔랑_아베이 로얄 더블 R 리뉴 리페어 어드밴스드 세럼 50mL.jpg}"
+            <img id="product_detail_image" th:src="@{${product.path}}"
                 alt="product_image">
         </div>
     </div>

@@ -6,7 +6,6 @@ import com.asianaidt.dutyfree.domain.stock.domain.Stock;
 import com.asianaidt.dutyfree.domain.stock.facade.OptimisticLockStockFacade;
 import com.asianaidt.dutyfree.domain.stock.repository.StockRepository;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -51,7 +50,7 @@ class StockServiceTest {
 
     @Test
     public void 동시에_40명이_주문() throws InterruptedException {
-        int threadCount = 40;
+        int threadCount = 60;
         ExecutorService executorService = Executors.newFixedThreadPool(20);
         CountDownLatch latch = new CountDownLatch(threadCount);
 
