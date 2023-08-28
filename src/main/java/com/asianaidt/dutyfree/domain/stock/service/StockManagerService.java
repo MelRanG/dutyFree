@@ -30,8 +30,9 @@ public class StockManagerService {
     public Stock updateStockStatus(Long id){
         StockManager stockManager = stockManagerRepository.findById(id).orElseThrow(() -> new RuntimeException("재고관리 테이블에 해당하는 아이디가 없습니다."));
         stockManager.updateStatus();
+        stockManagerRepository.save(stockManager);
         Stock stock = stockRepository.findById(stockManager.getStock().getId()).orElseThrow(() -> new RuntimeException("재고 아이디가 없습니다."));
-        stock.updateQuantity(stock.getQuantity());
+        stock.updateQuantity(stockManager.getQuantity());
         return stockRepository.save(stock);
     }
 
