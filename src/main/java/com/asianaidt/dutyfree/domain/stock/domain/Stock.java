@@ -22,6 +22,7 @@ public class Stock {
     private Long id;
     private int quantity;
     @OneToOne
+    @JoinColumn(name = "productId")
     private Product product;
     @OneToMany(mappedBy = "stock")
     private List<StockManager> stockManagers;

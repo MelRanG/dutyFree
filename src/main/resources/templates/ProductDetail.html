@@ -167,7 +167,7 @@
 </head>
 
 <body>
-    <div th:replace="~{Component/Header :: header}"></div>
+<div th:replace="~{Component/Header :: header(${category})}"></div>
     <div class="product_detail_body">
         <div class="product_card_big">
             <img id="product_detail_image" th:src="@{/img/beauty/겔랑_아베이 로얄 더블 R 리뉴 리페어 어드밴스드 세럼 50mL.jpg}"

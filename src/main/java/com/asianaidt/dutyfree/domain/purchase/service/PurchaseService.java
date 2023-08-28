@@ -112,6 +112,9 @@ public class PurchaseService {
         Optional<Stock> stock = stockRepository.findByProductId(productId);
 
         if(product.isPresent() && stock.isPresent()) {
+            if(stock.get().getQuantity() < quantity){
+                throw new RuntimeException("재고는 0을 초과할 수 없습니다.");
+            }
             Purchase purchase = Purchase.builder()
                     .regDate(LocalDateTime.now())
                     .member(member)

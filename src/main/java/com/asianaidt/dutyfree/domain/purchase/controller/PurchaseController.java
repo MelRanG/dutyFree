@@ -1,6 +1,7 @@
 package com.asianaidt.dutyfree.domain.purchase.controller;
 
 import com.asianaidt.dutyfree.domain.member.domain.Member;
+import com.asianaidt.dutyfree.domain.product.service.CategoryService;
 import com.asianaidt.dutyfree.domain.purchase.service.PurchaseService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,11 +16,7 @@ import javax.servlet.http.HttpSession;
 @Slf4j
 public class PurchaseController {
     private final PurchaseService purchaseService;
-
-    @GetMapping("/{categoryId}/product/{productId}")
-    public String getPurchase() {
-        return "";
-    }
+    private final CategoryService categoryService;
 
     @PostMapping("/{categoryId}/product/{productId}")
     public String purchaseOne(HttpSession session, @PathVariable Long categoryId, @PathVariable Long productId,

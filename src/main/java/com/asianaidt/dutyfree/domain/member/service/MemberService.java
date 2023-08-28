@@ -4,7 +4,7 @@ import com.asianaidt.dutyfree.domain.member.domain.Flight;
 import com.asianaidt.dutyfree.domain.member.domain.Member;
 import com.asianaidt.dutyfree.domain.member.dto.MemberRequestDto;
 import com.asianaidt.dutyfree.domain.member.repository.FlightRepository;
-import com.asianaidt.dutyfree.domain.member.rerpository.MemberRepository;
+import com.asianaidt.dutyfree.domain.member.repository.MemberRepository;
 import com.asianaidt.dutyfree.global.error.StandardException;
 import com.asianaidt.dutyfree.global.util.PasswordEncoder;
 import lombok.RequiredArgsConstructor;
