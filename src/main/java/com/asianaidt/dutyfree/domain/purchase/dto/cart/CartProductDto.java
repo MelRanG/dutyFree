@@ -1,4 +1,4 @@
-package com.asianaidt.dutyfree.domain.purchase.dto;
+package com.asianaidt.dutyfree.domain.purchase.dto.cart;
 
 import com.asianaidt.dutyfree.domain.product.dto.ProductDto;
 import lombok.Builder;
