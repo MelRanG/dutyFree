@@ -10,6 +10,7 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 public class ProductStockDto {
+    private Long id;
     private String name;
     private String brand;
     private String category;

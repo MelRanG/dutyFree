@@ -6,7 +6,7 @@
 
 .admin_table_top {
     /* border: 1px solid black; */
-    background-color: #454B52;
+    background-color: #454b52;
     color: white;
 }
 
@@ -17,11 +17,11 @@
     vertical-align: middle;
 }
 
-#admin_table_input {
+.admin_table_input {
     width: 30%;
 }
 
-#admin_table_btn {
+.admin_table_btn {
     color: white;
     /* light black */
     background: #474747;
@@ -34,13 +34,13 @@
     margin-right: 83%;
 }
 
-.admin_table_element_input{
+.admin_table_element_input {
     width: 8%;
     text-align: center;
     border: 1px solid #444444;
 }
 
-.admin{
+.admin {
     display: inline-flex;
     flex-direction: column;
     align-items: center;
