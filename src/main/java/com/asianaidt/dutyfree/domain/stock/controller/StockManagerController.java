@@ -49,7 +49,7 @@ public class StockManagerController {
     @GetMapping("/history")
     public String adminStock(Model model, Pageable pageable){
 
-        model.addAttribute("stockCompleted",stockManagerService.getStockManagerCompleted(pageable));
+        model.addAttribute("complete",stockManagerService.getStockManagerCompleted(pageable));
 
         return "AdminHis";
     }
