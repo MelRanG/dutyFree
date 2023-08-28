@@ -33,9 +33,9 @@ public class StockManagerController {
 
         model.addAttribute("allStock", stockService.getProductStockList(pageable));
 
-        model.addAttribute("stockProgress",stockManagerService.getStockManagerProgress(pageable)); // 프로그레스
+        model.addAttribute("progress",stockManagerService.getStockManagerProgress(pageable)); // 프로그레스
 
-        model.addAttribute("stockCompleted",stockManagerService.getStockManagerCompleted(pageable));
+//f
 
         return "Admin";
     }
@@ -43,12 +43,8 @@ public class StockManagerController {
     @GetMapping("/history")
     public String adminStock(Model model, Pageable pageable){
 
-//        model.addAttribute("allStock", stockService.getProductStockList(pageable));
-//
-////        model.addAttribute("stockManagerList",stockManagerService.getStockManagerList(pageable, status)); // 프로그레스
-//
-////        model.addAttribute("stockManagerList",stockManagerService.getStockManagerList(pageable, status));
-//
+        model.addAttribute("stockCompleted",stockManagerService.getStockManagerCompleted(pageable));
+
         return "AdminHis";
     }
 
@@ -107,6 +103,14 @@ public class StockManagerController {
         model.addAttribute("stockManagerList",stockManagerService.getStockManagerList(pageable, status));
 
         return ResponseEntity.ok(stockManagerService.getStockManagerList(pageable,status));
+    }
+    @GetMapping("/stock/status/test")
+//    public String getStockManagerList(Pageable pageable, Model model, @RequestParam StockStatus status){
+    public ResponseEntity<?> getStatus(Pageable pageable, Model model){
+
+//        model.addAttribute("stockManagerList",stockManagerService.getStockManagerList(pageable, status));
+
+        return ResponseEntity.ok(stockManagerService.getStockManagerProgress(pageable));
     }
     /*
     INPUT
