@@ -157,6 +157,9 @@ public class PurchaseService {
     public List<BrandSalesDto> calculateBrandSales(){
         return purchaseLogRepository.findBrandSales();
     }
+    public List<CategorySalesDto> calculateCategorySales(){
+        return purchaseLogRepository.findCategorySales();
+    }
     public List<DailySalesDto> calculateDailySalesForMonth(int year, int month){
         int daysInMonth = YearMonth.of(year,month).lengthOfMonth();
         List<DailySalesDto> allDays = new ArrayList<>();

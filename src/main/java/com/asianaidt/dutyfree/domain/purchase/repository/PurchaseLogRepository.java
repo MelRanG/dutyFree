@@ -1,8 +1,9 @@
 package com.asianaidt.dutyfree.domain.purchase.repository;
 
 import com.asianaidt.dutyfree.domain.purchase.domain.PurchaseLog;
-import com.asianaidt.dutyfree.domain.purchase.dto.DailySalesDto;
 import com.asianaidt.dutyfree.domain.purchase.dto.BrandSalesDto;
+import com.asianaidt.dutyfree.domain.purchase.dto.CategorySalesDto;
+import com.asianaidt.dutyfree.domain.purchase.dto.DailySalesDto;
 import com.asianaidt.dutyfree.domain.purchase.dto.MonthlySalesDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -21,8 +22,16 @@ public interface PurchaseLogRepository extends JpaRepository<PurchaseLog, Long> 
     List<MonthlySalesDto> findMonthlySales(@Param("year") int year);
 
     @Query("SELECT p.brand as brand, SUM(p.price) as totalSales from PurchaseLog p " +
-            "GROUP BY p.brand")
+            "GROUP BY p.brand " +
+            "ORDER BY totalSales DESC " +
+            "LIMIT 6")
     List<BrandSalesDto> findBrandSales();
+
+    @Query("SELECT p.category as category, SUM(p.price) as totalSales from PurchaseLog p " +
+            "GROUP BY p.category " +
+            "ORDER BY totalSales DESC " +
+            "LIMIT 6")
+    List<CategorySalesDto> findCategorySales();
 
     @Query("SELECT FUNCTION('DATE', p.regDate) AS day, SUM(p.price) as totalSales FROM PurchaseLog p " +
             "WHERE YEAR(p.regDate) = :year AND MONTH(p.regDate) = :month " +
