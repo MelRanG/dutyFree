@@ -1,20 +1,15 @@
 package com.asianaidt.dutyfree.domain.purchase.dto;
 
-
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.asianaidt.dutyfree.domain.purchase.dto.cart.DepartureDto;
+import com.asianaidt.dutyfree.domain.purchase.dto.cart.PassportDto;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter @Setter
 public class PurchaseDto {
-    @JsonProperty("date")
-    private LocalDateTime date;
-    @JsonProperty("brand")
-    private String brand;
-    @JsonProperty("details")
-    private List<PurchaseDetailDto> detailList;
-
+    List<CartProductDto> cart;
+    PassportDto passportInfo;
+    DepartureDto departureInfo;
 }

@@ -25,6 +25,5 @@ public class Flight {
     private String boardingKor;
     private String city;
     private String flightCode;
-    private String flightStatus;
     private LocalDateTime regDate;
 }

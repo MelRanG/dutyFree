@@ -55,10 +55,10 @@ public class PurchaseService {
         return details.get();
     }
 
-    public void addPurchaseDetails(Purchase purchase, List<PurchaseDetailDto> detailDtoList) throws InterruptedException {
+    public void addPurchaseDetails(Purchase purchase, List<CartProductDto> detailDtoList) throws InterruptedException {
         int totalAmount = 0;
 
-        for(PurchaseDetailDto detailDto : detailDtoList) {
+        for(CartProductDto detailDto : detailDtoList) {
             long productId = detailDto.getProductId();
             Optional<Product> product = productRepository.findById(productId);
             Optional<Stock> stock = stockRepository.findByProductId(productId);
@@ -97,7 +97,7 @@ public class PurchaseService {
     }
 
     @Transactional
-    public void purchaseMany(MemberResponseDto memberResponseDto, List<PurchaseDetailDto> purchaseDto) throws InterruptedException {
+    public void purchaseMany(MemberResponseDto memberResponseDto, List<CartProductDto> purchaseDto) throws InterruptedException {
         Optional<Member> member = memberRepository.findById(memberResponseDto.getId());
 
         if(member.isPresent()) {

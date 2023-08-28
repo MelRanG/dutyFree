@@ -73,7 +73,7 @@
 
                     for (var data of result) {
                         $('#ticket_list').append(
-                            `<div class="departure_div" onclick="setFlight('${data.flightDate}', '${data.flightCode}', '${data.boardingEng}', '${data.flightId}')">
+                            `<div class="departure_div" onclick="setFlight('${data.flightDate}', '${data.flightCode}', '${data.boardingEng}', '${data.id}')">
                                 <img src="/img/main/departure.png" class="departure_img" alt="">
                                 <div class="departure_bordingTime">${data.flightDate}</div>
                                 <div class="departure_FlightNo">${data.flightCode}</div>
@@ -91,9 +91,19 @@
         }
 
         function purchase() {
+            var cart = sessionStorage.getItem('cart');
+            var passportInfo = sessionStorage.getItem('passportInfo');
+            var departureInfo = sessionStorage.getItem('departureInfo');
+
+            var data = {
+                'products' : JSON.stringify(cart),
+                'departureInfo' : JSON.stringify(departureInfo),
+                'passportInfo' : JSON.stringify(passportInfo)
+            };
             $.ajax({
-                url: "http://localhost:8080/cart/purchase",
+                url: "http://localhost:8080/purchase",
                 type: 'POST',
+                data : JSON.stringify(data),
                 contentType: 'application/json; charset=utf-8',
                 success: function(result){
                     console.log(result);
@@ -174,22 +184,22 @@
                             <a href="/member/login"><span class="login_btn_name">로그인</span></a>
                         </div>
                     </div>
-                    <div th:if="${session.user} == null and ${products} != null">
+                    <div>
                         <div class="pay_title">예상 주문 금액</div>
                         <br/>
                         <div class="pay_list">
                             <div class="total_pay">
                                 <dl>
                                     <dt>주문금액합계</dt>
-                                    <dd th:text="${#aggregates.sum(products.![quantity * price])}" id="total">0</dd>
+                                    <dd id="total">0</dd>
                                 </dl>
                                 <dl>
                                     <dt>예상할인금액</dt>
                                     <dd>0</dd>
                                 </dl>
-                                <dl th:if="${products} !=null">
-                                    <dt>총 <span th:text="${#aggregates.sum(products.![quantity])}">0</span>개</dt>
-                                    <dd th:text="${#aggregates.sum(products.![quantity * price])}" >0</dd>
+                                <dl>
+                                    <dt>총 <span>0</span>개</dt>
+                                    <dd>0</dd>
                                 </dl>
                             </div>
                         </div>

@@ -5,7 +5,8 @@ import com.asianaidt.dutyfree.domain.member.dto.MemberResponseDto;
 import com.asianaidt.dutyfree.domain.product.dto.CategoryListDto;
 import com.asianaidt.dutyfree.domain.product.service.CategoryService;
 import com.asianaidt.dutyfree.domain.product.service.ProductService;
-import com.asianaidt.dutyfree.domain.purchase.dto.PurchaseDetailDto;
+import com.asianaidt.dutyfree.domain.purchase.dto.CartProductDto;
+import com.asianaidt.dutyfree.domain.purchase.dto.PurchaseDto;
 import com.asianaidt.dutyfree.domain.purchase.dto.cart.DepartureDto;
 import com.asianaidt.dutyfree.domain.purchase.dto.cart.PassportDto;
 import com.asianaidt.dutyfree.domain.purchase.service.CartService;
@@ -15,11 +16,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -67,12 +66,12 @@ public class CartController {
     }
 
     @PostMapping("/purchase")
-    public String purchase(HttpSession session) throws InterruptedException {
-        PassportDto passportInfo = (PassportDto) session.getAttribute("passportInfo");
-        DepartureDto departureDto = (DepartureDto) session.getAttribute("departureInfo");
+    public String purchase(HttpSession session, @RequestBody PurchaseDto purchaseDto) throws InterruptedException {
+        PassportDto passportInfo = purchaseDto.getPassportInfo();
+        DepartureDto departureDto = purchaseDto.getDepartureInfo();
         MemberResponseDto memberDto = (MemberResponseDto) session.getAttribute("user");
 
-        List<PurchaseDetailDto> detailDtoList = (List<PurchaseDetailDto>) session.getAttribute("cart");
+        List<CartProductDto> detailDtoList = purchaseDto.getCart();
 
         cartService.addDepartureInfo(memberDto, departureDto);
         cartService.addPassportInfo(memberDto, passportInfo);
