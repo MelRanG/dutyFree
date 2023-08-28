@@ -21,7 +21,8 @@ public class StockManagerService {
     private final StockRepository stockRepository;
 
     public StockManager insertStock(StockManagerRequestDto dto){
-        return stockManagerRepository.save(StockManagerRequestDto.toEntity(dto));
+        Stock stock = stockRepository.findById(dto.getStockId()).orElseThrow();
+        return stockManagerRepository.save(StockManagerRequestDto.toEntity(dto,stock));
 
     }
 
