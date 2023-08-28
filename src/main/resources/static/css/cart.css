@@ -6,7 +6,6 @@ a {
 }
 .cart_body {
   width: 100vw;
-  height: 80vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -25,7 +24,6 @@ a {
 
 .cart_content {
   width: 52vw;
-  height: 470px;
   display: flex;
   border-top: 5px solid black;
   justify-content: center;

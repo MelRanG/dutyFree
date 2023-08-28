@@ -28,6 +28,7 @@ public class PurchaseController {
                            @RequestParam int quantity) throws InterruptedException {
 
         Member member = (Member) session.getAttribute("user");
+
         purchaseService.purchase(member, productId, quantity);
 
         return "test";

@@ -1,6 +1,5 @@
 .passport_content {
     width: 52vw;
-    height: 470px;
     display: flex;
     border-top: 5px solid black;
     flex-direction: column;

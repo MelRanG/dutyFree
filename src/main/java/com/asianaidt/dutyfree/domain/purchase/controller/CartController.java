@@ -1,13 +1,14 @@
 package com.asianaidt.dutyfree.domain.purchase.controller;
 
 import com.asianaidt.dutyfree.domain.member.domain.Flight;
-import com.asianaidt.dutyfree.domain.member.domain.Member;
 import com.asianaidt.dutyfree.domain.product.dto.CategoryListDto;
 import com.asianaidt.dutyfree.domain.product.dto.ProductDto;
 import com.asianaidt.dutyfree.domain.product.service.CategoryService;
 import com.asianaidt.dutyfree.domain.product.service.ProductService;
 import com.asianaidt.dutyfree.domain.purchase.dto.PurchaseDto;
 import com.asianaidt.dutyfree.domain.purchase.dto.cart.CartProductDto;
+import com.asianaidt.dutyfree.domain.purchase.dto.cart.DepartureDto;
+import com.asianaidt.dutyfree.domain.purchase.dto.cart.PassportDto;
 import com.asianaidt.dutyfree.domain.purchase.service.CartService;
 import com.asianaidt.dutyfree.domain.purchase.service.PurchaseService;
 import lombok.RequiredArgsConstructor;
@@ -76,8 +77,13 @@ public class CartController {
 
     @PostMapping("/purchase")
     public String purchase(HttpSession session, @RequestBody PurchaseDto purchaseDto) throws InterruptedException {
-        Member member = (Member) session.getAttribute("member");
-        purchaseService.purchaseMany(member, purchaseDto);
+        PassportDto passportInfo = (PassportDto) session.getAttribute("passportInfo");
+        DepartureDto departureDto = (DepartureDto) session.getAttribute("departureInfo");
+//
+//        MemberResponseDto member = (MemberResponseDto) session.getAttribute("member");
+//
+//        cartService.addDepartureInfo();
+//        purchaseService.purchaseMany(member, purchaseDto);
         return "purchase";
     }
 }
