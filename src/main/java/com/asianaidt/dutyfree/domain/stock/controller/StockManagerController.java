@@ -36,23 +36,22 @@ public class StockManagerController {
 
         model.addAttribute("progress",stockManagerService.getStockManagerProgress(pageable)); // 프로그레스
 
-//f
-
         return "Admin";
     }
 
-    @GetMapping("/history")
-    public String adminStock(Model model, Pageable pageable){
+    @GetMapping("pro/test")
+    public ResponseEntity<?> test(Pageable pageable){
 
-        model.addAttribute("stockCompleted",stockManagerService.getStockManagerCompleted(pageable));
+        return ResponseEntity.ok(stockManagerService.getStockManagerCompleted(pageable));
+    }
+
+    @GetMapping("/history")
+    public String adminStock(Model model, Pageable pageable) {
+
+        model.addAttribute("stockCompleted", stockManagerService.getStockManagerCompleted(pageable));
 
         return "AdminHis";
     }
-
-
-
-
-
 
     /*
     INPUT
@@ -66,20 +65,22 @@ public class StockManagerController {
             stockManagerService.insertStock(dto);
             model.addAttribute("message", "발주가 신청됐습니다.");
             System.out.println("dto = " + dto.toString());
-            return "redirect:/Admin";
+            return "redirect:Admin";
         }catch (Exception e){
             model.addAttribute("message", e.getMessage());
             return "error";
         }
     }
 
-    @PatchMapping("/stock/status/{id}")
+    @PostMapping("/stock/status/{id}")
     public String updateStockStatus(@PathVariable Long id, Model model){
         try{
+            System.out.println("idasdaeqweqw = " + id);
             stockManagerService.updateStockStatus(id);
             model.addAttribute("message", "발주가 정상적으로 완료됐습니다.");
             return "redirect:/Admin";
         }catch (Exception e){
+            e.printStackTrace();
             model.addAttribute("message", e.getMessage());
             return "error";
         }

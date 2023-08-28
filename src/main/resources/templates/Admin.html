@@ -74,9 +74,12 @@
             function chageStatus(buttonId) {
                 var btnNumber = buttonId.replace("sbtn_", ""); // 발주번호 아이디
 
+                console.log(btnNumber);
+
                 $.ajax({
-                    url: `http://localhost:8080/admin/stock/${btnNumber}`,
-                    type: "PATCH",
+                    // admin/stock/status/{id}
+                    url: `http://localhost:8080/admin/stock/status/${btnNumber}`,
+                    type: "POST",
                     success: function (response) {
                         console.log(response);
                     },
@@ -84,7 +87,6 @@
                         console.log(error);
                     },
                 });
-                console.log(btnNumber);
             }
 
             $(document).ready(function () {
@@ -238,30 +240,66 @@
                         <th class="admin_table_top">브랜드</th>
                         <th class="admin_table_top">제품명</th>
                         <th class="admin_table_top">단가</th>
-                        <th class="admin_table_top">재고수량</th>
                         <th class="admin_table_top">발주수량</th>
                         <th class="admin_table_top">발주현황</th>
                         <!-- 발주현황(대기중 일때는 버튼, 완료 상태면 글자로) -->
                         <th class="admin_table_top">책임자</th>
-                        <!-- <tr th:each=" pro : ${progress}"> -->
-                        <tr>
+                        <tr th:each=" pro : ${progress}">
+                            <!-- {
+                                "stockManagerId": 9,
+                                "name": "블랙 로고패턴 가죽 클러치백",
+                                "brand": "닥스",
+                                "price": 366,
+                                "category": "bag",
+                                "purchaseCount": 1,
+                                "managerId": "황도영"
+                            }, -->
                             <!-- 줄 시작 -->
                             <!-- 타임리프로 전환 시 반복문 돌릴 것 -->
-                            <td class="admin_table_element">카테고리(없음)</td>
-                            <td class="admin_table_element">브랜드(없음)</td>
-                            <td class="admin_table_element">제품명(없음)</td>
-                            <td class="admin_table_element">단가(없음)</td>
-                            <td class="admin_table_element">재고수량</td>
-                            <td class="admin_table_element">발주수량</td>
-                            <td class="admin_table_element">
-                                <!-- <button
-                                class="admin_table_btn"
-                                th:id="'sbtn_' + ${pro.id}"
+                            <td
+                                class="admin_table_element"
+                                th:text="${pro.category}"
                             >
-                                입고 확인
-                            </button> -->
+                                카테고리(없음)
                             </td>
-                            <td class="admin_table_element">책임자</td>
+                            <td
+                                class="admin_table_element"
+                                th:text="${pro.brand}"
+                            >
+                                브랜드(없음)
+                            </td>
+                            <td
+                                class="admin_table_element"
+                                th:text="${pro.name}"
+                            >
+                                제품명(없음)
+                            </td>
+                            <td
+                                class="admin_table_element"
+                                th:text="${pro.price}"
+                            >
+                                단가(없음)
+                            </td>
+                            <td
+                                class="admin_table_element"
+                                th:text="${pro.purchaseCount}"
+                            >
+                                발주수량
+                            </td>
+                            <td class="admin_table_element">
+                                <button
+                                    class="admin_table_btn"
+                                    th:id="'sbtn_' + ${pro.stockManagerId}"
+                                >
+                                    입고 확인
+                                </button>
+                            </td>
+                            <td
+                                class="admin_table_element"
+                                th:text="${pro.managerId}"
+                            >
+                                책임자
+                            </td>
                         </tr>
                     </table>
                 </div>
