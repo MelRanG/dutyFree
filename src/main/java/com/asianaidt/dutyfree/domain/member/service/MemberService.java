@@ -6,6 +6,7 @@ import com.asianaidt.dutyfree.domain.member.dto.MemberRequestDto;
 import com.asianaidt.dutyfree.domain.member.repository.FlightRepository;
 import com.asianaidt.dutyfree.domain.member.rerpository.MemberRepository;
 import com.asianaidt.dutyfree.global.error.StandardException;
+import com.asianaidt.dutyfree.global.util.PasswordEncoder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONArray;
@@ -20,7 +21,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.Optional;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -29,8 +30,10 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final FlightRepository flightRepository;
 
-    public Optional<Member> login(String id, String password){
-        return memberRepository.findById(id);
+    public Member login(String id, String password){
+        Member member = memberRepository.findById(id).orElseThrow(() -> new RuntimeException("아이디가 일치하지 않습니다."));
+        if(!Objects.equals(member.getPassword(), PasswordEncoder.encode(password))) throw new RuntimeException("비밀번호가 일치하지 않습니다.");
+        return member;
     }
 
     public boolean checkId(String id){
@@ -40,12 +43,14 @@ public class MemberService {
     }
 
     public boolean signUp(MemberRequestDto memberRequestDto){
-        Member member = MemberRequestDto.toEntity(memberRequestDto);
-        Optional<Member> member2 = memberRepository.findById(member.getId());
-        if(member2.isPresent()) return false;
-        memberRepository.save(member);
-
-        return true;
+        try{
+            Member member = MemberRequestDto.toEntity(memberRequestDto);
+            memberRepository.save(member);
+            return true;
+        }catch (Exception e){
+            log.error(e.getMessage());
+            return false;
+        }
     }
 
     public void addFlightInfo() {
