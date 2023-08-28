@@ -2,7 +2,10 @@ package com.asianaidt.dutyfree.domain.purchase.controller;
 
 import com.asianaidt.dutyfree.domain.member.domain.Member;
 import com.asianaidt.dutyfree.domain.product.dto.CategoryListDto;
+import com.asianaidt.dutyfree.domain.product.dto.ProductDto;
 import com.asianaidt.dutyfree.domain.product.service.CategoryService;
+import com.asianaidt.dutyfree.domain.product.service.ProductService;
+import com.asianaidt.dutyfree.domain.purchase.dto.CartProductDto;
 import com.asianaidt.dutyfree.domain.purchase.dto.PurchaseDto;
 import com.asianaidt.dutyfree.domain.purchase.service.PurchaseService;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -20,33 +24,20 @@ import java.util.List;
 public class CartController {
     private final PurchaseService purchaseService;
     private final CategoryService categoryService;
+    private final ProductService productService;
     @GetMapping("/cart")
     public String getCart(HttpSession session, Model model) {
         List<CategoryListDto> categoryList = categoryService.getAllCategory();
         model.addAttribute("category", categoryList);
 
-//        ProductDto product1 = productService.getProductDetail(1L);
-//        ProductDto product2 = productService.getProductDetail(2L);
-//
-//        CartProductDto d1 = CartProductDto.builder()
-//                .name(product1.getName())
-//                .path(product1.getPath())
-//                .price(product1.getPrice())
-//                .quantity(2)
-//                .build();
-//
-//        CartProductDto d2 = CartProductDto.builder()
-//                .name(product2.getName())
-//                .path(product2.getPath())
-//                .price(product2.getPrice())
-//                .quantity(3)
-//                .build();
-//
-//        List<CartProductDto> list = new ArrayList<>();
-//        list.add(d1);
-//        list.add(d2);
-//
-//        model.addAttribute("products", list);
+        List<CartProductDto> productDtoList = new ArrayList<>();
+        ProductDto product = productService.getProductDetail(1L);
+        CartProductDto product1 = new CartProductDto(product);
+        product1.setQuantity(2);
+        productDtoList.add(product1);
+
+        model.addAttribute("products", productDtoList);
+
         return "Cart";
     }
 

@@ -103,6 +103,12 @@ a {
     padding-top: 4%;
 }
 
+.pay_box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .pay_title{
     font-size: 20px;
     font-weight: 600;

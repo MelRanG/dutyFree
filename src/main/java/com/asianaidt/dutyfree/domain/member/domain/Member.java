@@ -24,6 +24,12 @@ public class Member {
     private String birth;
     @OneToMany(mappedBy = "member")
     private List<Purchase> purchases;
+    @OneToOne(mappedBy = "member")
+    @JoinColumn(name = "passportId")
+    private Passport passport;
+    @OneToOne(mappedBy = "member")
+    @JoinColumn(name = "departureId")
+    private Departure departure;
 
     public Member(String id, String password) {
         this.id = id;
