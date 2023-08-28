@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.HashMap;
 import java.util.List;
@@ -72,24 +73,27 @@ public class StockManagerController {
             stockManagerService.insertStock(dto);
             model.addAttribute("message", "발주가 신청됐습니다.");
             System.out.println("dto = " + dto.toString());
-            return "redirect:Admin";
+//            return new RedirectView("/admin");
+            return "redirect:/";
         }catch (Exception e){
             model.addAttribute("message", e.getMessage());
-            return "error";
+//            return new RedirectView("/error");
+            return "redirect:/error";
         }
     }
 
     @PostMapping("/stock/status/{id}")
-    public String updateStockStatus(@PathVariable Long id, Model model){
+    public RedirectView updateStockStatus(@PathVariable Long id, Model model){
         try{
             System.out.println("idasdaeqweqw = " + id);
             stockManagerService.updateStockStatus(id);
             model.addAttribute("message", "발주가 정상적으로 완료됐습니다.");
-            return "redirect:/Admin";
+//            return "redirect:/Admin";
+            return new RedirectView("/admin");
         }catch (Exception e){
             e.printStackTrace();
             model.addAttribute("message", e.getMessage());
-            return "error";
+            return new RedirectView("/error");
         }
     }
 
