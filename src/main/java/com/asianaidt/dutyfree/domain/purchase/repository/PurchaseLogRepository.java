@@ -17,7 +17,7 @@ public interface PurchaseLogRepository extends JpaRepository<PurchaseLog, Long> 
             "FROM PurchaseLog p " +
             "GROUP BY FUNCTION('YEAR', p.regDate), FUNCTION('MONTH', p.regDate) " +
             "ORDER BY FUNCTION('YEAR', p.regDate) DESC, FUNCTION('MONTH', p.regDate) DESC")
-    List<MonthlySalesDto> findMonthlySales();
+    List<MonthlySalesDto>   findMonthlySales();
 
     @Query("SELECT p.brand as brand, SUM(p.price * p.quantity) as totalSales from PurchaseLog p " +
             "GROUP BY p.brand")

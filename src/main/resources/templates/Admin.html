@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
 </head>
+
 <body>
     <link rel="stylesheet" type="text/css" th:href="@{/css/reset.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/admin.css}">
@@ -17,20 +20,17 @@
     <!-- 어드민 사이드바 -->
     <div th:replace="~{Component/AdminSidebar :: adminSidebar}"></div>
 
-
-    <!-- <div class="product_card_small" th:each="product : ${sorting}">
-        <div th:replace="~{Component/ProductCardSmall :: product_card_small(${product})}"></div>
-    </div> -->
-
     <!-- 어드민 재고현황 -->
-    <!-- <div th:replace="~{Component/adminStock :: adminStock}" th:each=" stock : ${allStock}"></div> -->
-    <!-- <div  th:each=" stock : ${allStock}"> -->
-    <div th:replace="~{Component/AdminStock :: adminStock}"></div>
-    <!-- </div> -->
+    <div id="adminStock">
+        <div th:replace="~{Component/AdminStock :: adminStock}"></div>
+    </div>
 
     <!-- 어드민 발주상태 (완료, 미완료) -->
-    <!-- <div th:replace="~{Component/adminHistory :: adminHistory}"></div> -->
+
     <div th:replace="~{Component/AdminHistory :: adminHistory}"></div>
 
+
+
 </body>
+
 </html>

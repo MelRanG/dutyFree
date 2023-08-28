@@ -4,33 +4,16 @@
 Chart.defaults.global.defaultFontColor = "#858796";
 
 // Pie Chart Example
-
-colorDataBrand = [
-  "#BBE5CF",
-  "#717E75",
-  "#CAE1EF",
-  "#7BADD2",
-  "#324C7C",
-  "#89BD82",
-];
-colotDataBrandHover = [
-  "#97BDA9",
-  "#5E6661",
-  "#859BA8",
-  "#5F829C",
-  "#1F304E",
-  "#699064",
-];
-var ctx = document.getElementById("myPieChart");
-var myPieChart = new Chart(ctx, {
+var ctx2 = document.getElementById("myPieChart2");
+var myPieChart2 = new Chart(ctx2, {
   type: "doughnut",
   data: {
-    labels: ["Direct", "Referral", "Social", "a", "b", "c"],
+    labels: ["Direct", "Referral", "Social"],
     datasets: [
       {
-        data: [100, 100, 100, 100, 100, 100],
-        backgroundColor: colorDataBrand,
-        hoverBackgroundColor: colotDataBrandHover,
+        data: [55, 30, 15],
+        backgroundColor: ["#4e73df", "#1cc88a", "#36b9cc"],
+        hoverBackgroundColor: ["#2e59d9", "#17a673", "#2c9faf"],
         hoverBorderColor: "rgba(234, 236, 244, 1)",
       },
     ],
