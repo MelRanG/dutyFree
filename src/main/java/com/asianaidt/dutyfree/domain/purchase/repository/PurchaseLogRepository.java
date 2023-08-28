@@ -5,6 +5,7 @@ import com.asianaidt.dutyfree.domain.purchase.dto.BrandSalesDto;
 import com.asianaidt.dutyfree.domain.purchase.dto.CategorySalesDto;
 import com.asianaidt.dutyfree.domain.purchase.dto.DailySalesDto;
 import com.asianaidt.dutyfree.domain.purchase.dto.MonthlySalesDto;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -17,21 +18,18 @@ public interface PurchaseLogRepository extends JpaRepository<PurchaseLog, Long> 
     @Query("SELECT new com.asianaidt.dutyfree.domain.purchase.dto.MonthlySalesDto(FUNCTION('YEAR', p.regDate), FUNCTION('MONTH', p.regDate), SUM(p.price), SUM(p.quantity)) " +
             "FROM PurchaseLog p " +
             "GROUP BY FUNCTION('YEAR', p.regDate), FUNCTION('MONTH', p.regDate) " +
-            "ORDER BY FUNCTION('YEAR', p.regDate) DESC, FUNCTION('MONTH', p.regDate) DESC " +
-            "LIMIT 12")
-    List<MonthlySalesDto> findMonthlySales();
+            "ORDER BY FUNCTION('YEAR', p.regDate) DESC, FUNCTION('MONTH', p.regDate) DESC")
+    List<MonthlySalesDto> findMonthlySales(Pageable pageable);
 
     @Query("SELECT p.brand as brand, SUM(p.price) as totalSales from PurchaseLog p " +
             "GROUP BY p.brand " +
-            "ORDER BY totalSales DESC " +
-            "LIMIT 6")
-    List<BrandSalesDto> findBrandSales();
+            "ORDER BY totalSales DESC")
+    List<BrandSalesDto> findBrandSales(Pageable pageable);
 
-    @Query("SELECT p.category as category, SUM(p.price) as totalSales from PurchaseLog p " +
+    @Query("SELECT new com.asianaidt.dutyfree.domain.purchase.dto.CategorySalesDto(p.category, SUM(p.price)) from PurchaseLog p " +
             "GROUP BY p.category " +
-            "ORDER BY totalSales DESC " +
-            "LIMIT 6")
-    List<CategorySalesDto> findCategorySales();
+            "ORDER BY SUM(p.price) DESC")
+    List<CategorySalesDto> findCategorySales(Pageable pageable);
 
     @Query("SELECT FUNCTION('DATE', p.regDate) AS day, SUM(p.price) as totalSales FROM PurchaseLog p " +
             "WHERE YEAR(p.regDate) = :year AND MONTH(p.regDate) = :month " +

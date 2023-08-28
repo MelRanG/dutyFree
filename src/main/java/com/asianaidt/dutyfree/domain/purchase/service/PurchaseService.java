@@ -17,6 +17,7 @@ import com.asianaidt.dutyfree.domain.stock.repository.StockRepository;
 import com.asianaidt.dutyfree.global.error.StandardException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -152,13 +153,13 @@ public class PurchaseService {
     }
 
     public List<MonthlySalesDto> calculateMonthlySales(){
-        return purchaseLogRepository.findMonthlySales();
+        return purchaseLogRepository.findMonthlySales(PageRequest.of(0,12));
     }
     public List<BrandSalesDto> calculateBrandSales(){
-        return purchaseLogRepository.findBrandSales();
+        return purchaseLogRepository.findBrandSales(PageRequest.of(0,6));
     }
     public List<CategorySalesDto> calculateCategorySales(){
-        return purchaseLogRepository.findCategorySales();
+        return purchaseLogRepository.findCategorySales(PageRequest.of(0,6));
     }
     public List<DailySalesDto> calculateDailySalesForMonth(int year, int month){
         int daysInMonth = YearMonth.of(year,month).lengthOfMonth();

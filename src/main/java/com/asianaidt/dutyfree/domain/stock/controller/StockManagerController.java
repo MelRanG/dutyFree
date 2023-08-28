@@ -152,11 +152,11 @@ public class StockManagerController {
         return response;
     }
 
-    @GetMapping("/sales/month")
+    @GetMapping("/sales/category")
     @ResponseBody
     public Map<String, List<CategorySalesDto>> calculateCategorySales(){
         Map<String, List<CategorySalesDto>> response = new HashMap<>();
-        response.put("brandSales", purchaseService.calculateCategorySales());
+        response.put("categorySales", purchaseService.calculateCategorySales());
         return response;
     }
     /*
