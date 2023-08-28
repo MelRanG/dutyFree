@@ -33,9 +33,9 @@ public class StockManagerController {
 
         model.addAttribute("allStock", stockService.getProductStockList(pageable));
 
-//        model.addAttribute("stockManagerList",stockManagerService.getStockManagerList(pageable, status)); // 프로그레스
+        model.addAttribute("stockManagerList",stockManagerService.getStockManagerProgress(pageable)); // 프로그레스
 
-//        model.addAttribute("stockManagerList",stockManagerService.getStockManagerList(pageable, status));
+        model.addAttribute("stockManagerList",stockManagerService.getStockManagerCompleted(pageable));
 
         return "Admin";
     }
@@ -85,16 +85,7 @@ public class StockManagerController {
     status : String
     Stock : 객체
      */
-    @GetMapping("/stock")
-    public String getStockManagerList(Pageable pageable, Model model, @RequestParam StockStatus status){
-        model.addAttribute("stockManagerList",stockManagerService.getStockManagerList(pageable, status));
 
-        if (status.equals(StockStatus.PROGRESS)) {
-            return "AdminStock"; // 입고 미완료 일때
-        } else {
-            return "AdminHistory"; // 입고 완료일 때
-        }
-    }
     @GetMapping("/stock/test")
 //    public String getStockManagerList(Pageable pageable, Model model, @RequestParam StockStatus status){
     public ResponseEntity<?> getStockManagerListTest(Pageable pageable, Model model, @RequestParam StockStatus status){

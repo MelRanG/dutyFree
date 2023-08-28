@@ -37,5 +37,13 @@ public class StockManagerService {
         return stockManagerRepository.findAllByStatus(pageable, status);
     }
 
+    public Page<StockManager> getStockManagerProgress(Pageable pageable){
+        return stockManagerRepository.findAllByStatus(pageable, StockStatus.PROGRESS);
+    }
+
+    public Page<StockManager> getStockManagerCompleted(Pageable pageable){
+        return stockManagerRepository.findAllByStatus(pageable, StockStatus.COMPLETED);
+    }
+
 
 }
