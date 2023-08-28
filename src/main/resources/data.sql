@@ -1,8 +1,12 @@
 INSERT INTO category (name) VALUES
-    ("bag"),
-    ("beauty"),
-    ("electronic"),
-    ("perfume")
+    ("스킨케어 / 메이크업"),
+    ("향수 / 헤어 / 바디"),
+    ("가방 / 지갑"),
+    ("시계 / 주얼리"),
+    ("패션 / 잡화"),
+    ("스포츠 / 레저"),
+    ("전자 / 리빙"),
+    ("주류")
 ;
 
 INSERT INTO product (name, price, brand, path, category_id) VALUES

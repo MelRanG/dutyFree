@@ -41,11 +41,12 @@
                 console.log(inputId);
                 var inputValue = $("#" + inputId).val(); // 주문 수량
                 console.log(inputValue);
+                var member = "황도영";
                 // 멤버 추가 필요함 session.~~~
                 var sendData = {
                     stockId: btnNumber,
                     quantity: inputValue,
-                    memberId: "황도영",
+                    memberId: member,
                 };
 
                 $.ajax({
@@ -61,7 +62,7 @@
                     data: JSON.stringify(sendData),
                     contentType: "application/json",
                     success: function (response) {
-                        console.log(response);
+                        location.reload();
                     },
                     error: function (error) {
                         console.log("Error", error);
@@ -81,7 +82,7 @@
                     url: `http://localhost:8080/admin/stock/status/${btnNumber}`,
                     type: "POST",
                     success: function (response) {
-                        console.log(response);
+                        location.reload();
                     },
                     error: function (error) {
                         console.log(error);
@@ -180,6 +181,7 @@
                             </td>
                         </tr>
                     </table>
+                    <br />
                     <ul
                         class="pagination"
                         th:with="
