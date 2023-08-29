@@ -18,7 +18,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -66,17 +65,17 @@ public class CartController {
     }
 
     @PostMapping("/purchase")
-    public String purchase(HttpSession session, @RequestBody PurchaseDto purchaseDto) throws InterruptedException {
+    public ResponseEntity<String> purchase(HttpSession session, @RequestBody PurchaseDto purchaseDto) throws InterruptedException {
         PassportDto passportInfo = purchaseDto.getPassportInfo();
         DepartureDto departureDto = purchaseDto.getDepartureInfo();
         MemberResponseDto memberDto = (MemberResponseDto) session.getAttribute("user");
 
-        List<CartProductDto> detailDtoList = purchaseDto.getCart();
+        List<CartProductDto> detailDtoList = purchaseDto.getProducts();
 
         cartService.addDepartureInfo(memberDto, departureDto);
         cartService.addPassportInfo(memberDto, passportInfo);
         purchaseService.purchaseMany(memberDto, detailDtoList);
 
-        return "purchase";
+        return ResponseEntity.ok().body("SUCCESS");
     }
 }

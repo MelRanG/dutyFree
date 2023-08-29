@@ -9,7 +9,7 @@ import java.util.List;
 
 @Getter @Setter
 public class PurchaseDto {
-    List<CartProductDto> cart;
+    List<CartProductDto> products;
     PassportDto passportInfo;
     DepartureDto departureInfo;
 }
