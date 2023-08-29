@@ -19,7 +19,7 @@
             <div class="product_brand" th:text="${product.brand}">크리니크</div>
             <div class="product_title"><span th:text="${product.name}">(24년 7월) 퀵라이너 포 아이즈- Intense Black</span></div>
             <div class="price_flex">
-                <div class="price_dollar" th:text="${product.price}">$22.4</div>
+                <div class="price_dollar" th:text="'$'+${product.price}">$22.4</div>
                 <div class="price_won" th:text="${product.changeMoney}+'원'">30,051원</div>
                 <!-- th:id="'btn_' + ${stock.id}" -->
             </div>
