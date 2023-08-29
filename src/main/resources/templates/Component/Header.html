@@ -135,13 +135,12 @@
         </div>
 
         <div class="header_category">
-            <div th:each="category : ${categories}" class="header_category_flex">
-                <div class="header_category_item">
+            <div class="header_category_flex">
+                <div class="header_category_item" th:each="category : ${categories}">
                     <a id="a_style" th:href="@{/list/{categoryId}(categoryId= ${category.id})}"><span
                             th:text="${category.name}"></span></a>
                 </div>
             </div>
-
         </div>
     </div>
 </body>

@@ -20,9 +20,15 @@
                 <span th:text="${product.name}">(24년 7월) 퀵라이너 포 아이즈- Intense Black</span>
             </div>
             <div class="price_flex">
-                <div class="price_dollar" th:text="'$' + ${product.price}">$22.4</div>
-                <div class="price_won">30,051원</div>
+                <div class="price_dollar" id="price_dollar" th:text="'$' + ${product.price}">$22.4</div>
+                <div class="price_won" id="price_won">30,051원</div>
             </div>
         </a>
+        <script>
+            function numberWithCommas(x) {
+                return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            }
+        </script>
     </div>
+
 </body>
