@@ -2,6 +2,7 @@ package com.asianaidt.dutyfree.domain.product.controller;
 
 import com.asianaidt.dutyfree.domain.product.dto.CategoryListDto;
 import com.asianaidt.dutyfree.domain.product.service.CategoryService;
+import com.asianaidt.dutyfree.domain.product.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CategoryController {
     private final CategoryService categoryService;
+
+    private final ProductService productService; // 테스트중
 
     /*
     전체 카테고리 반환
@@ -41,5 +44,13 @@ public class CategoryController {
     @GetMapping("/category/{categoryNum}")
     public ResponseEntity<?> test(@PathVariable Long categoryNum) {
         return ResponseEntity.ok(categoryService.getCategory(categoryNum));
+    }
+
+    @GetMapping("/getusd")
+    public ResponseEntity<?> test() {
+        Integer res = productService.getUsd();
+
+        return ResponseEntity.ok(res);
+//        return null;
     }
 }

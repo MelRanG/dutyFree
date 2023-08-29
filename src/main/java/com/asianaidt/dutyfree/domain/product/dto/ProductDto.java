@@ -16,6 +16,8 @@ public class ProductDto {
     private String description;
     private String brand;
     private String path;
+    private String changeMoney;
+
 
     @Builder
     public ProductDto(Product product) {
