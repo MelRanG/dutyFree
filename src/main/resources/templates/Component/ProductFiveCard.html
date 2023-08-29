@@ -13,14 +13,14 @@
 </head>
 
 <body>
-    <div class="product_five_card" th:fragment="ProductFiveCard(products)">
+    <div class="product_five_card" th:fragment="ProductFiveCard(products, dollar)">
         <div class="title_flex">
             <div class="title">RECENT ITEM</div>
             <div class="more">더보기</div>
         </div>
         <div class="card_flex">
             <div class="product_card_small" th:each="product : ${products}">
-                <div th:replace="~{Component/ProductCardSmall :: product_card_small(${product})}"></div>
+                <div th:replace="~{Component/ProductCardSmall :: product_card_small(${product}, ${dollar})}"></div>
             </div>
         </div>
     </div>

@@ -31,10 +31,12 @@ public class ProductController {
         List<ProductDto> recentProducts = productService.getRecentProduct();
         List<ProductDto> saleProducts = productService.getSaleProducts();
         List<CategoryListDto> categoryList = categoryService.getAllCategory();
+        Integer res = productService.getUsd();
 
         model.addAttribute("products", recentProducts);
         model.addAttribute("saleProducts", saleProducts);
         model.addAttribute("category", categoryList);
+        model.addAttribute("dollar", res);
 
         return "Main";
     }
@@ -81,6 +83,9 @@ public class ProductController {
         List<CategoryListDto> categoryList = categoryService.getAllCategory();
         model.addAttribute("category", categoryList);
         model.addAttribute("sorting", sorting);
+        Integer res = productService.getUsd();
+        model.addAttribute("dollar", res);
+
         return "productList";
 //        return ResponseEntity.ok(page);
     }

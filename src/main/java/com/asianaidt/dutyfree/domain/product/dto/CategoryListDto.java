@@ -14,6 +14,7 @@ public class CategoryListDto {
     private Long id;
     private String name;
     private Product product;
+    private Float change;
 
     @Builder
     public CategoryListDto(Category category) {

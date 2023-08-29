@@ -11,14 +11,14 @@
 </head>
 
 <body>
-    <div class="product_four_card" th:fragment="ProductFourCard(products)">
+    <div class="product_four_card" th:fragment="ProductFourCard(products, dollar)">
         <div class="title_flex">
             <div class="title">TODAY'S SALE</div>
             <div class="more">더보기</div>
         </div>
         <div class="card_flex">
             <div class="product_card" th:each="product : ${products}">
-                <div th:replace="~{Component/ProductCard :: product_card(${product})}"></div>
+                <div th:replace="~{Component/ProductCard :: product_card(${product}, ${dollar})}"></div>
             </div>
         </div>
     </div>
