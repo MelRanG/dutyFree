@@ -28,13 +28,6 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function () {
-            var session = sessionStorage.getItem('user');
-            console.log(session);
-            if (session == null || session == undefined) {
-                document.getElementById('saveDiv').style.display = 'none';
-            } else {
-                document.getElementById('loginDiv').style.display = 'none';
-            }
 
             $("#saveBtn").click(function () {
 
@@ -70,6 +63,8 @@
 
                 sessionStorage.setItem("passportInfo", JSON.stringify(data));
                 console.log(data);
+                alert('출국 정보 입력창으로 이동합니다.');
+                window.location.href='/departure';
             });
 
 
@@ -214,18 +209,18 @@
                     </div>
                 </div>
                 <div class="login_box">
-                    <div id="loginDiv">
+                    <div id="loginDiv" th:if="${session.user} == null">
                         <div>
                             로그인 하시면, 적립금 및 쿠폰등
                             <br />
                             다양한 혜택을 받으실 수 있습니다.
                         </div>
                         <div class="login_btn">
-                            <a id="a_style" id="a_style" href="/member/login"><span
+                            <a id="a_style" href="/member/login"><span
                                     class="login_btn_name">로그인</span></a>
                         </div>
                     </div>
-                    <div id="saveDiv">
+                    <div id="saveDiv" th:unless="${session.user} == null">
                         <div class="login_btn">
                             <a id="a_style"><span class="login_btn_name" id="saveBtn">저장</span></a>
                         </div>

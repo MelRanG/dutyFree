@@ -42,6 +42,7 @@
             };
 
             sessionStorage.setItem("departureInfo", JSON.stringify(flightData));
+            alert('항공편을 선택하였습니다.');
             console.log('session data:');
             console.log(flightData);
 
@@ -91,15 +92,16 @@
         }
 
         function purchase() {
-            var cart = sessionStorage.getItem('cart');
-            var passportInfo = sessionStorage.getItem('passportInfo');
-            var departureInfo = sessionStorage.getItem('departureInfo');
+            var cart = JSON.parse(sessionStorage.getItem('cart'));
+            var passportInfo = JSON.parse(sessionStorage.getItem('passportInfo'));
+            var departureInfo = JSON.parse(sessionStorage.getItem('departureInfo'));
 
             var data = {
-                'products': JSON.stringify(cart),
-                'departureInfo': JSON.stringify(departureInfo),
-                'passportInfo': JSON.stringify(passportInfo)
+                products: cart,
+                departureInfo: departureInfo,
+                passportInfo: passportInfo
             };
+
             $.ajax({
                 url: "http://localhost:8080/purchase",
                 type: 'POST',
@@ -107,6 +109,8 @@
                 contentType: 'application/json; charset=utf-8',
                 success: function (result) {
                     console.log(result);
+                    alert('주문이 완료되었습니다.');
+                    window.location.href = '/';
                 },
                 error: function (error) {
                     console.log("Error", error);
@@ -239,7 +243,7 @@
                             <a id="a_style" href="/member/login"><span class="login_btn_name">로그인</span></a>
                         </div>
                     </div>
-                    <div>
+                    <div th:if="${session.user} != null">
                         <div class="pay_title">예상 주문 금액</div>
                         <br />
                         <div class="pay_list">
@@ -247,10 +251,6 @@
                                 <dl>
                                     <dt>주문금액합계</dt>
                                     <dd id="total">0</dd>
-                                </dl>
-                                <dl>
-                                    <dt>예상할인금액</dt>
-                                    <dd>0</dd>
                                 </dl>
                                 <dl>
                                     <dt>총 <span>0</span>개</dt>

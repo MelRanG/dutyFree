@@ -32,7 +32,10 @@
             window.location.href = "/"
         }
 
-
+        function goPassportPage() {
+            alert('여권정보 입력창으로 이동합니다.');
+            location.href='/passport';
+        }
         function fetchExchangeRate(searchdate, count) {
             if (count > 5) {
                 console.error('Max retry count exceeded.');
@@ -177,7 +180,7 @@
                             </div>
                         </div>
                         <div class="cart_btn_box">
-                            <button class="cart_buy_button" onclick="location.href='/passport'">구매하기</button>
+                            <button class="cart_buy_button" onclick="goPassportPage()">구매하기</button>
                         </div>
                     </div>
                 </div>
