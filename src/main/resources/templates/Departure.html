@@ -110,6 +110,7 @@
                 success: function (result) {
                     console.log(result);
                     alert('주문이 완료되었습니다.');
+                    sessionStorage.clear();
                     window.location.href = '/';
                 },
                 error: function (error) {
@@ -167,6 +168,11 @@
             const searchdate = year + month + day;
 
             fetchExchangeRate(searchdate, 0);
+
+            var priceInfo = JSON.parse(sessionStorage.getItem('priceInfo'));
+
+            $('#totalAmount').text(priceInfo.totalAmount);
+            $('#totalPrice').text('$'+priceInfo.totalPrice);
         });
 
         function goHome() {
@@ -250,11 +256,11 @@
                             <div class="total_pay">
                                 <dl>
                                     <dt>주문금액합계</dt>
-                                    <dd id="total">0</dd>
+                                    <dd id="totalPrice"></dd>
                                 </dl>
                                 <dl>
-                                    <dt>총 <span>0</span>개</dt>
-                                    <dd>0</dd>
+                                    <dt>총 <span id="totalAmount"></span>개</dt>
+                                    <dd id="totalPrice"></dd>
                                 </dl>
                             </div>
                         </div>
