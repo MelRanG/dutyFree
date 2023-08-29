@@ -10,42 +10,6 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         const API_KEY = "wPnhtZf2C5wBS4dIvnpMulIU7xYNZ2UG"
-        // $(document).ready(function () {
-        //     let today = new Date();
-        //     var year = today.getFullYear();
-        //     var month = ('0' + (today.getMonth() + 1)).slice(-2);
-        //     var day = ('0' + today.getDate()).slice(-2);
-
-        //     var searchdate = year + month + day;
-        //     var value = [];
-        //     var count = 0;
-        //     while (count <= 5 && value.length == 0) {
-        //         count++;
-        //         $.ajax({
-        //             url: `https://www.koreaexim.go.kr/site/program/financial/exchangeJSON?authkey=${API_KEY}&searchdate=${searchdate}&data=AP01`,
-        //             type: 'GET',
-        //             success: function (data) {
-        //                 // API로부터 받아온 데이터를 처리
-        //                 if (data.length != 0) {
-        //                     value = data;
-        //                     console.log(data);
-        //                 } else {
-        //                     today = new Date(today.setDate(today.getDate() - 1));
-        //                     year = today.getFullYear();
-        //                     month = ('0' + (today.getMonth() + 1)).slice(-2);
-        //                     day = ('0' + today.getDate()).slice(-2);
-
-        //                     searchdate = year + month + day;
-        //                     console.log(searchdate);
-        //                 }
-        //                 // 화면에 표시
-        //             },
-        //             error: function () {
-        //                 console.error('Error fetching exchange rates.');
-        //             }
-        //         });
-        //     }
-        // })
 
         function fetchExchangeRate(searchdate, count) {
             if (count > 5) {
@@ -106,8 +70,12 @@
                 <div class="nav_bar_element">
                     <div th:text="|${session.user.name}님 안녕하세요|"></div>
                 </div>
-                <div class="nav_bar_element"><a id="a_style" th:href="@{/member/logout}">로그아웃</a></div>
+                <div class="nav_bar_element" th:if="${session.user.id}=='admin'"><a id="a_style"
+                        th:href="@{/admin}">관리자페이지</a>
+                </div>
+                <div class="nav_bar_element"><a id="a_style" th:href="@{/cart}">장바구니</a></div>
                 <div class="nav_bar_element">고객센터</div>
+                <div class="nav_bar_element"><a id="a_style" th:href="@{/member/logout}">로그아웃</a></div>
             </div>
 
             <!-- 로그인 안되어있을 때 내브바 -->

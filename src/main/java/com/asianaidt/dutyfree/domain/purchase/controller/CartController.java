@@ -72,9 +72,15 @@ public class CartController {
 
         List<CartProductDto> detailDtoList = purchaseDto.getProducts();
 
+        if(purchaseService.purchaseMany(memberDto, detailDtoList).equals("사용자가 존재하지 않습니다.")){
+            return ResponseEntity.badRequest().body("사용자가 존재하지 않습니다.");
+        }else if(purchaseService.purchaseMany(memberDto, detailDtoList).equals("재고보다 많이 주문할 수 없습니다.")){
+            System.out.println("재고보다 많이 주문함");
+            return ResponseEntity.badRequest().body("재고보다 많이 주문할 수 없습니다.");
+        }
         cartService.addDepartureInfo(memberDto, departureDto);
         cartService.addPassportInfo(memberDto, passportInfo);
-        purchaseService.purchaseMany(memberDto, detailDtoList);
+
 
         return ResponseEntity.ok().body("SUCCESS");
     }

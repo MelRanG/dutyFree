@@ -62,6 +62,7 @@ public class PurchaseService {
             long productId = detailDto.getProductId();
             Optional<Product> product = productRepository.findById(productId);
             Optional<Stock> stock = stockRepository.findByProductId(productId);
+
             if(product.isPresent() && stock.isPresent()) {
                 // 재고 확인
                 stockService.decrease(stock.get().getId(), detailDto.getQuantity());
@@ -97,23 +98,30 @@ public class PurchaseService {
     }
 
     @Transactional
-    public void purchaseMany(MemberResponseDto memberResponseDto, List<CartProductDto> purchaseDto) throws InterruptedException {
+    public String purchaseMany(MemberResponseDto memberResponseDto, List<CartProductDto> purchaseDto) throws InterruptedException {
         Optional<Member> member = memberRepository.findById(memberResponseDto.getId());
 
-        if(member.isPresent()) {
-            Purchase purchase = Purchase.builder()
-                    .regDate(LocalDateTime.now())
-                    .member(member.get())
-                    .build();
+        if(member.isEmpty()) return "사용자가 존재하지 않습니다.";
+        if(!isStock(purchaseDto)) return "재고보다 많이 주문할 수 없습니다.";
+        Purchase purchase = Purchase.builder()
+                .regDate(LocalDateTime.now())
+                .member(member.get())
+                .build();
+        purchaseRepository.save(purchase);
 
-            purchaseRepository.save(purchase);
-
-            addPurchaseDetails(purchase, purchaseDto);
-        }
-
-
+        addPurchaseDetails(purchase, purchaseDto);
+        return "성공했습니다.";
     }
 
+    public boolean isStock(List<CartProductDto> cartProductDtos){
+        for(CartProductDto dto : cartProductDtos){
+            Optional<Stock> stock = stockRepository.findByProductId(dto.getProductId());
+            if(stock.isPresent()){
+                if(dto.getQuantity() > stock.get().getQuantity()) return false;
+            }else return false;
+        }
+        return true;
+    }
     @Transactional
     public void purchase(Member member, Long productId, int quantity) throws InterruptedException {
         Optional<Product> product = productRepository.findById(productId);
