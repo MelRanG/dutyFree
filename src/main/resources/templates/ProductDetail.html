@@ -168,11 +168,12 @@
                 const confirmQuantity = window.confirm("이 상품은 장바구니에 있습니다. 추가로 담으시겠습니까?");
                 if (confirmQuantity) {
                     // 이미 있는 product일 경우 수량 추가
-                    cart[existingProductIndex].quantity += quantity;
+                    cart[existingProductIndex].quantity = parseInt(cart[existingProductIndex].quantity) + parseInt(quantity);
+
                 }
             } else {
                 // 새로운 product 추가
-                newProduct.quantity = quantity;
+                newProduct.quantity = parseInt(quantity);
                 cart.push(newProduct);
             }
 
