@@ -135,7 +135,7 @@
             const brand = document.getElementById('productBrand').innerText;
             const name = document.getElementById('productName').innerText;
             const quantity = document.getElementById('quantity2').innerText;
-            const price = document.getElementById('orPriceDollar').innerText;
+            const price = document.getElementById('orPriceDollar').innerText.replace(/\$/g, '');
 
             console.log(quantity);
 
@@ -197,7 +197,7 @@
             const brand = document.getElementById('productBrand').innerText;
             const name = document.getElementById('productName').innerText;
             const quantity = document.getElementById('quantity2').innerText;
-            const price = document.getElementById('orPriceDollar').innerText;
+            const price = document.getElementById('orPriceDollar').innerText.replace(/\$/g, '');
 
             console.log(quantity);
             const productId = id;

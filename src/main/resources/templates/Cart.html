@@ -127,13 +127,19 @@
                     );
 
                     totalAmount += product.quantity;
-                    price += product.price;
                     totalPrice += product.quantity * product.price;
                 }
-
+                
                 $('#totalAmount').text(totalAmount);
-                $('#price').text(price);
-                $('#totalPrice').text(totalPrice);
+                $('#totalPrice').text('$'+totalPrice);
+
+                var priceInfo = {
+                    totalAmount : totalAmount,
+                    price : price,
+                    totalPrice : totalPrice
+                };
+
+                sessionStorage.setItem("priceInfo", JSON.stringify(priceInfo));
             }
         });
     </script>
@@ -170,12 +176,12 @@
                         <div class="pay_list">
                             <div class="total_pay">
                                 <dl>
-                                    <dt>주문금액합계</dt>
+                                    <dt>금액 합계</dt>
                                     <dd id="price"></dd>
                                 </dl>
                                 <dl>
                                     <dt>총 <span id="totalAmount"></span>개</dt>
-                                    <span>$<dd id="totalPrice"></dd></span>
+                                    <span><dd id="totalPrice"></dd></span>
                                 </dl>
                             </div>
                         </div>

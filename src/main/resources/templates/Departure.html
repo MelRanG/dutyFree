@@ -110,6 +110,7 @@
                 success: function (result) {
                     console.log(result);
                     alert('주문이 완료되었습니다.');
+                    sessionStorage.clear();
                     window.location.href = '/';
                 },
                 error: function (error) {
@@ -167,6 +168,11 @@
             const searchdate = year + month + day;
 
             fetchExchangeRate(searchdate, 0);
+
+            var priceInfo = JSON.parse(sessionStorage.getItem('priceInfo'));
+
+            $('#totalAmount').text(priceInfo.totalAmount);
+            $('#totalPrice').text('$'+priceInfo.totalPrice);
         });
 
         function goHome() {
@@ -218,7 +224,7 @@
                                 <li>
                                     <p>출국일시<span class="checking">*</span></p>
                                     <span><input class="form_input" type="text" name="flightDate"
-                                            placeholder="YYYY-MM-DD" /></span>
+                                            placeholder="YYYY/MM/DD" /></span>
                                 </li>
                             </ul>
                         </div>
@@ -233,7 +239,7 @@
                     </div>
                 </div>
                 <div class="login_box">
-                    <div th:if="${session.user} == null">
+                    <div class="login_div"  th:if="${session.user} == null">
                         <div>
                             로그인 하시면, 적립금 및 쿠폰등
                             <br />
@@ -246,15 +252,15 @@
                     <div th:if="${session.user} != null">
                         <div class="pay_title">예상 주문 금액</div>
                         <br />
-                        <div class="pay_list">
+                        <div class="pay_box">
                             <div class="total_pay">
                                 <dl>
-                                    <dt>주문금액합계</dt>
-                                    <dd id="total">0</dd>
+                                    <dt>금액 합계</dt>
+                                    <dd id="totalPrice"></dd>
                                 </dl>
                                 <dl>
-                                    <dt>총 <span>0</span>개</dt>
-                                    <dd>0</dd>
+                                    <dt>총 <span id="totalAmount"></span>개</dt>
+                                    <dd id="totalPrice"></dd>
                                 </dl>
                             </div>
                         </div>
