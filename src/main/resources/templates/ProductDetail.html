@@ -47,6 +47,19 @@
                         // 데이터가 존재하는 경우 처리
                         console.log(data);
                         $('#exchangeRate').text("$1 = " + data[22].tts + "원");
+                        const dollarRate = parseFloat(data[22].tts.replace(/,/g, ''));
+                        const orPriceDollar = document.getElementById("orPriceDollar");
+                        const dollar = parseFloat(orPriceDollar.innerText.replace(/\$/g, ''));
+                        const orPrice = document.getElementById("price");
+                        const totalPrice = document.getElementById("totalPrice");
+
+                        const price = parseInt(orPrice.innerText.replace(/,/g, ''));
+                        console.log(typeof (dollar));
+                        console.log(dollarRate);
+                        console.log(dollarRate * dollar);
+                        orPrice.innerText = numberWithCommas(parseInt(dollar * dollarRate)) + "원";
+                        totalPrice.innerText = numberWithCommas(parseInt(dollar * dollarRate)) + "원";
+
                     } else {
                         // 데이터가 없는 경우 날짜 변경 후 재귀 호출
                         const newDate = new Date(searchdate.substring(0, 4), parseInt(searchdate.substring(4, 6)) - 1, searchdate.substring(6, 8));
@@ -260,8 +273,8 @@
                         <div id="quantity">1</div>
                         <button class="quantity_button" onclick="count('plus');">+</button>
                     </div>
-                    <div class="price_detail_dollar" id="orPriceDollar" th:text="${product.price}">$22.4</div>
-                    <div class="price_detail_won" id="price">30,051원</div>
+                    <div class="price_detail_dollar" id="orPriceDollar" th:text="'$' + ${product.price}"></div>
+                    <div class="price_detail_won" id="price"></div>
                 </div>
                 <hr class="detail_hr">
                 <div class="price_detail_flex">
@@ -270,7 +283,7 @@
                         <div id="quantity2">1</div>
                         <div>개</div>
                     </div>
-                    <div id="totalPriceDollar">$22.4</div>
+                    <div id="totalPriceDollar" th:text="'$' + ${product.price}">$22.4</div>
                     <div id="totalPrice">30,051원</div>
                 </div>
                 <div class="detail_button_box">

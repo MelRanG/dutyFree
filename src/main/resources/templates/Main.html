@@ -30,7 +30,9 @@
         function goHome() {
             window.location.href = "/"
         }
-
+        function numberWithCommas(x) {
+            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
 
         function fetchExchangeRate(searchdate, count) {
             if (count > 5) {
@@ -46,6 +48,19 @@
                         // 데이터가 존재하는 경우 처리
                         console.log(data);
                         $('#exchangeRate').text("$1 = " + data[22].tts + "원");
+                        const dollarRate = parseFloat(data[22].tts.replace(/,/g, ''));
+                        const orPriceDollar = document.getElementById("orPriceDollar");
+                        const dollar = parseFloat(orPriceDollar.innerText.replace(/\$/g, ''));
+                        const orPrice = document.getElementById("price_won");
+                        const totalPrice = document.getElementById("totalPrice");
+
+                        const price = parseInt(orPrice.innerText.replace(/,/g, ''));
+                        console.log(typeof (dollar));
+                        console.log(dollarRate);
+                        console.log(dollarRate * dollar);
+                        orPrice.innerText = numberWithCommas(parseInt(dollar * dollarRate)) + "원";
+                        totalPrice.innerText = numberWithCommas(parseInt(dollar * dollarRate)) + "원";
+
                     } else {
                         // 데이터가 없는 경우 날짜 변경 후 재귀 호출
                         const newDate = new Date(searchdate.substring(0, 4), parseInt(searchdate.substring(4, 6)) - 1, searchdate.substring(6, 8));
@@ -74,10 +89,6 @@
 
             fetchExchangeRate(searchdate, 0);
         });
-
-        function goHome() {
-            window.location.href = "/"
-        }
     </script>
 </head>
 
