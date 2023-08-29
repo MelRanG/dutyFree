@@ -25,70 +25,70 @@
         crossorigin="anonymous"></script>
 
     <script>
-        const API_KEY = "wPnhtZf2C5wBS4dIvnpMulIU7xYNZ2UG"
+        // const API_KEY = "wPnhtZf2C5wBS4dIvnpMulIU7xYNZ2UG"
 
-        function goHome() {
-            window.location.href = "/"
-        }
-        function numberWithCommas(x) {
-            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        }
+        // function goHome() {
+        //     window.location.href = "/"
+        // }
+        // function numberWithCommas(x) {
+        //     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        // }
 
-        function fetchExchangeRate(searchdate, count) {
-            if (count > 5) {
-                console.error('Max retry count exceeded.');
-                return;
-            }
+        // function fetchExchangeRate(searchdate, count) {
+        //     if (count > 5) {
+        //         console.error('Max retry count exceeded.');
+        //         return;
+        //     }
 
-            $.ajax({
-                url: `https://www.koreaexim.go.kr/site/program/financial/exchangeJSON?authkey=${API_KEY}&searchdate=${searchdate}&data=AP01`,
-                type: 'GET',
-                success: function (data) {
-                    if (data.length !== 0) {
-                        // 데이터가 존재하는 경우 처리
-                        console.log(data);
-                        $('#exchangeRate').text("$1 = " + data[22].tts + "원");
-                        const dollarRate = parseFloat(data[22].tts.replace(/,/g, ''));
-                        const orPriceDollar = document.getElementById("orPriceDollar");
-                        const dollar = parseFloat(orPriceDollar.innerText.replace(/\$/g, ''));
-                        const orPrice = document.getElementById("price_won");
-                        const totalPrice = document.getElementById("totalPrice");
+        //     $.ajax({
+        //         url: `https://www.koreaexim.go.kr/site/program/financial/exchangeJSON?authkey=${API_KEY}&searchdate=${searchdate}&data=AP01`,
+        //         type: 'GET',
+        //         success: function (data) {
+        //             if (data.length !== 0) {
+        //                 // 데이터가 존재하는 경우 처리
+        //                 console.log(data);
+        //                 $('#exchangeRate').text("$1 = " + data[22].tts + "원");
+        //                 const dollarRate = parseFloat(data[22].tts.replace(/,/g, ''));
+        //                 const orPriceDollar = document.getElementById("orPriceDollar");
+        //                 const dollar = parseFloat(orPriceDollar.innerText.replace(/\$/g, ''));
+        //                 const orPrice = document.getElementById("price_won");
+        //                 const totalPrice = document.getElementById("totalPrice");
 
-                        const price = parseInt(orPrice.innerText.replace(/,/g, ''));
-                        console.log(typeof (dollar));
-                        console.log(dollarRate);
-                        console.log(dollarRate * dollar);
-                        orPrice.innerText = numberWithCommas(parseInt(dollar * dollarRate)) + "원";
-                        totalPrice.innerText = numberWithCommas(parseInt(dollar * dollarRate)) + "원";
+        //                 const price = parseInt(orPrice.innerText.replace(/,/g, ''));
+        //                 console.log(typeof (dollar));
+        //                 console.log(dollarRate);
+        //                 console.log(dollarRate * dollar);
+        //                 orPrice.innerText = numberWithCommas(parseInt(dollar * dollarRate)) + "원";
+        //                 totalPrice.innerText = numberWithCommas(parseInt(dollar * dollarRate)) + "원";
 
-                    } else {
-                        // 데이터가 없는 경우 날짜 변경 후 재귀 호출
-                        const newDate = new Date(searchdate.substring(0, 4), parseInt(searchdate.substring(4, 6)) - 1, searchdate.substring(6, 8));
-                        newDate.setDate(newDate.getDate() - 1);
-                        const newYear = newDate.getFullYear();
-                        const newMonth = ('0' + (newDate.getMonth() + 1)).slice(-2);
-                        const newDay = ('0' + newDate.getDate()).slice(-2);
-                        const newSearchDate = newYear + newMonth + newDay;
-                        fetchExchangeRate(newSearchDate, count + 1);
-                    }
+        //             } else {
+        //                 // 데이터가 없는 경우 날짜 변경 후 재귀 호출
+        //                 const newDate = new Date(searchdate.substring(0, 4), parseInt(searchdate.substring(4, 6)) - 1, searchdate.substring(6, 8));
+        //                 newDate.setDate(newDate.getDate() - 1);
+        //                 const newYear = newDate.getFullYear();
+        //                 const newMonth = ('0' + (newDate.getMonth() + 1)).slice(-2);
+        //                 const newDay = ('0' + newDate.getDate()).slice(-2);
+        //                 const newSearchDate = newYear + newMonth + newDay;
+        //                 fetchExchangeRate(newSearchDate, count + 1);
+        //             }
 
 
-                },
-                error: function () {
-                    console.error('Error fetching exchange rates.');
-                }
-            });
-        }
+        //         },
+        //         error: function () {
+        //             console.error('Error fetching exchange rates.');
+        //         }
+        //     });
+        // }
 
-        $(document).ready(function () {
-            const today = new Date();
-            const year = today.getFullYear();
-            const month = ('0' + (today.getMonth() + 1)).slice(-2);
-            const day = ('0' + today.getDate()).slice(-2);
-            const searchdate = year + month + day;
+        // $(document).ready(function () {
+        //     const today = new Date();
+        //     const year = today.getFullYear();
+        //     const month = ('0' + (today.getMonth() + 1)).slice(-2);
+        //     const day = ('0' + today.getDate()).slice(-2);
+        //     const searchdate = year + month + day;
 
-            fetchExchangeRate(searchdate, 0);
-        });
+        //     fetchExchangeRate(searchdate, 0);
+        // });
 
     </script>
 </head>
@@ -101,7 +101,7 @@
     <div th:replace="~{Component/Carousel :: carousel}"></div>
 
     <!-- Product For You -->
-    <div th:replace="~{Component/ProductFiveCard :: ProductFiveCard(${products}, ${dollar})}"></div>
+    <div th:replace="~{Component/ProductFiveCard :: ProductFiveCard(${products})}"></div>
 
     <!-- 기획전 -->
     <div th:replace="~{Component/Exhibition :: exhibition}"></div>
@@ -112,7 +112,7 @@
 
     <!-- SALE -->
     <div class="sale_bg">
-        <div th:replace="~{Component/ProductFourCard :: ProductFourCard(${saleProducts}, ${dollar})}"></div>
+        <div th:replace="~{Component/ProductFourCard :: ProductFourCard(${saleProducts})}"></div>
     </div>
 
     <!-- 쇼핑혜택 -->

@@ -71,55 +71,55 @@
 
         })
 
-        const API_KEY = "wPnhtZf2C5wBS4dIvnpMulIU7xYNZ2UG"
+        // const API_KEY = "wPnhtZf2C5wBS4dIvnpMulIU7xYNZ2UG"
 
-        function goHome() {
-            window.location.href = "/"
-        }
-
-
-        function fetchExchangeRate(searchdate, count) {
-            if (count > 5) {
-                console.error('Max retry count exceeded.');
-                return;
-            }
-
-            $.ajax({
-                url: `https://www.koreaexim.go.kr/site/program/financial/exchangeJSON?authkey=${API_KEY}&searchdate=${searchdate}&data=AP01`,
-                type: 'GET',
-                success: function (data) {
-                    if (data.length !== 0) {
-                        // 데이터가 존재하는 경우 처리
-                        console.log(data);
-                        $('#exchangeRate').text("$1 = " + data[22].tts + "원");
-                    } else {
-                        // 데이터가 없는 경우 날짜 변경 후 재귀 호출
-                        const newDate = new Date(searchdate.substring(0, 4), parseInt(searchdate.substring(4, 6)) - 1, searchdate.substring(6, 8));
-                        newDate.setDate(newDate.getDate() - 1);
-                        const newYear = newDate.getFullYear();
-                        const newMonth = ('0' + (newDate.getMonth() + 1)).slice(-2);
-                        const newDay = ('0' + newDate.getDate()).slice(-2);
-                        const newSearchDate = newYear + newMonth + newDay;
-                        fetchExchangeRate(newSearchDate, count + 1);
-                    }
+        // function goHome() {
+        //     window.location.href = "/"
+        // }
 
 
-                },
-                error: function () {
-                    console.error('Error fetching exchange rates.');
-                }
-            });
-        }
+        // function fetchExchangeRate(searchdate, count) {
+        //     if (count > 5) {
+        //         console.error('Max retry count exceeded.');
+        //         return;
+        //     }
 
-        $(document).ready(function () {
-            const today = new Date();
-            const year = today.getFullYear();
-            const month = ('0' + (today.getMonth() + 1)).slice(-2);
-            const day = ('0' + today.getDate()).slice(-2);
-            const searchdate = year + month + day;
+        //     $.ajax({
+        //         url: `https://www.koreaexim.go.kr/site/program/financial/exchangeJSON?authkey=${API_KEY}&searchdate=${searchdate}&data=AP01`,
+        //         type: 'GET',
+        //         success: function (data) {
+        //             if (data.length !== 0) {
+        //                 // 데이터가 존재하는 경우 처리
+        //                 console.log(data);
+        //                 $('#exchangeRate').text("$1 = " + data[22].tts + "원");
+        //             } else {
+        //                 // 데이터가 없는 경우 날짜 변경 후 재귀 호출
+        //                 const newDate = new Date(searchdate.substring(0, 4), parseInt(searchdate.substring(4, 6)) - 1, searchdate.substring(6, 8));
+        //                 newDate.setDate(newDate.getDate() - 1);
+        //                 const newYear = newDate.getFullYear();
+        //                 const newMonth = ('0' + (newDate.getMonth() + 1)).slice(-2);
+        //                 const newDay = ('0' + newDate.getDate()).slice(-2);
+        //                 const newSearchDate = newYear + newMonth + newDay;
+        //                 fetchExchangeRate(newSearchDate, count + 1);
+        //             }
 
-            fetchExchangeRate(searchdate, 0);
-        });
+
+        //         },
+        //         error: function () {
+        //             console.error('Error fetching exchange rates.');
+        //         }
+        //     });
+        // }
+
+        // $(document).ready(function () {
+        //     const today = new Date();
+        //     const year = today.getFullYear();
+        //     const month = ('0' + (today.getMonth() + 1)).slice(-2);
+        //     const day = ('0' + today.getDate()).slice(-2);
+        //     const searchdate = year + month + day;
+
+        //     fetchExchangeRate(searchdate, 0);
+        // });
     </script>
 
 </head>

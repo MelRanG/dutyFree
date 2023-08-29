@@ -46,7 +46,9 @@ public class ProductService {
         List<ProductDto> dto = new ArrayList<>();
         productRepository.findTop5ByOrderByIdDesc().stream().forEach(
                 product -> {
-                   dto.add(new ProductDto(product));
+                    ProductDto productDto = new ProductDto(product);
+                    productDto.setChangeMoney(changeMoney(product.getPrice()));
+                   dto.add(productDto);
                 }
         );
         return dto;
@@ -56,7 +58,9 @@ public class ProductService {
         List<ProductDto> dto = new ArrayList<>();
         productRepository.findTop4ByOrderByName().stream().forEach(
                 product -> {
-                    dto.add(new ProductDto(product));
+                    ProductDto productDto = new ProductDto(product);
+                    productDto.setChangeMoney(changeMoney(product.getPrice()));
+                    dto.add(productDto);
                 }
         );
         return dto;
@@ -138,11 +142,13 @@ public class ProductService {
         RestTemplate restTemplate = new RestTemplate(factory);
         // Define the base URL
         String baseUrl = "https://www.koreaexim.go.kr/site/program/financial/exchangeJSON";
-        String authKey = "wPnhtZf2C5wBS4dIvnpMulIU7xYNZ2UG";
+        String authKey = "NqiDZPM4w1iuTJB9P5xxZjd6hWjPugMl";
 
         LocalDateTime localDateTime = LocalDateTime.now();
+        LocalDateTime previousDay = localDateTime.minusDays(1);
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("YYYYMMdd");
-        String datetime = localDateTime.format(formatter);
+        String datetime = previousDay.format(formatter);
 
 
         System.out.println("datetime = " + datetime);
@@ -157,10 +163,10 @@ public class ProductService {
                 .build(false);
 
         ResponseEntity<String> response = restTemplate.exchange(uri.toString(), HttpMethod.GET, new HttpEntity<>(headers), String.class);
-        System.out.println("response result: "+response);
+//        System.out.println("response result: "+response);
 
         String body = response.getBody();
-        System.out.println("body = " + body);
+//        System.out.println("body = " + body);
 //        JSONObject obj = new JSONObject(body);
         JSONArray obj = new JSONArray(body);
         int objsize = obj.length();

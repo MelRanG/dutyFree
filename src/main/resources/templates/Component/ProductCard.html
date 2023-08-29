@@ -13,14 +13,14 @@
 </head>
 
 <body></a>
-    <div th:fragment="product_card(product, dollar)">
+    <div th:fragment="product_card(product)">
         <a id="a_style" th:href="@{/product/{productId}(productId= ${product.id})}">
             <img id="product_image" th:src="@{${product.path}}" alt="product_image">
             <div class="product_brand" th:text="${product.brand}">크리니크</div>
             <div class="product_title"><span th:text="${product.name}">(24년 7월) 퀵라이너 포 아이즈- Intense Black</span></div>
             <div class="price_flex">
                 <div class="price_dollar" th:text="${product.price}">$22.4</div>
-                <div class="price_won" th:text="${product.changeMoney}">30,051원</div>
+                <div class="price_won" th:text="${product.changeMoney}+'원'">30,051원</div>
                 <!-- th:id="'btn_' + ${stock.id}" -->
             </div>
         </a>
