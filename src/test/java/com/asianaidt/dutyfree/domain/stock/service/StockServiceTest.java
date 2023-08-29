@@ -50,14 +50,14 @@ class StockServiceTest {
 
     @Test
     public void 동시에_40명이_주문() throws InterruptedException {
-        int threadCount = 60;
+        int threadCount = 40;
         ExecutorService executorService = Executors.newFixedThreadPool(20);
         CountDownLatch latch = new CountDownLatch(threadCount);
 
         for (int i = 0; i < threadCount; i++) {
             executorService.submit(() -> {
                 try {
-                    stockService.decrease(7L, 1);
+                    stockService.decrease(1L, 1);
                 }catch (Exception e){
                     throw new RuntimeException(e);
                 }

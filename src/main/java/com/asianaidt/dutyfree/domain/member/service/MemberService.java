@@ -55,6 +55,7 @@ public class MemberService {
     }
 
     @Scheduled(cron = "0 0 0 * * *")
+//@Scheduled(fixedRate = 30000)
     public void addFlightInfo() {
         for (int no = 1; no <= 10; no++) {
             try {
