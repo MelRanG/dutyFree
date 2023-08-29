@@ -50,6 +50,10 @@
     flex-direction: column;
     align-items: center;
     width: 86%;
-    padding-top: 60px;
+    padding-top: 30px;
     padding-bottom: 40px;
+}
+#admin_wrapper {
+    width: 100%;
+    background-color: #f8f9fc;
 }
