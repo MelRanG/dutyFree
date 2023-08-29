@@ -1,106 +1,166 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
 
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+        <!-- 부트스트랩 -->
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+            crossorigin="anonymous"
+        />
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+            crossorigin="anonymous"
+        ></script>
+        <!-- css -->
+        <link href="/css/sb-admin-2.min.css" rel="stylesheet" />
 
-    <!-- 부트스트랩 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous" />
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
-        crossorigin="anonymous"></script>
-    <!-- css -->
-    <link rel="stylesheet" type="text/css" th:href="@{/css/reset.css}" />
-    <link rel="stylesheet" type="text/css" th:href="@{/css/admin.css}" />
-    <link rel="stylesheet" type="text/css" th:href="@{/css/adminSidebar.css}" />
-    <link rel="stylesheet" type="text/css" th:href="@{/css/adminHeader.css}" />
-</head>
+        <link rel="stylesheet" type="text/css" th:href="@{/css/reset.css}" />
+        <link rel="stylesheet" type="text/css" th:href="@{/css/admin.css}" />
+        <link
+            rel="stylesheet"
+            type="text/css"
+            th:href="@{/css/adminSidebar.css}"
+        />
+    </head>
+    <body id="page-top">
+        <div class="split_sidebar">
+            <div th:replace="~{Component/AdminSidebar :: adminSidebar}"></div>
+            <div class="d-flex flex-column" id="admin_wrapper">
+                <div class="container-fluid">
+                    <div class="admin_id">
+                        <div class="admin_title">입고 내역</div>
+                        <div
+                            class="admin_username"
+                            th:text="|${session.user.name} 관리자님|"
+                        >
+                            구혜지 관리자님
+                        </div>
+                    </div>
 
-<body>
-    <div class="split_sidebar">
-        <div th:replace="~{Component/AdminSidebar :: adminSidebar}"></div>
+                    <div class="admin">
+                        <br />
+                        <p class="admin_text">발주 상황</p>
+                        <br />
+                        <table id="admin_table">
+                            <th class="admin_table_top">카테고리</th>
+                            <th class="admin_table_top">브랜드</th>
+                            <th class="admin_table_top">제품명</th>
+                            <th class="admin_table_top">단가</th>
+                            <th class="admin_table_top">발주수량</th>
+                            <th class="admin_table_top">발주현황</th>
+                            <!-- 발주현황(대기중 일때는 버튼, 완료 상태면 글자로) -->
+                            <th class="admin_table_top">책임자</th>
+                            <tr th:each=" com : ${complete}">
+                                <!-- {
+                                            "stockManagerId": 9,
+                                            "name": "블랙 로고패턴 가죽 클러치백",
+                                            "brand": "닥스",
+                                            "price": 366,
+                                            "category": "bag",
+                                            "purchaseCount": 1,
+                                            "managerId": "황도영"
+                                        }, -->
+                                <!-- 줄 시작 -->
+                                <!-- 타임리프로 전환 시 반복문 돌릴 것 -->
+                                <td
+                                    class="admin_table_element"
+                                    th:text="${com.category}"
+                                >
+                                    카테고리(없음)
+                                </td>
+                                <td
+                                    class="admin_table_element"
+                                    th:text="${com.brand}"
+                                >
+                                    브랜드(없음)
+                                </td>
+                                <td
+                                    class="admin_table_element"
+                                    th:text="${com.name}"
+                                >
+                                    제품명(없음)
+                                </td>
+                                <td
+                                    class="admin_table_element"
+                                    th:text="${com.price}"
+                                >
+                                    단가(없음)
+                                </td>
+                                <td
+                                    class="admin_table_element"
+                                    th:text="${com.purchaseCount}"
+                                >
+                                    발주수량
+                                </td>
+                                <td class="admin_table_element">입고 확인</td>
+                                <td
+                                    class="admin_table_element"
+                                    th:text="${com.managerId}"
+                                >
+                                    책임자
+                                </td>
+                            </tr>
+                        </table>
+                        <br />
+                        <ul
+                            class="pagination"
+                            th:with="
+                                pageNumber = ${complete.pageable.pageNumber},
+                                pageSize = ${complete.pageable.pageSize},
+                                totalPages = ${complete.totalPages},
+                                startPage = ${T(java.lang.Math).floor(pageNumber / pageSize) * pageSize + 1},
+                                tempEndPage = ${startPage + pageSize - 1},
+                                endPage = (${tempEndPage < totalPages ? tempEndPage : totalPages})"
+                        >
+                            <li
+                                th:classappend="${complete.first} ? 'disabled'"
+                                class="page-item"
+                            >
+                                <a
+                                    id="a_style"
+                                    class="page-link"
+                                    th:href="${complete.first} ? '#' : @{/admin/history?(page=${pageNumber - 1})}"
+                                >
+                                    <span aria-hidden="true">&lt;</span>
+                                </a>
+                            </li>
 
-        <div class="admin">
-            <br />
-            <p class="admin_text">발주 상황</p>
-            <br />
-            <table id="admin_table">
-                <th class="admin_table_top">카테고리</th>
-                <th class="admin_table_top">브랜드</th>
-                <th class="admin_table_top">제품명</th>
-                <th class="admin_table_top">단가</th>
-                <th class="admin_table_top">발주수량</th>
-                <th class="admin_table_top">발주현황</th>
-                <!-- 발주현황(대기중 일때는 버튼, 완료 상태면 글자로) -->
-                <th class="admin_table_top">책임자</th>
-                <tr th:each=" com : ${complete}">
-                    <!-- {
-                            "stockManagerId": 9,
-                            "name": "블랙 로고패턴 가죽 클러치백",
-                            "brand": "닥스",
-                            "price": 366,
-                            "category": "bag",
-                            "purchaseCount": 1,
-                            "managerId": "황도영"
-                        }, -->
-                    <!-- 줄 시작 -->
-                    <!-- 타임리프로 전환 시 반복문 돌릴 것 -->
-                    <td class="admin_table_element" th:text="${com.category}">
-                        카테고리(없음)
-                    </td>
-                    <td class="admin_table_element" th:text="${com.brand}">
-                        브랜드(없음)
-                    </td>
-                    <td class="admin_table_element" th:text="${com.name}">
-                        제품명(없음)
-                    </td>
-                    <td class="admin_table_element" th:text="${com.price}">
-                        단가(없음)
-                    </td>
-                    <td class="admin_table_element" th:text="${com.purchaseCount}">
-                        발주수량
-                    </td>
-                    <td class="admin_table_element">
-                        입고 확인
-                    </td>
-                    <td class="admin_table_element" th:text="${com.managerId}">
-                        책임자
-                    </td>
-                </tr>
-            </table>
-            <br />
-            <ul class="pagination" th:with="
-                pageNumber = ${complete.pageable.pageNumber},
-                pageSize = ${complete.pageable.pageSize},
-                totalPages = ${complete.totalPages},
-                startPage = ${T(java.lang.Math).floor(pageNumber / pageSize) * pageSize + 1},
-                tempEndPage = ${startPage + pageSize - 1},
-                endPage = (${tempEndPage < totalPages ? tempEndPage : totalPages})">
-                <li th:classappend="${complete.first} ? 'disabled'" class="page-item">
-                    <a id="a_style" class="page-link"
-                        th:href="${complete.first} ? '#' : @{/admin/history?(page=${pageNumber - 1})}">
-                        <span aria-hidden="true">&lt;</span>
-                    </a>
-                </li>
+                            <li
+                                th:each="page: ${#numbers.sequence(startPage, endPage)}"
+                                th:classappend="${page == pageNumber + 1} ? 'active'"
+                                class="page-item"
+                            >
+                                <a
+                                    id="a_style"
+                                    th:text="${page}"
+                                    class="page-link"
+                                    th:href="@{/admin/history?(page=${page - 1})}"
+                                ></a>
+                            </li>
 
-                <li th:each="page: ${#numbers.sequence(startPage, endPage)}"
-                    th:classappend="${page == pageNumber + 1} ? 'active'" class="page-item">
-                    <a id="a_style" th:text="${page}" class="page-link"
-                        th:href="@{/admin/history?(page=${page - 1})}"></a>
-                </li>
-
-                <li th:classappend="${complete.last} ? 'disabled'" class="page-item">
-                    <a id="a_style" class="page-link"
-                        th:href="${complete.last} ? '#' : @{/admin/history?(page=${pageNumber + 1})}" aria-label="Next">
-                        <span aria-hidden="true">&gt;</span>
-                    </a>
-                </li>
-            </ul>
+                            <li
+                                th:classappend="${complete.last} ? 'disabled'"
+                                class="page-item"
+                            >
+                                <a
+                                    id="a_style"
+                                    class="page-link"
+                                    th:href="${complete.last} ? '#' : @{/admin/history?(page=${pageNumber + 1})}"
+                                    aria-label="Next"
+                                >
+                                    <span aria-hidden="true">&gt;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-</body>
-
+    </body>
 </html>
