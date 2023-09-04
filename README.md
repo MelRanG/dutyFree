@@ -33,7 +33,7 @@
 
 ## 🔗\***\*Database Modeling\*\***
 
-![image-20221007012221742](README.assets/erd.PNG)
+![image-20221007012221742](README.assets/erd.png)
 
 ## 💻 주요 기능 및 데모 영상
 
